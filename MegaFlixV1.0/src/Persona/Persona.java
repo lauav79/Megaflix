@@ -2,18 +2,29 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package megaflixv1.pkg0.Personas;
+package Persona;
 
 /**
  *
  * @author admin
  */
-public class Usuario extends Persona {
+public  abstract class Persona {
+    String user;
+    String nombre;
+    int edad;
+    String tipoUsuario;
+    String password;
     
     
-    //
-    public void valorarContenido(){
-
+    //metodos
+    public void login(){
+        
     }
-}
+    
+    public void verPerfil(){
+    
+    }
 
+
+    
+}

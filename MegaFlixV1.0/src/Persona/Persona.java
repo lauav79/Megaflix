@@ -11,6 +11,9 @@ public  abstract class Persona {
     
     //metodos
     public void login(){
+        //conecta contra la BBDD
+        
+        //
         
     }
     

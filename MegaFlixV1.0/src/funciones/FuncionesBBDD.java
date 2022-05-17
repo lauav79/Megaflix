@@ -6,32 +6,70 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.ResultSet;
 
-
-
 public class funcionesBBDD {
-    //prueba
-    
-    public static void main(String[] args) {
-        funcionesBBDD.loadDriver();
-        funcionesBBDD.connect();
-        funcionesBBDD.isConnected();
-        funcionesBBDD.close();
-        funcionesBBDD.isConnected();
-    }
-    //conectar
+
     // Conexión a la base de datos
     private static Connection conn = null;
-    
+
     // Configuración de la conexión a la base de datos
     private static final String DB_HOST = "localhost";
-    private static final String DB_PORT = "3306";
+    private static final String DB_PORT = "3307";
     private static final String DB_NAME = "megaflix";
     private static final String DB_URL = "jdbc:mysql://" + DB_HOST + ":" + DB_PORT + "/" + DB_NAME + "?serverTimezone=UTC";
     private static final String DB_USER = "root";
-    //cada uno tendrá su contraseña????
     private static final String DB_PASS = "toor";
     private static final String DB_MSQ_CONN_OK = "CONEXIÓN CORRECTA";
     private static final String DB_MSQ_CONN_NO = "ERROR EN LA CONEXIÓN";
+
+    // Configuración de la tabla Contenido
+    private static final String DB_CON = "contenido";
+    private static final String DB_CON_SELECT = "SELECT * FROM " + DB_CON;
+    private static final String DB_CON_ID = "Id";
+    private static final String DB_CON_NOM = "Nombre";
+    private static final String DB_CON_DIR = "Director";
+    private static final String DB_CON_DES = "Descripcion";
+    private static final String DB_CON_TEM = "Temporadas";
+    private static final String DB_CON_DUR = "Duracion";
+    private static final String DB_CON_IMG = "Imagen";
+    private static final String DB_CON_TIP = "Tipo";
+
+    //Configuración tabla genero
+    private static final String DB_GEN = "genero";
+    private static final String DB_GEN_SELECT = "SELECT * FROM " + DB_GEN;
+    private static final String DB_GEN_IDG = "idgenero";
+    private static final String DB_GEN_NOM = "Nombre";
+
+    //Configuracion de la tabla generocontenido
+    private static final String DB_GNC = "generocontenido";
+    private static final String DB_GNC_SELECT = "SELECT * FROM " + DB_GNC;
+    private static final String DB_GNC_ID = "id";
+    private static final String DB_GNC_IDC = "idContenido";
+    private static final String DB_GNC_IDG = "idgenero";
+
+    //Configuracion de la tabla usuarios
+    private static final String DB_USU = "usuarios";
+    private static final String DB_USU_SELECT = "SELECT * FROM " + DB_USU;
+    private static final String DB_USU_ID = "Id";
+    private static final String DB_USU_NOM = "Nombre";
+    private static final String DB_USU_ALI = "Alias";
+    private static final String DB_USU_PAS = "passwd";
+    private static final String DB_USU_BIO = "Bio";
+    private static final String DB_USU_TIP = "TipoUsuario";
+    private static final String DB_USP_SELECT = "SELECT " + DB_USU_PAS + " FROM " + DB_USU;
+
+    //Configuracion de la tabla usuariovaloracontenido
+    private static final String DB_UVC = "usuariovalocacontenido";
+    private static final String DB_UVC_SELECT = "SELECT * FROM " + DB_UVC;
+    private static final String DB_UVC_ID = "Id";
+    private static final String DB_UVC_IDU = "idUsuario";
+    private static final String DB_UVC_IDC = "idContenido";
+    private static final String DB_UVC_PUN = "Puntuacion";
+    private static final String DB_UVC_COM = "Comentario";
+
+    //////////////////////////////////////////////////
+    // MÉTODOS DE CONEXIÓN A LA BASE DE DATOS
+    //////////////////////////////////////////////////
+    ;
     
     /**
      * Intenta cargar el JDBC driver.
@@ -51,7 +89,7 @@ public class funcionesBBDD {
             return false;
         }
     }
-    
+
     /**
      * Intenta conectar con la base de datos.
      *
@@ -68,7 +106,7 @@ public class funcionesBBDD {
             return false;
         }
     }
-    
+
     /**
      * Comprueba la conexión y muestra su estado por pantalla
      *
@@ -102,5 +140,35 @@ public class funcionesBBDD {
             ex.printStackTrace();
         }
     }
-    
+
+    public static ResultSet getTablaUsuarios(int resultSetType, int resultSetConcurrency) {
+        try {
+            Statement stmt = conn.createStatement(resultSetType, resultSetConcurrency);
+            ResultSet rs = stmt.executeQuery(DB_USU_SELECT);
+            //stmt.close();
+            return rs;
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return null;
+        }
+    }
+
+    public static void printTablaUsuarios() {
+        try {
+            ResultSet rs = getTablaUsuarios(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
+            while (rs.next()) {
+                int id = rs.getInt(DB_USU_ID);
+                String n = rs.getString(DB_USU_NOM);
+                String d = rs.getString(DB_USU_ALI);
+                String p = rs.getString(DB_USU_PAS);
+                String b = rs.getString(DB_USU_BIO);
+                String t = rs.getString(DB_USU_TIP);
+                System.out.println(id + "\t" + n + "\t" + d);
+            }
+            rs.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+
 }

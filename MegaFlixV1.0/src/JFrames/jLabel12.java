@@ -2,18 +2,19 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Contenido;
+package JFrames;
 
 /**
  *
- * @author admin
+ * @author lauav
  */
-public  abstract class Contenido {
-    private String id, nombre,director,descripción,duración,imagen,tipo;
-    private int temporadas;
-    
-    
-    
+class jLabel12 {
 
+    static class setIcon {
+
+        public setIcon() {
+            
+        }
+    }
     
 }

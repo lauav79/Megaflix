@@ -103,4 +103,11 @@ public class funcionesBBDD {
         }
     }
     
+    //INSERTAR O BORRAR CONTENIDO A LA BBDD
+    public static void añadirContenido(String nombre, String descripcion, String director, int temporadas, String duracion, String tipo){
+    
+    
+    }
+    
+    
 }

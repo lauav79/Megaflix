@@ -8,12 +8,6 @@ package Contenido;
  *
  * @author admin
  */
-public  abstract class Contenido {
-    private String id, nombre,director,descripción,duración,imagen,tipo;
-    private int temporadas;
-    
-    
-    
-
+public class Contenido {
     
 }

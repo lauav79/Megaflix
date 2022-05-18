@@ -26,12 +26,16 @@ public class PrincipalJFrame extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
         JButton2 = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
-        jMenu2 = new javax.swing.JMenu();
-        jMenu3 = new javax.swing.JMenu();
-        jMenu4 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
+        mPortada = new javax.swing.JMenu();
+        mContenido = new javax.swing.JMenu();
+        mSeries = new javax.swing.JMenuItem();
+        mPeliculas = new javax.swing.JMenuItem();
+        mAyuda = new javax.swing.JMenu();
+        mSalir = new javax.swing.JMenuItem();
+        mAcerca = new javax.swing.JMenuItem();
+        mUsuario = new javax.swing.JMenu();
+        mPerfil = new javax.swing.JMenuItem();
+        mLogout = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -65,24 +69,54 @@ public class PrincipalJFrame extends javax.swing.JFrame {
                 .addGap(131, 131, 131))
         );
 
-        jMenu1.setText("Portada");
-        jMenuBar1.add(jMenu1);
+        mPortada.setText("Portada");
+        jMenuBar1.add(mPortada);
 
-        jMenu2.setText("Series");
-        jMenuBar1.add(jMenu2);
+        mContenido.setText("Contenido");
 
-        jMenu3.setText("Películas");
-        jMenuBar1.add(jMenu3);
+        mSeries.setText("Series");
+        mContenido.add(mSeries);
 
-        jMenu4.setText("Contenido");
+        mPeliculas.setText("Peliculas");
+        mContenido.add(mPeliculas);
 
-        jMenuItem1.setText("Series");
-        jMenu4.add(jMenuItem1);
+        jMenuBar1.add(mContenido);
 
-        jMenuItem2.setText("Peliculas");
-        jMenu4.add(jMenuItem2);
+        mAyuda.setText("Ayuda");
 
-        jMenuBar1.add(jMenu4);
+        mSalir.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_X, java.awt.event.InputEvent.ALT_DOWN_MASK));
+        mSalir.setText("Salir de la aplicación");
+        mSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mSalirActionPerformed(evt);
+            }
+        });
+        mAyuda.add(mSalir);
+
+        mAcerca.setText("Acerca de...");
+        mAcerca.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mAcercaActionPerformed(evt);
+            }
+        });
+        mAyuda.add(mAcerca);
+
+        jMenuBar1.add(mAyuda);
+
+        mUsuario.setText("Usuario");
+
+        mPerfil.setText("Perfil");
+        mPerfil.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mPerfilActionPerformed(evt);
+            }
+        });
+        mUsuario.add(mPerfil);
+
+        mLogout.setText("Log Out");
+        mUsuario.add(mLogout);
+
+        jMenuBar1.add(mUsuario);
 
         setJMenuBar(jMenuBar1);
 
@@ -99,6 +133,29 @@ public class PrincipalJFrame extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+    // Evento que al pulsar Salga de la aplicación
+    private void mSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mSalirActionPerformed
+        // TODO add your handling code here:
+        //Salir de la aplicación
+        System.exit(0);
+    }//GEN-LAST:event_mSalirActionPerformed
+
+    private void mPerfilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mPerfilActionPerformed
+        // TODO add your handling code here:
+        //Mostrar el FRAME del PERFIL del USUARIO
+        PerfilJFrame perfil = new PerfilJFrame();
+        //Mostrar el frame de perfil
+        perfil.setVisible(true);
+        //ocultar este frame
+        this.setVisible(false);
+    }//GEN-LAST:event_mPerfilActionPerformed
+
+    private void mAcercaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mAcercaActionPerformed
+        // TODO add your handling code here:
+        AcercaDe acerca = new AcercaDe(this,rootPaneCheckingEnabled);
+        acerca.setVisible(true);
+        
+    }//GEN-LAST:event_mAcercaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -139,13 +196,17 @@ public class PrincipalJFrame extends javax.swing.JFrame {
     private javax.swing.JButton JButton2;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton3;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenu jMenu3;
-    private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JMenuItem mAcerca;
+    private javax.swing.JMenu mAyuda;
+    private javax.swing.JMenu mContenido;
+    private javax.swing.JMenuItem mLogout;
+    private javax.swing.JMenuItem mPeliculas;
+    private javax.swing.JMenuItem mPerfil;
+    private javax.swing.JMenu mPortada;
+    private javax.swing.JMenuItem mSalir;
+    private javax.swing.JMenuItem mSeries;
+    private javax.swing.JMenu mUsuario;
     // End of variables declaration//GEN-END:variables
 }

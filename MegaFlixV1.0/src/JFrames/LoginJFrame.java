@@ -10,25 +10,25 @@ import java.awt.Color;
 import JFrames.PerfilJFrame;
 import javax.swing.JFrame;
 import Persona.MegaFlixV10;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.Timer;
 
 /**
  *
  * @author admin
  */
 public class LoginJFrame extends javax.swing.JFrame {
-    public static PerfilJFrame v2 = new PerfilJFrame();
-    public static LoginJFrame v1 = new LoginJFrame();
-
+PerfilJFrame p2 = new PerfilJFrame();
     /**
      * Creates new form LoginJFrame
      */
     public LoginJFrame() {
         initComponents();
-        setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 
     }
-
-
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -38,7 +38,7 @@ public class LoginJFrame extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         contrasena = new javax.swing.JPasswordField();
-        jButton1 = new javax.swing.JButton();
+        patata = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -60,10 +60,10 @@ public class LoginJFrame extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setText("Iniciar Sesión");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        patata.setText("Iniciar Sesión");
+        patata.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                patataActionPerformed(evt);
             }
         });
 
@@ -81,7 +81,7 @@ public class LoginJFrame extends javax.swing.JFrame {
                         .addComponent(jLabel1))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(316, 316, 316)
-                        .addComponent(jButton1))
+                        .addComponent(patata))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(267, 267, 267)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -102,7 +102,7 @@ public class LoginJFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(contrasena, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton1)
+                .addComponent(patata)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(155, 155, 155))
@@ -119,17 +119,36 @@ public class LoginJFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_contrasenaActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void patataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_patataActionPerformed
 
         String user = usuario.getText();
-        String pass = contrasena.getText();
+        String pass = new String(contrasena.getPassword());
         funcionesBBDD.loadDriver();
         funcionesBBDD.connect();
         funcionesBBDD.isConnected();
         funcionesBBDD.iniciosesion(user, pass);
-        condicion(user, pass);
-        v1.hide();
-    }//GEN-LAST:event_jButton1ActionPerformed
+        color();
+
+        if (funcionesBBDD.iniciosesion(user, pass) == true) {
+            Timer timer = new Timer(2000, (ActionEvent e) -> {
+                p2.setVisible(true);
+                setVisible(false);
+            });
+            
+            
+            timer.start();
+
+        } else {
+            jLabel3.setVisible(true);
+            jLabel3.setForeground(Color.red);
+            jLabel3.setText("Inicio de sesion incorrecto...");
+        }
+    }//GEN-LAST:event_patataActionPerformed
+    public static void color() {
+        jLabel3.setVisible(true);
+        jLabel3.setForeground(Color.blue);
+        jLabel3.setText("Iniciando sesion...");
+    }
 
     /**
      * @param args the command line arguments
@@ -161,24 +180,12 @@ public class LoginJFrame extends javax.swing.JFrame {
             }
         });
     }
-
-    public static void condicion(String user, String pass) {
-        if (funcionesBBDD.iniciosesion(user, pass) == true) {
-            jLabel3.setVisible(true);
-            jLabel3.setForeground(Color.blue);
-            jLabel3.setText("Iniciando sesion...");
-            v2.setVisible(true);
-            v1.setVisible(false);
-        }
-    }
-
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPasswordField contrasena;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     public static javax.swing.JLabel jLabel3;
+    private javax.swing.JButton patata;
     private javax.swing.JTextField usuario;
     // End of variables declaration//GEN-END:variables
 }

@@ -14,11 +14,11 @@ public class funcionesBBDD {
 
     // Configuración de la conexión a la base de datos
     private static final String DB_HOST = "localhost";
-    private static final String DB_PORT = "3307";
+    private static final String DB_PORT = "3306";
     private static final String DB_NAME = "megaflix";
     private static final String DB_URL = "jdbc:mysql://" + DB_HOST + ":" + DB_PORT + "/" + DB_NAME + "?serverTimezone=UTC";
     private static final String DB_USER = "root";
-    private static final String DB_PASS = "1231";
+    private static final String DB_PASS = "toor";
     private static final String DB_MSQ_CONN_OK = "CONEXIÓN CORRECTA";
     private static final String DB_MSQ_CONN_NO = "ERROR EN LA CONEXIÓN";
 
@@ -142,7 +142,10 @@ public class funcionesBBDD {
             ex.printStackTrace();
         }
     }
-
+public static boolean busquedacontenido(){
+    boolean acceso=false;
+    return acceso;
+}
     public static boolean iniciosesion(String user, String pass) {
         boolean acceso = false;
         try {

@@ -128,6 +128,7 @@ PerfilJFrame p2 = new PerfilJFrame();
         funcionesBBDD.isConnected();
         funcionesBBDD.iniciosesion(user, pass);
         color();
+        
 
         if (funcionesBBDD.iniciosesion(user, pass) == true) {
             Timer timer = new Timer(2000, (ActionEvent e) -> {

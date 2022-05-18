@@ -10,10 +10,11 @@ public class funcionesBBDD {
 
     // Conexión a la base de datos
     private static Connection conn = null;
+    private static Statement st = null;
 
     // Configuración de la conexión a la base de datos
     private static final String DB_HOST = "localhost";
-    private static final String DB_PORT = "3307";
+    private static final String DB_PORT = "3306";
     private static final String DB_NAME = "megaflix";
     private static final String DB_URL = "jdbc:mysql://" + DB_HOST + ":" + DB_PORT + "/" + DB_NAME + "?serverTimezone=UTC";
     private static final String DB_USER = "root";
@@ -56,6 +57,7 @@ public class funcionesBBDD {
     private static final String DB_USU_BIO = "Bio";
     private static final String DB_USU_TIP = "TipoUsuario";
     private static final String DB_USP_SELECT = "SELECT " + DB_USU_PAS + " FROM " + DB_USU;
+    private static final String DB_USA_SELECT = "SELECT " + DB_USU_ALI + " FROM " + DB_USU;
 
     //Configuracion de la tabla usuariovaloracontenido
     private static final String DB_UVC = "usuariovalocacontenido";
@@ -141,34 +143,25 @@ public class funcionesBBDD {
         }
     }
 
-    public static ResultSet getTablaUsuarios(int resultSetType, int resultSetConcurrency) {
+    public static boolean iniciosesion(String user, String pass) {
+
         try {
-            Statement stmt = conn.createStatement(resultSetType, resultSetConcurrency);
-            ResultSet rs = stmt.executeQuery(DB_USU_SELECT);
-            //stmt.close();
-            return rs;
+            String SQL = DB_USU_ALI;
+            ResultSet rs = st.executeQuery(SQL);
+            while (rs.next()){
+                String ali= rs.getString(DB_USU_ALI);
+                String pas=rs.getString(DB_USU_PAS);
+                if(ali.equals(user)&& pas.equals(pass)){
+                    System.out.println("Inicio de sesion correcto");
+                    return true;
+                }else{
+                    return false;
+                }
+            };
+
         } catch (SQLException ex) {
             ex.printStackTrace();
-            return null;
+
         }
     }
-
-    public static void printTablaUsuarios() {
-        try {
-            ResultSet rs = getTablaUsuarios(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
-            while (rs.next()) {
-                int id = rs.getInt(DB_USU_ID);
-                String n = rs.getString(DB_USU_NOM);
-                String d = rs.getString(DB_USU_ALI);
-                String p = rs.getString(DB_USU_PAS);
-                String b = rs.getString(DB_USU_BIO);
-                String t = rs.getString(DB_USU_TIP);
-                System.out.println(id + "\t" + n + "\t" + d);
-            }
-            rs.close();
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-    }
-
 }

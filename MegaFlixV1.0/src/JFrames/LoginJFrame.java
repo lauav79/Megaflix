@@ -112,7 +112,10 @@ public class LoginJFrame extends javax.swing.JFrame {
         funcionesBBDD.loadDriver();
         funcionesBBDD.connect();
         funcionesBBDD.isConnected();
-        funcionesBBDD.getTablaUsuarios(1, DISPOSE_ON_CLOSE);
+        funcionesBBDD.iniciosesion(user, pass);
+        if(){
+            
+        }
         funcionesBBDD.close();
         
     }//GEN-LAST:event_jButton1ActionPerformed

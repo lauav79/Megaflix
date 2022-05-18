@@ -1,4 +1,4 @@
-package Funciones;
+package funciones;
 
 import java.sql.DriverManager;
 import java.sql.Connection;

@@ -17,16 +17,18 @@ import Persona.MegaFlixV10;
  */
 public class LoginJFrame extends javax.swing.JFrame {
     public static PerfilJFrame v2 = new PerfilJFrame();
-    
+    public static LoginJFrame v1 = new LoginJFrame();
 
     /**
      * Creates new form LoginJFrame
      */
-    public LoginJFrame(LoginJFrame v1) {
+    public LoginJFrame() {
         initComponents();
         setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 
     }
+
+
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents

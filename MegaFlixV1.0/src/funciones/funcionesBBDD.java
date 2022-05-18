@@ -14,11 +14,11 @@ public class funcionesBBDD {
 
     // Configuración de la conexión a la base de datos
     private static final String DB_HOST = "localhost";
-    private static final String DB_PORT = "3306";
+    private static final String DB_PORT = "3307";
     private static final String DB_NAME = "megaflix";
     private static final String DB_URL = "jdbc:mysql://" + DB_HOST + ":" + DB_PORT + "/" + DB_NAME + "?serverTimezone=UTC";
     private static final String DB_USER = "root";
-    private static final String DB_PASS = "toor";
+    private static final String DB_PASS = "1231";
     private static final String DB_MSQ_CONN_OK = "CONEXIÓN CORRECTA";
     private static final String DB_MSQ_CONN_NO = "ERROR EN LA CONEXIÓN";
 
@@ -56,8 +56,8 @@ public class funcionesBBDD {
     private static final String DB_USU_PAS = "passwd";
     private static final String DB_USU_BIO = "Bio";
     private static final String DB_USU_TIP = "TipoUsuario";
-    private static final String DB_USP_SELECT = "SELECT " + DB_USU_PAS + " FROM " + DB_USU;
-    private static final String DB_USA_SELECT = "SELECT " + DB_USU_ALI + " FROM " + DB_USU;
+    private static final String DB_UAP_SELECT = "SELECT " + DB_USU_ALI+","+DB_USU_PAS + " FROM " + DB_USU;
+
 
     //Configuracion de la tabla usuariovaloracontenido
     private static final String DB_UVC = "usuariovalocacontenido";
@@ -144,24 +144,26 @@ public class funcionesBBDD {
     }
 
     public static boolean iniciosesion(String user, String pass) {
-
+        boolean acceso = false;
         try {
-            String SQL = DB_USU_ALI;
+            String SQL = DB_UAP_SELECT;
+            st=conn.createStatement();
             ResultSet rs = st.executeQuery(SQL);
-            while (rs.next()){
-                String ali= rs.getString(DB_USU_ALI);
-                String pas=rs.getString(DB_USU_PAS);
-                if(ali.equals(user)&& pas.equals(pass)){
-                    System.out.println("Inicio de sesion correcto");
-                    return true;
-                }else{
-                    return false;
+            while (rs.next()) {
+                String ali = rs.getString(DB_USU_ALI);
+                String pas = rs.getString(DB_USU_PAS);
+                if (ali.equals(user) && pas.equals(pass)) {
+
+                    acceso = true;
                 }
-            };
+            }
+            return acceso;
 
         } catch (SQLException ex) {
             ex.printStackTrace();
 
         }
+        return acceso;
+
     }
 }

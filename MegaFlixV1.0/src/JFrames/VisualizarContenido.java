@@ -4,6 +4,8 @@
  */
 package JFrames;
 
+import javax.swing.JLabel;
+
 /**
  *
  * @author lauav
@@ -14,6 +16,7 @@ public class VisualizarContenido extends javax.swing.JFrame {
      * Creates new form VisualizarContenido
      */
     public VisualizarContenido() {
+        this.<error> = new javax.swing.JLabel();
         initComponents();
     }
 
@@ -26,17 +29,44 @@ public class VisualizarContenido extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        textArea1 = new java.awt.TextArea();
+        jLabelTituloContenido = new javax.swing.JLabel();
+        textAreaDescripcion = new java.awt.TextArea();
+        jLabel2 = new javax.swing.JLabel();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jLabelTituloContenido.setText("Título");
+
+        textAreaDescripcion.setEditable(false);
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/1.jpg"))); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 428, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(36, 36, 36)
+                .addComponent(jLabelTituloContenido)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(21, 21, 21)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 60, Short.MAX_VALUE)
+                .addComponent(textAreaDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(28, 28, 28))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 323, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(41, 41, 41)
+                .addComponent(jLabelTituloContenido)
+                .addGap(24, 24, 24)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(textAreaDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(114, Short.MAX_VALUE))
         );
 
         pack();
@@ -76,7 +106,15 @@ public class VisualizarContenido extends javax.swing.JFrame {
             }
         });
     }
+    /*
+    JLabel;
+    jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/1.jpg")));
+    /*
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabelTituloContenido;
+    private java.awt.TextArea textArea1;
+    private java.awt.TextArea textAreaDescripcion;
     // End of variables declaration//GEN-END:variables
 }

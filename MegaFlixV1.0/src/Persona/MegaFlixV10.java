@@ -4,6 +4,9 @@
  */
 package Persona;
 
+import JFrames.LoginJFrame;
+import JFrames.PerfilJFrame;
+
 /**
  *
  * @author Administrador
@@ -14,7 +17,10 @@ public class MegaFlixV10 {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        LoginJFrame ventana1 = new LoginJFrame();
+        ventana1.setVisible(true);
+        PerfilJFrame ventana2 = new PerfilJFrame();
+        ventana2.setVisible(false);
     }
     
 }

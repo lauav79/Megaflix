@@ -1,4 +1,4 @@
-package Funciones;
+package funciones;
 
 import JFrames.PrincipalJFrame;
 import java.sql.DriverManager;

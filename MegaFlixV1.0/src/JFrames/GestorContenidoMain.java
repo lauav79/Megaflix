@@ -187,6 +187,9 @@ public class GestorContenidoMain extends javax.swing.JFrame {
             }
         });
 
+        jSpinnerTemp.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 1));
+        jSpinnerTemp.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+
         jButton4.setText("Añadir a BBDD");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -315,33 +318,77 @@ public class GestorContenidoMain extends javax.swing.JFrame {
         String director= jTextFiDir.getText();
         int temporadas= (Integer) jSpinnerTemp.getValue();
         String duracion=jTextFiDur.getText();
-        String tipo="nada";
+        String tipo="ninguno";
         
-        //tipo de contenido co checkbox
+        //compruebo que los campos comunes a series y pelis no estén vacios
+        //las temporadas se controlan si se ha elegido serie
+        int longNombre=nombre.length();
+        int longDesc=descripcion.length();
+        int longDir=director.length();
+        int longDur=duracion.length();
+        
+        if(longNombre==0 || longDesc==0 || longDir==0){
+            insertOK=false;
+            mError=mError+"\n |Comprueba que has rellenado los campos de nombre, descripción y director.|";
+            
+        }
+       
+        
+        /*
+        System.out.println("nombre:" +nombre);
+        System.out.println("descr:" +descripcion);
+        System.out.println("temp:" +temporadas);
+        System.out.println("dur:" +duracion);
+        System.out.println("dir:" +director);
+        */
+        
+        //tipo de contenido con checkbox
         if(jRaPeli.isSelected()){
             tipo="Peliculas";
-        }else if(jRaSerie.isSelected()){
+        }
+        if(jRaSerie.isSelected()){
             tipo="Serie";
         }
         
+        //System.out.println("tipo:" +tipo);
+        //CONDICIONES SERIE
         
-        //si es serie tiene que tener temporadas, más de 0
         if ("Series".equals(tipo)){
+            //si es serie tiene que tener temporadas, más de 0
             if(temporadas<=0){
                 insertOK=false;
-                mError=mError+"\n |Una película ha de tener más de 0 temporadas|";
+                mError=mError+"\n |Una serie ha de tener más de 0 temporadas|";
+            }
+            //si se ha introducido duración, la seteamos vacia.
+            if(longDur>0){
+                duracion="";
             }
         }
         
-        if ("nada".equals(tipo)){
+        if ("Peliculas".equals(tipo)){
+            //ha de tener duración 
+            if(longDur==0){
+                insertOK=false;
+                mError=mError+"\n |Una película ha de tener duración|";
+            }
+            //no ha de tener temporadas
+            if(temporadas>0){
+                insertOK=false;
+                mError=mError+"\n |Una película no ha de tener temporadas|";
+            }
+            
+        }
+        
+        
+        if ("ninguno".equals(tipo)){
             insertOK=false;
             mError=mError+"\n |No has selecionado el tipo de contenido(Película/Serie)|";
             
         }
-        //si es peli tiene que tener duración
         
+        System.out.println("Errores"+ mError);
         
-        
+        //inserto el nuevo registro en bbdd
         
         
         

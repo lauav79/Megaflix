@@ -28,7 +28,6 @@ public class funcionesBBDD {
     private static final String DB_NAME = "megaflix";
     private static final String DB_URL = "jdbc:mysql://" + DB_HOST + ":" + DB_PORT + "/" + DB_NAME + "?serverTimezone=UTC";
     private static final String DB_USER = "root";
-    //cada uno tendrá su contraseña????
     private static final String DB_PASS = "toor";
     private static final String DB_MSQ_CONN_OK = "CONEXIÓN CORRECTA";
     private static final String DB_MSQ_CONN_NO = "ERROR EN LA CONEXIÓN";
@@ -105,7 +104,13 @@ public class funcionesBBDD {
     
     //INSERTAR O BORRAR CONTENIDO A LA BBDD
     public static void añadirContenido(String nombre, String descripcion, String director, int temporadas, String duracion, String tipo){
-    
+        
+        if("Series".equals(tipo)){
+        
+        }
+        if("Peliculas".equals(tipo)){
+        
+        }
     
     }
     

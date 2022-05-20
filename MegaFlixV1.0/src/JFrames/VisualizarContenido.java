@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package JFrames;
-import  funciones.funcionesBBDD;
+import  funciones.FuncionesBBDD;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 

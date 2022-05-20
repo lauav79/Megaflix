@@ -8,15 +8,15 @@ import java.sql.ResultSet;
 
 
 
-public class funcionesBBDD {
+public class FuncionesBBDD {
     //prueba
     
     public static void main(String[] args) {
-        funcionesBBDD.loadDriver();
-        funcionesBBDD.connect();
-        funcionesBBDD.isConnected();
-        funcionesBBDD.close();
-        funcionesBBDD.isConnected();
+        FuncionesBBDD.loadDriver();
+        FuncionesBBDD.connect();
+        FuncionesBBDD.isConnected();
+        FuncionesBBDD.close();
+        FuncionesBBDD.isConnected();
     }
     //conectar
     // Conexión a la base de datos
@@ -106,7 +106,7 @@ public class funcionesBBDD {
     public static void añadirContenido(String nombre, String descripcion, String director, int temporadas, String duracion, String tipo){
         
         if("Series".equals(tipo)){
-        
+            
         }
         if("Peliculas".equals(tipo)){
         

@@ -4,7 +4,8 @@
  */
 
 package JFrames;
-
+ import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 /**
  *
  * @author lauav
@@ -389,6 +390,15 @@ public class GestorContenidoMain extends javax.swing.JFrame {
         System.out.println("Errores"+ mError);
         
         //inserto el nuevo registro en bbdd
+        if(insertOK==true){
+            //llamo a la funcion para insertar contenido
+            
+            System.out.println("Se ha insertado el contenido");
+        }else{
+            //muestro los errores 
+            String mensajeFinal="No se ha podido insertar el contenido"+mError;
+            JOptionPane.showMessageDialog(null, mensajeFinal, "Error de inserción", JOptionPane.WARNING_MESSAGE);
+        }   
         
         
         

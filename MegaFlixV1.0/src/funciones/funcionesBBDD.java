@@ -1,5 +1,6 @@
 package Funciones;
 
+import com.mysql.cj.PreparedQuery;
 import java.sql.DriverManager;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -8,9 +9,10 @@ import java.sql.ResultSet;
 
 public class funcionesBBDD {
 
-    // Conexión a la base de datos
+    public static String user = "admin";
     private static Connection conn = null;
     private static Statement st = null;
+
 
     // Configuración de la conexión a la base de datos
     private static final String DB_HOST = "localhost";
@@ -146,6 +148,7 @@ public class funcionesBBDD {
 
     public static boolean iniciosesion(String user, String pass) {
         boolean acceso = false;
+
         try {
             String SQL = DB_UAP_SELECT;
             st = conn.createStatement();
@@ -155,8 +158,10 @@ public class funcionesBBDD {
                 String pas = rs.getString(DB_USU_PAS);
                 if (ali.equals(user) && pas.equals(pass)) {
                     acceso = true;
+                    funcionesBBDD.user = user;
                 }
             }
+
             return acceso;
 
         } catch (SQLException ex) {
@@ -168,20 +173,32 @@ public class funcionesBBDD {
     }
 
     public static void datosUsuario(String user) {
-        try{
-        String SQL = DB_USU_SELECT;
-        st = conn.createStatement();
-        ResultSet rs = st.executeQuery(SQL);
-        while (rs.next()) {
-            String ali = rs.getString(DB_USU_ALI);
-            String pas = rs.getString(DB_USU_PAS);
-            String bio = rs.getString(DB_USU_BIO);
-            String ema = rs.getString(DB_USU_EMA);
-            int age = rs.getInt(DB_USU_EDA);
+        try {
+            String SQL = DB_USU_SELECT;
+            st = conn.createStatement();
+            ResultSet rs = st.executeQuery(SQL);
+            while (rs.next()) {
+                String ali = rs.getString(DB_USU_ALI);
+                String pas = rs.getString(DB_USU_PAS);
+                String bio = rs.getString(DB_USU_BIO);
+                String ema = rs.getString(DB_USU_EMA);
+                int age = rs.getInt(DB_USU_EDA);
 
+            }
+        } catch (Exception s) {
         }
-        }catch(Exception s){
+    }
+
+    public static void cambioContrasena(String user, String pass) throws SQLException {
+        try {
+            String SQL = "UPDATE `megaflix`.`usuarios` SET `passwd` = '" + pass  + "' WHERE (`Alias` = '" + user + "')";
+            st = conn.createStatement();
+            st.executeUpdate(SQL);
+
             
+        } catch (SQLException ex) {
+            ex.printStackTrace();
         }
+
     }
-    }
+}

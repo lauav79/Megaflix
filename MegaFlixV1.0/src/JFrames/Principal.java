@@ -211,7 +211,8 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_cerrarSesionActionPerformed
 
     private void perfilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_perfilActionPerformed
-        // TODO add your handling code here:
+        dispose();
+        perf1.setVisible(true);
     }//GEN-LAST:event_perfilActionPerformed
 
     private void paginaPrincipalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_paginaPrincipalActionPerformed

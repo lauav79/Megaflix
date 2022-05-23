@@ -17,7 +17,9 @@ public class PerfilJFrame extends javax.swing.JFrame {
     public static Principal p1 = new Principal();
     public static PaginaPeli pp1 = new PaginaPeli();
     public static LoginJFrame l1 = new LoginJFrame();
+    public static CambioContraseña c1 = new CambioContraseña();
     public static ImageIcon icon = new ImageIcon("/IMG/fotoPerfil.jpg");
+    int x,y,xMouse,yMouse;
 
     /**
      * Creates new form PerfilJFrame
@@ -41,83 +43,30 @@ public class PerfilJFrame extends javax.swing.JFrame {
 
         seleccionContenido = new javax.swing.ButtonGroup();
         jPanel4 = new javax.swing.JPanel();
-        jPanel2 = new javax.swing.JPanel();
-        cambiarContrasena = new javax.swing.JButton();
-        eliminarCuenta = new javax.swing.JButton();
-        cambiarAlias = new javax.swing.JButton();
-        nombreCompleto = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
         cerrarSesion = new javax.swing.JButton();
         nombreContenido = new javax.swing.JTextField();
         perfil = new javax.swing.JButton();
         paginaPrincipal = new javax.swing.JButton();
         jComboBox1 = new javax.swing.JComboBox<>();
-        jPanel3 = new javax.swing.JPanel();
+        cambiarContrasena = new javax.swing.JButton();
+        eliminarCuenta = new javax.swing.JButton();
+        cambiarAlias = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jSeparator1 = new javax.swing.JSeparator();
+        imagenColorFondo = new javax.swing.JLabel();
+        imagenColorFondo2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(0, 0, 0));
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setMaximumSize(new java.awt.Dimension(800, 500));
+        setUndecorated(true);
         setPreferredSize(new java.awt.Dimension(800, 500));
 
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel2.setBackground(new java.awt.Color(204, 0, 0));
-
-        cambiarContrasena.setText("Cambiar Contraseña");
-
-        eliminarCuenta.setText("Eliminar Cuenta");
-
-        cambiarAlias.setText("Cambiar Nombre Usuario");
-
-        nombreCompleto.setText("Nombre Completo: ");
-
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/fotoPerfil2.jpg"))); // NOI18N
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(nombreCompleto, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
-                .addContainerGap(19, Short.MAX_VALUE))
-            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel2Layout.createSequentialGroup()
-                    .addGap(11, 11, 11)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(cambiarAlias, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(cambiarContrasena, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(eliminarCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addContainerGap(11, Short.MAX_VALUE)))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(24, 24, 24)
-                .addComponent(nombreCompleto)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(209, Short.MAX_VALUE))
-            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel2Layout.createSequentialGroup()
-                    .addGap(289, 289, 289)
-                    .addComponent(cambiarAlias)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(cambiarContrasena)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(eliminarCuenta)
-                    .addContainerGap(113, Short.MAX_VALUE)))
-        );
-
-        jPanel4.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 30, 260, 480));
-
-        jPanel1.setBackground(new java.awt.Color(204, 0, 0));
-
         cerrarSesion.setBackground(new java.awt.Color(0, 0, 0));
+        cerrarSesion.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         cerrarSesion.setForeground(new java.awt.Color(255, 255, 255));
         cerrarSesion.setText("Cerrar Sesión");
         cerrarSesion.addActionListener(new java.awt.event.ActionListener() {
@@ -125,15 +74,18 @@ public class PerfilJFrame extends javax.swing.JFrame {
                 cerrarSesionActionPerformed(evt);
             }
         });
+        jPanel4.add(cerrarSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 0, 120, 60));
 
+        nombreContenido.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         nombreContenido.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 nombreContenidoActionPerformed(evt);
             }
         });
+        jPanel4.add(nombreContenido, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 10, 280, 30));
 
         perfil.setBackground(new java.awt.Color(0, 0, 0));
-        perfil.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        perfil.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         perfil.setForeground(new java.awt.Color(255, 255, 255));
         perfil.setText("Perfil");
         perfil.setBorderPainted(false);
@@ -142,9 +94,10 @@ public class PerfilJFrame extends javax.swing.JFrame {
                 perfilActionPerformed(evt);
             }
         });
+        jPanel4.add(perfil, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 0, 110, 60));
 
         paginaPrincipal.setBackground(new java.awt.Color(0, 0, 0));
-        paginaPrincipal.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        paginaPrincipal.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         paginaPrincipal.setForeground(new java.awt.Color(255, 255, 255));
         paginaPrincipal.setText("Pagina Principal");
         paginaPrincipal.setBorderPainted(false);
@@ -153,65 +106,71 @@ public class PerfilJFrame extends javax.swing.JFrame {
                 paginaPrincipalActionPerformed(evt);
             }
         });
+        jPanel4.add(paginaPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 60));
 
+        jComboBox1.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "Peliculas", "Series" }));
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox1ActionPerformed(evt);
             }
         });
+        jPanel4.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 10, -1, 30));
 
-        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        cambiarContrasena.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        cambiarContrasena.setText("Cambiar Contraseña");
+        cambiarContrasena.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cambiarContrasenaActionPerformed(evt);
+            }
+        });
+        jPanel4.add(cambiarContrasena, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 350, 220, -1));
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addComponent(paginaPrincipal)
-                .addGap(0, 0, 0)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(perfil, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(nombreContenido, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(85, 85, 85)
-                .addComponent(cerrarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(24, 24, 24))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(paginaPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(perfil, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(nombreContenido, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(cerrarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(80, 80, 80))
-        );
+        eliminarCuenta.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        eliminarCuenta.setText("Eliminar Cuenta");
+        jPanel4.add(eliminarCuenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 410, 220, -1));
 
-        jPanel4.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 30));
+        cambiarAlias.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        cambiarAlias.setText("Cambiar Nombre Usuario");
+        jPanel4.add(cambiarAlias, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 380, 220, -1));
+
+        jLabel1.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/fotoPerfil2.jpg"))); // NOI18N
+        jPanel4.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, 220, -1));
+        jPanel4.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 830, 10));
+
+        imagenColorFondo.setBackground(new java.awt.Color(153, 0, 0));
+        imagenColorFondo.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        imagenColorFondo.setOpaque(true);
+        jPanel4.add(imagenColorFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 280, 520));
+
+        imagenColorFondo2.setBackground(new java.awt.Color(153, 0, 0));
+        imagenColorFondo2.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        imagenColorFondo2.setOpaque(true);
+        imagenColorFondo2.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                imagenColorFondo2MouseDragged(evt);
+            }
+        });
+        imagenColorFondo2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                imagenColorFondo2MousePressed(evt);
+            }
+        });
+        jPanel4.add(imagenColorFondo2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 830, 60));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
+                .addGap(0, 0, 0)
                 .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(0, 0, 0))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -240,6 +199,21 @@ public class PerfilJFrame extends javax.swing.JFrame {
     private void nombreContenidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nombreContenidoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_nombreContenidoActionPerformed
+
+    private void imagenColorFondo2MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_imagenColorFondo2MouseDragged
+        int x = evt.getXOnScreen();
+        int y = evt.getYOnScreen();
+        this.setLocation(x - xMouse, y - yMouse);
+    }//GEN-LAST:event_imagenColorFondo2MouseDragged
+
+    private void imagenColorFondo2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_imagenColorFondo2MousePressed
+        xMouse = evt.getX();
+        yMouse = evt.getY();
+    }//GEN-LAST:event_imagenColorFondo2MousePressed
+
+    private void cambiarContrasenaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cambiarContrasenaActionPerformed
+        c1.setVisible(true);
+    }//GEN-LAST:event_cambiarContrasenaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -284,13 +258,12 @@ public class PerfilJFrame extends javax.swing.JFrame {
     private javax.swing.JButton cambiarContrasena;
     private javax.swing.JButton cerrarSesion;
     private javax.swing.JButton eliminarCuenta;
+    private javax.swing.JLabel imagenColorFondo;
+    private javax.swing.JLabel imagenColorFondo2;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JLabel nombreCompleto;
+    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTextField nombreContenido;
     private javax.swing.JButton paginaPrincipal;
     private javax.swing.JButton perfil;

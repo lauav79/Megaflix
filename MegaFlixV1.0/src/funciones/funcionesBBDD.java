@@ -94,8 +94,10 @@ public class funcionesBBDD {
             Connection con= null;
             String url=DB_URL;
             try{
-                Class.forName("com.mysql.cj.jdbc.Driver");
-                con = DriverManager.getConnection(url, DB_USER,DB_PASS);
+               // Class.forName("com.mysql.cj.jdbc.Driver");
+                 con = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS);
+
+               // con = DriverManager.getConnection(url, DB_USER,DB_PASS);
                 System.out.println("Estás conectado a la base de datos");
             }catch(Exception ex){
                 System.out.println("No se ha podido conectar a la base de datos");

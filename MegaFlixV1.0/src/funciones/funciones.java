@@ -7,6 +7,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.swing.ImageIcon;
         
 // Video https://www.youtube.com/watch?v=qTznb9ufH9Y de imagenes en Mysql cargar y guardar imágenes
 // https://programmerclick.com/article/83461053032/ para coger la segunda mejor puntuacion
@@ -15,9 +16,8 @@ import java.sql.SQLException;
 
 public class funciones {
     //comentario
-   
+
     // Visualizar la base de datos
-  
     public static void main(String[] args) throws FileNotFoundException, SQLException, IOException {
    
     }

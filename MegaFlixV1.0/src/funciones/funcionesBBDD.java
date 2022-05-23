@@ -1,6 +1,5 @@
 package funciones;
 
-import JFrames.PrincipalJFrame;
 import java.sql.DriverManager;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -90,7 +89,19 @@ public class funcionesBBDD {
             return false;
         }
     }
-
+    //Conectarte a la base de datos
+        public static Connection conectar(){
+            Connection con= null;
+            String url=DB_URL;
+            try{
+                Class.forName("com.mysql.cj.jdbc.Driver");
+                con = DriverManager.getConnection(url, DB_USER,DB_PASS);
+                System.out.println("Estás conectado a la base de datos");
+            }catch(Exception ex){
+                System.out.println("No se ha podido conectar a la base de datos");
+            }
+            return con;
+        }
     /**
      * Cierra la conexión con la base de datos
      */

@@ -60,7 +60,7 @@ public class PrincipalJFrame extends javax.swing.JFrame {
 
         lImagen2.setText("Imagen1");
 
-        panelBuscar.setBorder(javax.swing.BorderFactory.createTitledBorder("Buscar"));
+        panelBuscar.setBorder(javax.swing.BorderFactory.createTitledBorder("Búsqueda"));
 
         buttonGroup1.add(radioSerie);
         radioSerie.setText("Series");
@@ -98,7 +98,7 @@ public class PrincipalJFrame extends javax.swing.JFrame {
                         .addGap(21, 21, 21)
                         .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(panelBuscarLayout.createSequentialGroup()
-                        .addGap(26, 26, 26)
+                        .addGap(19, 19, 19)
                         .addComponent(bBuscar)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );

@@ -8,6 +8,6 @@ package Contenido;
  *
  * @author admin
  */
-public class Serie {
+public class Serie extends Contenido {
     
 }

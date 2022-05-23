@@ -191,6 +191,12 @@ public class GestorContenidoMain extends javax.swing.JFrame {
         jSpinnerTemp.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 1));
         jSpinnerTemp.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
+        jTextFiDir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFiDirActionPerformed(evt);
+            }
+        });
+
         jButton4.setText("Añadir a BBDD");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -404,6 +410,10 @@ public class GestorContenidoMain extends javax.swing.JFrame {
         
         
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jTextFiDirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFiDirActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFiDirActionPerformed
 
     /**
      * @param args the command line arguments

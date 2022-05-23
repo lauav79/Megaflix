@@ -8,6 +8,6 @@ package Contenido;
  *
  * @author admin
  */
-public class Película {
+public class Película extends Contenido {
     
 }

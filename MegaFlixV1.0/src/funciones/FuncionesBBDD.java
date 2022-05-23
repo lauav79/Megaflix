@@ -32,6 +32,14 @@ public class FuncionesBBDD {
     private static final String DB_MSQ_CONN_OK = "CONEXIÓN CORRECTA";
     private static final String DB_MSQ_CONN_NO = "ERROR EN LA CONEXIÓN";
     
+    // Configuración de la tabla Contenido
+    private static final String DB_CLI = "contenido";
+    private static final String DB_CLI_SELECT = "SELECT * FROM " + DB_CLI;
+    private static final String DB_CLI_ID = "id";
+    private static final String DB_CLI_NOM = "nombre";
+    private static final String DB_CLI_DIR = "director";
+    //CONTINUAR AQUIIIIIIIIIIIIIIIIIIIIIIIII
+    
     /**
      * Intenta cargar el JDBC driver.
      * @return true si pudo cargar el driver, false en caso contrario
@@ -101,16 +109,62 @@ public class FuncionesBBDD {
             ex.printStackTrace();
         }
     }
+    ////tabla contenido
+    public static ResultSet getTablaContenido(int resultSetType, int resultSetConcurrency) {
+        try {
+            Statement stmt = conn.createStatement(resultSetType, resultSetConcurrency);
+            ResultSet rs = stmt.executeQuery(DB_CLI_SELECT);
+            //stmt.close();
+            return rs;
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return null;
+        }
+
+    }
+
+    /**
+     * Obtiene toda la tabla clientes de la base de datos
+     *
+     * @return ResultSet (por defecto) con la tabla, null en caso de error
+     */
+    public static ResultSet getTablaClientes() {
+        return getTablaClientes(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
+    }
+    
     
     //INSERTAR O BORRAR CONTENIDO A LA BBDD
     public static void añadirContenido(String nombre, String descripcion, String director, int temporadas, String duracion, String tipo){
+        /*
+        ejemplo INSERT INTO contenido VALUES
+        (null,'Ultrasecretos','Shion Takeuchi',
+        '¿Los lagartos humanoides? Existen. ¿El alunizaje? Nunca sucedió. Esta genia asocial y sus disfuncionales compañeros de trabajo investigan conspiraciones mundiales. Comedia animada ambientada en un gobierno secreto donde abundan las teorías conspirativas.'
+        ,1
+        ,null,
+        'Ultrasecretos',
+        'Series');
         
+        */
+        //https://www.cablenaranja.com/como-insertar-datos-desde-una-aplicacion-java-hacia-mysql/
+        //EN CONSTRUCCION(PROBAR SI FUNCIONA EL INSERT)
+        String sql;
         if("Series".equals(tipo)){
-            
+            sql = "insert into contenido(null, nombre, director, descripcion, temporadas, null, imagen,tipo) values(?,?,?,?,?,?)";
         }
         if("Peliculas".equals(tipo)){
-        
+            sql = "insert into contenido(null, nombre, director, descripcion, null, duracion, imagen,tipo) values(?,?,?,?,?,?)";
         }
+        
+        //INSERCCION
+        try{
+            // Obtenemos la tabla contenido
+            System.out.print("Insertando contenido " + nombre + "...");
+            ResultSet rs = getTablaClientes(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_UPDATABLE);
+            
+        }catch(SQLException e){
+            JOptionPane.showMessageDialog(null, "Error de conexión:" + e.getMessage());
+        }
+        
     
     }
     

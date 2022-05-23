@@ -2,6 +2,7 @@ package funciones;
 
 import java.sql.DriverManager;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.ResultSet;
@@ -11,13 +12,25 @@ import java.sql.ResultSet;
 public class FuncionesBBDD {
     //prueba
     
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ClassNotFoundException {
         FuncionesBBDD.loadDriver();
         FuncionesBBDD.connect();
         FuncionesBBDD.isConnected();
         FuncionesBBDD.close();
         FuncionesBBDD.isConnected();
+        
+        //prueba de insert
+        String name="contenido1";
+        String desc="probando probando";
+        String dire="director inventado";
+        int temp=1;
+        String dura="null";
+        String tipo="Series";
+        
+        FuncionesBBDD.añadirContenido(name,desc,dire,temp,dura,tipo);
+        //String nombre, String descripcion, String director, int temporadas, String duracion, String tipo
     }
+    
     //conectar
     // Conexión a la base de datos
     private static Connection conn = null;
@@ -31,7 +44,7 @@ public class FuncionesBBDD {
     private static final String DB_PASS = "toor";
     private static final String DB_MSQ_CONN_OK = "CONEXIÓN CORRECTA";
     private static final String DB_MSQ_CONN_NO = "ERROR EN LA CONEXIÓN";
-    
+    String url = "jdbc:mysql://"+DB_HOST+":"+DB_PORT+"/"+DB_NAME+"?serverTimezone=UTC";
     // Configuración de la tabla Contenido
     private static final String DB_CLI = "contenido";
     private static final String DB_CLI_SELECT = "SELECT * FROM " + DB_CLI;
@@ -109,32 +122,13 @@ public class FuncionesBBDD {
             ex.printStackTrace();
         }
     }
-    ////tabla contenido
-    public static ResultSet getTablaContenido(int resultSetType, int resultSetConcurrency) {
-        try {
-            Statement stmt = conn.createStatement(resultSetType, resultSetConcurrency);
-            ResultSet rs = stmt.executeQuery(DB_CLI_SELECT);
-            //stmt.close();
-            return rs;
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-            return null;
-        }
+ 
 
-    }
-
-    /**
-     * Obtiene toda la tabla clientes de la base de datos
-     *
-     * @return ResultSet (por defecto) con la tabla, null en caso de error
-     */
-    public static ResultSet getTablaClientes() {
-        return getTablaClientes(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
-    }
+    
     
     
     //INSERTAR O BORRAR CONTENIDO A LA BBDD
-    public static void añadirContenido(String nombre, String descripcion, String director, int temporadas, String duracion, String tipo){
+    public static void añadirContenido(String nombre, String descripcion, String director, int temporadas, String duracion, String tipo) throws ClassNotFoundException{
         /*
         ejemplo INSERT INTO contenido VALUES
         (null,'Ultrasecretos','Shion Takeuchi',
@@ -143,30 +137,48 @@ public class FuncionesBBDD {
         ,null,
         'Ultrasecretos',
         'Series');
-        
         */
-        //https://www.cablenaranja.com/como-insertar-datos-desde-una-aplicacion-java-hacia-mysql/
         //EN CONSTRUCCION(PROBAR SI FUNCIONA EL INSERT)
-        String sql;
+        /*
+        String sql="";
         if("Series".equals(tipo)){
             sql = "insert into contenido(null, nombre, director, descripcion, temporadas, null, imagen,tipo) values(?,?,?,?,?,?)";
         }
         if("Peliculas".equals(tipo)){
             sql = "insert into contenido(null, nombre, director, descripcion, null, duracion, imagen,tipo) values(?,?,?,?,?,?)";
-        }
+        }*/
         
         //INSERCCION
         try{
-            // Obtenemos la tabla contenido
-            System.out.print("Insertando contenido " + nombre + "...");
-            ResultSet rs = getTablaClientes(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_UPDATABLE);
+           // Cargamos la clase que implementa el Driver
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            // Creamos una nueva conexión a la base de datos 'Megaflix'
+            String url = "jdbc:mysql://"+DB_HOST+":"+DB_PORT+"/"+DB_NAME+"?serverTimezone=UTC";
+            Connection conn = (Connection) DriverManager.getConnection(url,"root","toor");
             
-        }catch(SQLException e){
-            JOptionPane.showMessageDialog(null, "Error de conexión:" + e.getMessage());
-        }
+            // Preparamos un statement para hacer la inserción del registro.
+            PreparedStatement stmt = conn.prepareStatement("INSERT INTO contenido VALUES (?,?,?,?,?,?,?,?)");
+            stmt.setString(1, null);
+            stmt.setString(2, nombre);
+            stmt.setString(3, director);
+            stmt.setString(4, descripcion);
+            stmt.setInt(5, temporadas);
+            stmt.setString(6, duracion);
+            stmt.setString(7, null);
+            stmt.setString(8, tipo);
+            
+            stmt.executeUpdate();
+            //Statement st = conn.createStatement();
+            //insert del contenido            
+            //int insert= st.executeUpdate("insert into contenido values(null,'prueba1','descripcion','director1',1,null,'imagen1', 'Series')");
+             
+            
+        }catch (SQLException e) {
+        e.printStackTrace();
         
     
+        }
+    
     }
-    
-    
 }
+

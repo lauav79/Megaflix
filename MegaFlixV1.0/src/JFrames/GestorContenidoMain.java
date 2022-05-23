@@ -4,6 +4,9 @@
  */
 
 package JFrames;
+import funciones.FuncionesBBDD;
+import java.util.logging.Level;
+import java.util.logging.Logger;
  import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 /**
@@ -173,6 +176,11 @@ public class GestorContenidoMain extends javax.swing.JFrame {
 
         buttonGroup1.add(jRaSerie);
         jRaSerie.setText("Serie");
+        jRaSerie.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRaSerieActionPerformed(evt);
+            }
+        });
 
         jLabel2.setText("Descripción:");
 
@@ -222,8 +230,8 @@ public class GestorContenidoMain extends javax.swing.JFrame {
                                 .addComponent(jSpinnerTemp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel4Layout.createSequentialGroup()
                                 .addComponent(jLabel5)
-                                .addGap(18, 18, 18)
-                                .addComponent(jTextFiDur, javax.swing.GroupLayout.DEFAULT_SIZE, 304, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jTextFiDur, javax.swing.GroupLayout.DEFAULT_SIZE, 309, Short.MAX_VALUE))
                             .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel4Layout.createSequentialGroup()
                                     .addGap(37, 37, 37)
@@ -242,7 +250,7 @@ public class GestorContenidoMain extends javax.swing.JFrame {
                                         .addComponent(jTextFiNombre)
                                         .addComponent(jTextFiDesc)
                                         .addComponent(jTextFiDir, javax.swing.GroupLayout.DEFAULT_SIZE, 344, Short.MAX_VALUE)))))
-                        .addGap(22, 22, 22))))
+                        .addContainerGap(23, Short.MAX_VALUE))))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -268,13 +276,13 @@ public class GestorContenidoMain extends javax.swing.JFrame {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(jSpinnerTemp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(jTextFiDur, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(16, 16, 16)
                 .addComponent(jLabel6)
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
 
         jTabbedPane2.addTab("Añadir", jPanel4);
@@ -354,7 +362,7 @@ public class GestorContenidoMain extends javax.swing.JFrame {
             tipo="Peliculas";
         }
         if(jRaSerie.isSelected()){
-            tipo="Serie";
+            tipo="Series";
         }
         
         //System.out.println("tipo:" +tipo);
@@ -399,10 +407,19 @@ public class GestorContenidoMain extends javax.swing.JFrame {
         if(insertOK==true){
             //llamo a la funcion para insertar contenido
             
-            System.out.println("Se ha insertado el contenido");
+                try{
+                    FuncionesBBDD.añadirContenido(nombre,descripcion,duracion,temporadas,duracion,tipo);
+                    //falta insertar la imagen
+                    System.out.println("Se ha insertado el contenido");
+                } catch (ClassNotFoundException ex) {
+                Logger.getLogger(GestorContenidoMain.class.getName()).log(Level.SEVERE, null, ex);
+            }
+                
+            
+            
         }else{
             //muestro los errores 
-            String mensajeFinal="No se ha podido insertar el contenido"+mError;
+            String mensajeFinal="No se ha podido insertar el contenido por errores en los datos dados."+mError;
             JOptionPane.showMessageDialog(null, mensajeFinal, "Error de inserción", JOptionPane.WARNING_MESSAGE);
         }   
         
@@ -414,6 +431,10 @@ public class GestorContenidoMain extends javax.swing.JFrame {
     private void jTextFiDirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFiDirActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFiDirActionPerformed
+
+    private void jRaSerieActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRaSerieActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jRaSerieActionPerformed
 
     /**
      * @param args the command line arguments

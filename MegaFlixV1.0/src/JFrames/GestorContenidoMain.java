@@ -41,19 +41,17 @@ public class GestorContenidoMain extends javax.swing.JFrame {
         buttonGroup2 = new javax.swing.ButtonGroup();
         buttonGroup3 = new javax.swing.ButtonGroup();
         buttonGroup4 = new javax.swing.ButtonGroup();
+        buttonGroup5 = new javax.swing.ButtonGroup();
         jTabbedPane2 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jLabelBienve = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
-        jPanel3 = new javax.swing.JPanel();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jComboBox2 = new javax.swing.JComboBox<>();
         jPanel4 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jRaPeli = new javax.swing.JRadioButton();
-        jRaSerie = new javax.swing.JRadioButton();
+        jRaPeliAñadir = new javax.swing.JRadioButton();
+        jRaSerieAñadir = new javax.swing.JRadioButton();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -65,6 +63,12 @@ public class GestorContenidoMain extends javax.swing.JFrame {
         jTextFiDir = new javax.swing.JTextField();
         jButton4 = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
+        jLabel7 = new javax.swing.JLabel();
+        jButton5 = new javax.swing.JButton();
+        jTabbedPane3 = new javax.swing.JTabbedPane();
+        jCoBoPelis = new javax.swing.JComboBox<>();
+        jCoBoSerie = new javax.swing.JComboBox<>();
 
         jMenu1.setText("jMenu1");
 
@@ -132,53 +136,21 @@ public class GestorContenidoMain extends javax.swing.JFrame {
 
         jTabbedPane2.addTab("", jPanel1);
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
-            }
-        });
-
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(46, 46, 46)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(112, 112, 112)
-                .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(100, Short.MAX_VALUE))
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(32, 32, 32)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(208, Short.MAX_VALUE))
-        );
-
-        jTabbedPane2.addTab("Eliminar", jPanel3);
-
         jLabel1.setText("Nombre:");
 
-        buttonGroup1.add(jRaPeli);
-        jRaPeli.setText("Película");
-        jRaPeli.addActionListener(new java.awt.event.ActionListener() {
+        buttonGroup1.add(jRaPeliAñadir);
+        jRaPeliAñadir.setText("Película");
+        jRaPeliAñadir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRaPeliActionPerformed(evt);
+                jRaPeliAñadirActionPerformed(evt);
             }
         });
 
-        buttonGroup1.add(jRaSerie);
-        jRaSerie.setText("Serie");
-        jRaSerie.addActionListener(new java.awt.event.ActionListener() {
+        buttonGroup1.add(jRaSerieAñadir);
+        jRaSerieAñadir.setText("Serie");
+        jRaSerieAñadir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRaSerieActionPerformed(evt);
+                jRaSerieAñadirActionPerformed(evt);
             }
         });
 
@@ -235,9 +207,9 @@ public class GestorContenidoMain extends javax.swing.JFrame {
                             .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel4Layout.createSequentialGroup()
                                     .addGap(37, 37, 37)
-                                    .addComponent(jRaPeli)
+                                    .addComponent(jRaPeliAñadir)
                                     .addGap(18, 18, 18)
-                                    .addComponent(jRaSerie)
+                                    .addComponent(jRaSerieAñadir)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 145, Short.MAX_VALUE)
                                     .addComponent(jButton4))
                                 .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel4Layout.createSequentialGroup()
@@ -257,8 +229,8 @@ public class GestorContenidoMain extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(10, 10, 10)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jRaPeli)
-                    .addComponent(jRaSerie)
+                    .addComponent(jRaPeliAñadir)
+                    .addComponent(jRaSerieAñadir)
                     .addComponent(jButton4))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -287,6 +259,61 @@ public class GestorContenidoMain extends javax.swing.JFrame {
 
         jTabbedPane2.addTab("Añadir", jPanel4);
 
+        jButton5.setText("Eliminar");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+
+        jCoBoPelis.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jCoBoPelis.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCoBoPelisActionPerformed(evt);
+            }
+        });
+        jTabbedPane3.addTab("Películas", jCoBoPelis);
+
+        jCoBoSerie.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Serie1", "Serie2.Serie2" }));
+        jCoBoSerie.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCoBoSerieActionPerformed(evt);
+            }
+        });
+        jTabbedPane3.addTab("Series", jCoBoSerie);
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(210, 210, 210)
+                .addComponent(jLabel7)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(193, 193, 193)
+                        .addComponent(jButton5))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(17, 17, 17)
+                        .addComponent(jTabbedPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 336, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(138, Short.MAX_VALUE))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(23, 23, 23)
+                .addComponent(jLabel7)
+                .addGap(18, 18, 18)
+                .addComponent(jTabbedPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 130, Short.MAX_VALUE)
+                .addComponent(jButton5)
+                .addGap(16, 16, 16))
+        );
+
+        jTabbedPane2.addTab("Eliminar", jPanel3);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -301,10 +328,6 @@ public class GestorContenidoMain extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox1ActionPerformed
-
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -313,9 +336,9 @@ public class GestorContenidoMain extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton3ActionPerformed
 
-    private void jRaPeliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRaPeliActionPerformed
+    private void jRaPeliAñadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRaPeliAñadirActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jRaPeliActionPerformed
+    }//GEN-LAST:event_jRaPeliAñadirActionPerformed
 
     private void jTextFiNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFiNombreActionPerformed
         // TODO add your handling code here:
@@ -358,10 +381,10 @@ public class GestorContenidoMain extends javax.swing.JFrame {
         */
         
         //tipo de contenido con checkbox
-        if(jRaPeli.isSelected()){
+        if(jRaPeliAñadir.isSelected()){
             tipo="Peliculas";
         }
-        if(jRaSerie.isSelected()){
+        if(jRaSerieAñadir.isSelected()){
             tipo="Series";
         }
         
@@ -432,9 +455,22 @@ public class GestorContenidoMain extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFiDirActionPerformed
 
-    private void jRaSerieActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRaSerieActionPerformed
+    private void jRaSerieAñadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRaSerieAñadirActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jRaSerieActionPerformed
+    }//GEN-LAST:event_jRaSerieAñadirActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jCoBoSerieActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCoBoSerieActionPerformed
+        // TODO add your handling code here:
+        //COMBOSERIES
+    }//GEN-LAST:event_jCoBoSerieActionPerformed
+
+    private void jCoBoPelisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCoBoPelisActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCoBoPelisActionPerformed
 
     /**
      * @param args the command line arguments
@@ -476,29 +512,33 @@ public class GestorContenidoMain extends javax.swing.JFrame {
     private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.ButtonGroup buttonGroup3;
     private javax.swing.ButtonGroup buttonGroup4;
+    private javax.swing.ButtonGroup buttonGroup5;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
+    private javax.swing.JButton jButton5;
+    private javax.swing.JComboBox<String> jCoBoPelis;
+    private javax.swing.JComboBox<String> jCoBoSerie;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabelBienve;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JRadioButton jRaPeli;
-    private javax.swing.JRadioButton jRaSerie;
+    private javax.swing.JRadioButton jRaPeliAñadir;
+    private javax.swing.JRadioButton jRaSerieAñadir;
     private javax.swing.JSpinner jSpinnerTemp;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTabbedPane jTabbedPane2;
+    private javax.swing.JTabbedPane jTabbedPane3;
     private javax.swing.JTextField jTextFiDesc;
     private javax.swing.JTextField jTextFiDir;
     private javax.swing.JTextField jTextFiDur;

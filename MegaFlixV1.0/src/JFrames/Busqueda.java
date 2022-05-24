@@ -17,45 +17,15 @@ public class Busqueda extends javax.swing.JFrame {
      */
     public Busqueda() {
         initComponents();
+        this.setLocationRelativeTo(null);
         //Conectar base de datos
         Connection conec= funcionesBBDD.conectar();
-        // Primera Consulta
-        String sql1="Select Imagen from usuariovaloracontenido join contenido on idContenido=contenido.Id where Puntuacion=(Select max(Puntuacion) from usuariovaloracontenido)";
-        try {
-                PreparedStatement pst = conec.prepareStatement(sql1);
-                ResultSet res = pst.executeQuery();
-                if(res.next()){
-                img1.setIcon(new ImageIcon(res.getString("Imagen")));
-                }
-        } catch (Exception ex) {
-            System.out.println("No se ha encontrado la imagen");
-        }
-        //Segunda Consulta
-        String sql2=" Select Imagen from usuariovaloracontenido join contenido as c on idContenido=c.Id order by Puntuacion desc Limit 1,1";
-        try {
-                PreparedStatement ps2=conec.prepareStatement(sql2);
-                ResultSet res2= ps2.executeQuery();
-                if(res2.next()){
-                img2.setIcon(new ImageIcon(res2.getString("Imagen")));
-                }
-        } catch (Exception ex) {
-            System.out.println("No se ha encontrado la imagen");
-        }
-         //Tercera Consulta
-        String sql3=" Select Imagen from usuariovaloracontenido join contenido as c on idContenido=c.Id order by Puntuacion desc Limit 2,1";
-        try {
-                PreparedStatement ps3=conec.prepareStatement(sql3);
-                ResultSet res3= ps3.executeQuery();
-                if(res3.next()){
-                img3.setIcon(new ImageIcon(res3.getString("Imagen")));
-                }
-        } catch (Exception ex) {
-            System.out.println("No se ha encontrado la imagen");
-        }
-    }
-    
-    
+        //Recoger el datos de la consulta
+        PrincipalJFrame consulta = new PrincipalJFrame();
 
+        // Primera Consulta
+       
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -67,17 +37,13 @@ public class Busqueda extends javax.swing.JFrame {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        JButton2 = new javax.swing.JButton();
-        img3 = new javax.swing.JLabel();
-        img2 = new javax.swing.JLabel();
-        img1 = new javax.swing.JLabel();
         panelBuscar = new javax.swing.JPanel();
         txtBuscar = new javax.swing.JTextField();
         radioSerie = new javax.swing.JRadioButton();
         radioPeli = new javax.swing.JRadioButton();
         bBuscar = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tabla = new javax.swing.JTable();
         jMenuBar1 = new javax.swing.JMenuBar();
         mPortada = new javax.swing.JMenu();
         mContenido = new javax.swing.JMenu();
@@ -91,12 +57,6 @@ public class Busqueda extends javax.swing.JFrame {
         mLogout = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        jButton1.setText("Ver");
-
-        jButton3.setText("Ver");
-
-        JButton2.setText("Ver");
 
         panelBuscar.setBorder(javax.swing.BorderFactory.createTitledBorder("Búsqueda"));
 
@@ -141,26 +101,28 @@ public class Busqueda extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        tabla.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2"
+            }
+        ));
+        jScrollPane1.setViewportView(tabla);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(31, 31, 31)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(panelBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(img1, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(32, 32, 32)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(JButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(img2, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(img3, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 634, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(panelBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(48, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -168,24 +130,22 @@ public class Busqueda extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(panelBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(img3, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(img2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(img1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(JButton2)
-                    .addComponent(jButton3)
-                    .addComponent(jButton1))
-                .addGap(89, 89, 89))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(199, Short.MAX_VALUE))
         );
 
         mPortada.setText("Portada");
+        mPortada.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                mPortadaMouseClicked(evt);
+            }
+        });
+        mPortada.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mPortadaActionPerformed(evt);
+            }
+        });
         jMenuBar1.add(mPortada);
 
         mContenido.setText("Contenido");
@@ -278,6 +238,17 @@ public class Busqueda extends javax.swing.JFrame {
         
     }//GEN-LAST:event_mAcercaActionPerformed
 
+    private void mPortadaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mPortadaActionPerformed
+       
+    }//GEN-LAST:event_mPortadaActionPerformed
+
+    private void mPortadaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mPortadaMouseClicked
+         //Pasarnos a la Ventana portada
+        PrincipalJFrame portada = new PrincipalJFrame();
+        portada.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_mPortadaMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -315,16 +286,11 @@ public class Busqueda extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton JButton2;
     private javax.swing.JButton bBuscar;
     private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.JLabel img1;
-    private javax.swing.JLabel img2;
-    private javax.swing.JLabel img3;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton3;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JMenuItem mAcerca;
     private javax.swing.JMenu mAyuda;
     private javax.swing.JMenu mContenido;
@@ -338,6 +304,7 @@ public class Busqueda extends javax.swing.JFrame {
     private javax.swing.JPanel panelBuscar;
     private javax.swing.JRadioButton radioPeli;
     private javax.swing.JRadioButton radioSerie;
+    private javax.swing.JTable tabla;
     private javax.swing.JTextField txtBuscar;
     // End of variables declaration//GEN-END:variables
 }

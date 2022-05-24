@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import javax.swing.ImageIcon;
 import java.sql.Blob;
+import javax.swing.JOptionPane;
 /**
  *
  * @author Carmen
@@ -17,6 +18,7 @@ public class PrincipalJFrame extends javax.swing.JFrame {
      */
     public PrincipalJFrame() {
         initComponents();
+        this.setLocationRelativeTo(null);
         //Conectar base de datos
         Connection conec= funcionesBBDD.conectar();
         // Primera Consulta
@@ -75,8 +77,8 @@ public class PrincipalJFrame extends javax.swing.JFrame {
         img1 = new javax.swing.JLabel();
         panelBuscar = new javax.swing.JPanel();
         txtBuscar = new javax.swing.JTextField();
-        radioSerie = new javax.swing.JRadioButton();
-        radioPeli = new javax.swing.JRadioButton();
+        rbSerie = new javax.swing.JRadioButton();
+        rbPeli = new javax.swing.JRadioButton();
         bBuscar = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         mPortada = new javax.swing.JMenu();
@@ -100,13 +102,18 @@ public class PrincipalJFrame extends javax.swing.JFrame {
 
         panelBuscar.setBorder(javax.swing.BorderFactory.createTitledBorder("Búsqueda"));
 
-        buttonGroup1.add(radioSerie);
-        radioSerie.setText("Series");
+        buttonGroup1.add(rbSerie);
+        rbSerie.setText("Series");
 
-        buttonGroup1.add(radioPeli);
-        radioPeli.setText("Películas");
+        buttonGroup1.add(rbPeli);
+        rbPeli.setText("Películas");
 
         bBuscar.setText("Buscar");
+        bBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bBuscarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelBuscarLayout = new javax.swing.GroupLayout(panelBuscar);
         panelBuscar.setLayout(panelBuscarLayout);
@@ -117,8 +124,8 @@ public class PrincipalJFrame extends javax.swing.JFrame {
                 .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(40, 40, 40)
                 .addGroup(panelBuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(radioSerie, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(radioPeli, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(rbSerie, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(rbPeli, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(81, 81, 81)
                 .addComponent(bBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(104, Short.MAX_VALUE))
@@ -126,9 +133,9 @@ public class PrincipalJFrame extends javax.swing.JFrame {
         panelBuscarLayout.setVerticalGroup(
             panelBuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelBuscarLayout.createSequentialGroup()
-                .addComponent(radioSerie)
+                .addComponent(rbSerie)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(radioPeli)
+                .addComponent(rbPeli)
                 .addGap(0, 15, Short.MAX_VALUE))
             .addGroup(panelBuscarLayout.createSequentialGroup()
                 .addGroup(panelBuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -278,6 +285,29 @@ public class PrincipalJFrame extends javax.swing.JFrame {
         
     }//GEN-LAST:event_mAcercaActionPerformed
 
+    private void bBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bBuscarActionPerformed
+        // Búsqueda de contenido
+        //Obtener texto a buscar
+        String texto=txtBuscar.getText();
+        if(rbSerie.isSelected()){
+           String sqlBuscarSerie="Select Nombre, Imagen from contenido where Tipo='Series' and Nombre like '%"+ texto +"%'"; 
+           Busqueda buscar =new Busqueda();
+           buscar.setVisible(true);
+           this.setVisible(false);
+            JOptionPane.showMessageDialog(null, "Ha seleccionado Serie");
+        }else if (rbPeli.isSelected()){
+            String sqlBuscarPeli="Select Nombre, Imagen from contenido where Tipo='Peliculas' and Nombre like '%"+ texto +"%'"; 
+            Busqueda buscar =new Busqueda();
+            buscar.setVisible(true);
+            this.setVisible(false);
+            JOptionPane.showMessageDialog(null, "Ha seleccionado Pelicula");
+        }else{
+            JOptionPane.showMessageDialog(null, "Debe selecionar una opción");
+        }
+        
+        //
+    }//GEN-LAST:event_bBuscarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -335,8 +365,8 @@ public class PrincipalJFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem mSeries;
     private javax.swing.JMenu mUsuario;
     private javax.swing.JPanel panelBuscar;
-    private javax.swing.JRadioButton radioPeli;
-    private javax.swing.JRadioButton radioSerie;
+    private javax.swing.JRadioButton rbPeli;
+    private javax.swing.JRadioButton rbSerie;
     private javax.swing.JTextField txtBuscar;
     // End of variables declaration//GEN-END:variables
 }

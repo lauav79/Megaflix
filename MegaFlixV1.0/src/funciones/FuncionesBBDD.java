@@ -165,8 +165,8 @@ public class FuncionesBBDD {
         
     
     }
-    
-    public ArrayList getListaPeliculas() throws ClassNotFoundException{
+    //ha de ser static para llamarlo en llenarCBPeliculas
+    public static ArrayList getListaPeliculas() throws ClassNotFoundException{
         ArrayList listaPeliculas= new ArrayList();
         Contenido nContenido= null;
         
@@ -186,7 +186,7 @@ public class FuncionesBBDD {
        // Recorremos todo el ResultSet y guardamos los datos en un nuevo objeto que
        //insertamos en el arraylist de listaPeliculas
             while(rs.next()) {
-            nContenido= new Contenido();
+            nContenido= new Contenido("Nombre", "Director", "Tipo", "Descripcion", "Duracion", "Imagen", 0, 0);
             nContenido.setId(rs.getInt("id"));
             nContenido.setNombre(rs.getString("Nombre"));      
             nContenido.setDirector(rs.getString("Director"));
@@ -208,7 +208,6 @@ public class FuncionesBBDD {
         e.printStackTrace();
         }
        //devolvemos el array de objetos contenido
-        System.out.println(listaPeliculas);
         return listaPeliculas;
     
     }

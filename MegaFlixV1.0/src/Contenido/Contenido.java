@@ -31,6 +31,21 @@ public class Contenido {
         this.Descripcion = Descripcion;
         this.Imagen = Imagen;
     }
+
+    public Contenido() {
+        this.Nombre = "";
+        this.Director = "";
+        this.Tipo = "";
+        this.Descripcion = "";
+        this.Duracion = "";
+        this.Imagen = "";
+        this.Id = 0;
+        this.Temporadas = 0;
+    }
+
+   
+
+   
    
     //Getters y Setters
     public String getNombre() {
@@ -95,6 +110,13 @@ public class Contenido {
 
     public void setTemporadas(int Temporadas) {
         this.Temporadas = Temporadas;
+    }
+
+    @Override
+    public String toString() {
+        //return "Contenido{" + "Nombre=" + Nombre + ", Id=" + Id + '}';
+        String contenidoIdNombre=""+Id+"- "+Nombre;
+        return contenidoIdNombre;
     }
     
     

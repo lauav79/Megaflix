@@ -4,25 +4,56 @@
  */
 
 package JFrames;
+import Contenido.Contenido;
 import funciones.FuncionesBBDD;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
- import javax.swing.JOptionPane;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 /**
  *
  * @author lauav
  */
 public class GestorContenidoMain extends javax.swing.JFrame {
+    
+    ArrayList listaPeliculas;
+    ArrayList listaSeries;
 
-    /** Creates new form GestorContenidoMain */
-    public GestorContenidoMain() {
+    /** Creates new form GestorContenidoMain
+     * @throws java.lang.ClassNotFoundException */
+    public GestorContenidoMain() throws ClassNotFoundException {
         initComponents();
         
         //bienvenida
         String nombre="admin1";
         String bienv="Bienvenid@ "+ nombre+ "!";
         jLabelBienve.setText(bienv);
+        
+        
+        listaPeliculas=new ArrayList();
+        listaSeries=new ArrayList();
+        //llenarlistas
+        llenarCBPeliculas();
+        
+        
+    }
+    
+    //Funciones para cargar la lista de peliculas y series en los comboBox
+    public void llenarCBPeliculas() throws ClassNotFoundException{
+        //vacio el comboBoxPeliculas
+        jCoBoPelis.removeAllItems();
+        listaPeliculas=FuncionesBBDD.getListaPeliculas();
+        Iterator itListaPelis=listaPeliculas.iterator();
+        while(itListaPelis.hasNext()){
+            Contenido nContenido=(Contenido) itListaPelis.next();
+            jCoBoPelis.addItem(nContenido.toString());
+        
+        }
+        
+        
+        
     }
 
     /** This method is called from within the constructor to
@@ -69,6 +100,7 @@ public class GestorContenidoMain extends javax.swing.JFrame {
         jTabbedPane3 = new javax.swing.JTabbedPane();
         jCoBoPelis = new javax.swing.JComboBox<>();
         jCoBoSerie = new javax.swing.JComboBox<>();
+        jTabbedPane4 = new javax.swing.JTabbedPane();
 
         jMenu1.setText("jMenu1");
 
@@ -203,7 +235,7 @@ public class GestorContenidoMain extends javax.swing.JFrame {
                             .addGroup(jPanel4Layout.createSequentialGroup()
                                 .addComponent(jLabel5)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jTextFiDur, javax.swing.GroupLayout.DEFAULT_SIZE, 309, Short.MAX_VALUE))
+                                .addComponent(jTextFiDur, javax.swing.GroupLayout.DEFAULT_SIZE, 327, Short.MAX_VALUE))
                             .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel4Layout.createSequentialGroup()
                                     .addGap(37, 37, 37)
@@ -222,7 +254,7 @@ public class GestorContenidoMain extends javax.swing.JFrame {
                                         .addComponent(jTextFiNombre)
                                         .addComponent(jTextFiDesc)
                                         .addComponent(jTextFiDir, javax.swing.GroupLayout.DEFAULT_SIZE, 344, Short.MAX_VALUE)))))
-                        .addContainerGap(23, Short.MAX_VALUE))))
+                        .addContainerGap(24, Short.MAX_VALUE))))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -254,7 +286,7 @@ public class GestorContenidoMain extends javax.swing.JFrame {
                     .addComponent(jTextFiDur, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(16, 16, 16)
                 .addComponent(jLabel6)
-                .addContainerGap(26, Short.MAX_VALUE))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
 
         jTabbedPane2.addTab("Añadir", jPanel4);
@@ -298,7 +330,7 @@ public class GestorContenidoMain extends javax.swing.JFrame {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(17, 17, 17)
                         .addComponent(jTabbedPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 336, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(138, Short.MAX_VALUE))
+                .addContainerGap(159, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -313,6 +345,7 @@ public class GestorContenidoMain extends javax.swing.JFrame {
         );
 
         jTabbedPane2.addTab("Eliminar", jPanel3);
+        jTabbedPane2.addTab("Géneros", jTabbedPane4);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -431,7 +464,7 @@ public class GestorContenidoMain extends javax.swing.JFrame {
             //llamo a la funcion para insertar contenido
             
                 try{
-                    FuncionesBBDD.añadirContenido(nombre,descripcion,duracion,temporadas,duracion,tipo);
+                    FuncionesBBDD.añadirContenido(nombre,descripcion,director,temporadas,duracion,tipo);
                     //falta insertar la imagen
                     System.out.println("Se ha insertado el contenido");
                 } catch (ClassNotFoundException ex) {
@@ -502,7 +535,11 @@ public class GestorContenidoMain extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new GestorContenidoMain().setVisible(true);
+                try {
+                    new GestorContenidoMain().setVisible(true);
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(GestorContenidoMain.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
@@ -539,6 +576,7 @@ public class GestorContenidoMain extends javax.swing.JFrame {
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTabbedPane jTabbedPane2;
     private javax.swing.JTabbedPane jTabbedPane3;
+    private javax.swing.JTabbedPane jTabbedPane4;
     private javax.swing.JTextField jTextFiDesc;
     private javax.swing.JTextField jTextFiDir;
     private javax.swing.JTextField jTextFiDur;

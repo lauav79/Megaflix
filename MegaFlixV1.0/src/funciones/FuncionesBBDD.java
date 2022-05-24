@@ -1,11 +1,13 @@
 package funciones;
 
+import Contenido.Contenido;
 import java.sql.DriverManager;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 
 
 
@@ -18,7 +20,7 @@ public class FuncionesBBDD {
         FuncionesBBDD.isConnected();
         FuncionesBBDD.close();
         FuncionesBBDD.isConnected();
-        
+        /*
         //prueba de insert
         String name="contenido1";
         String desc="probando probando";
@@ -29,6 +31,9 @@ public class FuncionesBBDD {
         
         FuncionesBBDD.añadirContenido(name,desc,dire,temp,dura,tipo);
         //String nombre, String descripcion, String director, int temporadas, String duracion, String tipo
+        */
+        
+        
     }
     
     //conectar
@@ -157,6 +162,54 @@ public class FuncionesBBDD {
         
     
         }
+        
+    
+    }
+    
+    public ArrayList getListaPeliculas() throws ClassNotFoundException{
+        ArrayList listaPeliculas= new ArrayList();
+        Contenido nContenido= null;
+        
+        
+        try {
+            // Cargamos la clase que implementa el Driver
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            // Creamos una nueva conexión a la base de datos 'jardineria'
+            String url = "jdbc:mysql://"+DB_HOST+":"+DB_PORT+"/"+DB_NAME+"?serverTimezone=UTC";
+            Connection conn = (Connection) DriverManager.getConnection(url,"root","toor");
+            // Obtenemos un Statement de la conexión
+            Statement st = conn.createStatement();
+            // Ejecutamos una consulta SELECT para obtener la tabla vendedores
+            String sql = "SELECT * FROM contenido WHERE tipo='Peliculas'";
+            ResultSet rs = st.executeQuery(sql);
+            
+       // Recorremos todo el ResultSet y guardamos los datos en un nuevo objeto que
+       //insertamos en el arraylist de listaPeliculas
+            while(rs.next()) {
+            nContenido= new Contenido();
+            nContenido.setId(rs.getInt("id"));
+            nContenido.setNombre(rs.getString("Nombre"));      
+            nContenido.setDirector(rs.getString("Director"));
+            nContenido.setDescripcion(rs.getString("Descripcion"));
+            nContenido.setTemporadas(rs.getInt("Temporadas"));
+            nContenido.setDuracion(rs.getString("Duracion"));
+            nContenido.setImagen(rs.getString("Imagen"));
+            nContenido.setTipo(rs.getString("Tipo"));
+            
+            listaPeliculas.add(nContenido);
+            
+            
+            }
+            // Cerramos el statement y la conexión
+            st.close();
+            conn.close();
+        } 
+       catch (SQLException e) {
+        e.printStackTrace();
+        }
+       //devolvemos el array de objetos contenido
+        System.out.println(listaPeliculas);
+        return listaPeliculas;
     
     }
 }

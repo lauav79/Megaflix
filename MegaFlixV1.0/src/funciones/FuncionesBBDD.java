@@ -129,25 +129,7 @@ public class FuncionesBBDD {
     
     //INSERTAR O BORRAR CONTENIDO A LA BBDD
     public static void añadirContenido(String nombre, String descripcion, String director, int temporadas, String duracion, String tipo) throws ClassNotFoundException{
-        /*
-        ejemplo INSERT INTO contenido VALUES
-        (null,'Ultrasecretos','Shion Takeuchi',
-        '¿Los lagartos humanoides? Existen. ¿El alunizaje? Nunca sucedió. Esta genia asocial y sus disfuncionales compañeros de trabajo investigan conspiraciones mundiales. Comedia animada ambientada en un gobierno secreto donde abundan las teorías conspirativas.'
-        ,1
-        ,null,
-        'Ultrasecretos',
-        'Series');
-        */
-        //EN CONSTRUCCION(PROBAR SI FUNCIONA EL INSERT)
-        /*
-        String sql="";
-        if("Series".equals(tipo)){
-            sql = "insert into contenido(null, nombre, director, descripcion, temporadas, null, imagen,tipo) values(?,?,?,?,?,?)";
-        }
-        if("Peliculas".equals(tipo)){
-            sql = "insert into contenido(null, nombre, director, descripcion, null, duracion, imagen,tipo) values(?,?,?,?,?,?)";
-        }*/
-        
+                
         //INSERCCION
         try{
            // Cargamos la clase que implementa el Driver
@@ -168,9 +150,6 @@ public class FuncionesBBDD {
             stmt.setString(8, tipo);
             
             stmt.executeUpdate();
-            //Statement st = conn.createStatement();
-            //insert del contenido            
-            //int insert= st.executeUpdate("insert into contenido values(null,'prueba1','descripcion','director1',1,null,'imagen1', 'Series')");
              
             
         }catch (SQLException e) {

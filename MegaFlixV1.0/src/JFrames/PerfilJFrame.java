@@ -15,21 +15,16 @@ import Persona.Usuario;
  */
 public class PerfilJFrame extends javax.swing.JFrame {
 
-    public static Principal p1 = new Principal();
-    public static PaginaPeli pp1 = new PaginaPeli();
-    public static LoginJFrame l1 = new LoginJFrame();
-    public static CambioContraseña c1 = new CambioContraseña();
-    public static ImageIcon icon = new ImageIcon("/IMG/fotoPerfil.jpg");
+    public static PerfilJFrame perfil1= new PerfilJFrame();
+    public ImageIcon icon = new ImageIcon("/IMG/fotoPerfil.jpg");
     int x,y,xMouse,yMouse;
 
     /**
      * Creates new form PerfilJFrame
      */
     public PerfilJFrame() {
-
-        
         initComponents();
-        nombreUser.setText(Usuario.getAlias());
+        //nombreUser.setText(Usuario.getAlias());
     }
 
     /**
@@ -53,9 +48,9 @@ public class PerfilJFrame extends javax.swing.JFrame {
         nombreUser = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
+        perfil = new javax.swing.JButton();
         imagenColorFondo = new javax.swing.JLabel();
         imagenColorFondo2 = new javax.swing.JLabel();
-        perfil = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(0, 0, 0));
@@ -128,6 +123,18 @@ public class PerfilJFrame extends javax.swing.JFrame {
         jPanel4.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 110, 220, -1));
         jPanel4.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 830, 10));
 
+        perfil.setBackground(new java.awt.Color(0, 0, 0));
+        perfil.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        perfil.setForeground(new java.awt.Color(255, 255, 255));
+        perfil.setText("Perfil");
+        perfil.setBorderPainted(false);
+        perfil.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                perfilActionPerformed(evt);
+            }
+        });
+        jPanel4.add(perfil, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 0, 110, 60));
+
         imagenColorFondo.setBackground(new java.awt.Color(153, 0, 0));
         imagenColorFondo.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         imagenColorFondo.setOpaque(true);
@@ -148,18 +155,6 @@ public class PerfilJFrame extends javax.swing.JFrame {
         });
         jPanel4.add(imagenColorFondo2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 850, 60));
 
-        perfil.setBackground(new java.awt.Color(0, 0, 0));
-        perfil.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        perfil.setForeground(new java.awt.Color(255, 255, 255));
-        perfil.setText("Perfil");
-        perfil.setBorderPainted(false);
-        perfil.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                perfilActionPerformed(evt);
-            }
-        });
-        jPanel4.add(perfil, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 0, 110, 60));
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -179,7 +174,7 @@ public class PerfilJFrame extends javax.swing.JFrame {
 
     private void cerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cerrarSesionActionPerformed
         dispose();
-        l1.setVisible(true);
+        LoginJFrame.login1.setVisible(true);
         funcionesBBDD.close();
     }//GEN-LAST:event_cerrarSesionActionPerformed
 
@@ -189,7 +184,7 @@ public class PerfilJFrame extends javax.swing.JFrame {
 
     private void paginaPrincipalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_paginaPrincipalActionPerformed
         dispose(); // TODO add your handling code here:
-        p1.setVisible(true);
+        Principal.prin1.setVisible(true);
     }//GEN-LAST:event_paginaPrincipalActionPerformed
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
@@ -212,7 +207,7 @@ public class PerfilJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_imagenColorFondo2MousePressed
 
     private void cambiarContrasenaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cambiarContrasenaActionPerformed
-        c1.setVisible(true);
+        CambioContraseña.c1.setVisible(true);
     }//GEN-LAST:event_cambiarContrasenaActionPerformed
 
     /**

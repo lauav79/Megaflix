@@ -5,6 +5,7 @@
 package JFrames;
 
 import Funciones.funcionesBBDD;
+import java.awt.Color;
 import java.sql.SQLException;
 
 /**
@@ -12,7 +13,7 @@ import java.sql.SQLException;
  * @author imba
  */
 public class CambioContraseña extends javax.swing.JFrame {
-
+public static CambioContraseña c1= new CambioContraseña();
     /**
      * Creates new form CambioContraseña
      */
@@ -32,15 +33,15 @@ public class CambioContraseña extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         aceptarBoton = new javax.swing.JButton();
         cancelarBoton = new javax.swing.JButton();
-        nuevaContrasena = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        nuevaContrasena = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
         setResizable(false);
 
-        jPanel1.setBackground(new java.awt.Color(255, 153, 153));
+        jPanel1.setBackground(new java.awt.Color(0, 0, 0));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         aceptarBoton.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
@@ -77,8 +78,17 @@ public class CambioContraseña extends javax.swing.JFrame {
         });
         jPanel1.add(cancelarBoton, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 170, 93, -1));
 
+        jLabel1.setBackground(new java.awt.Color(153, 0, 0));
+        jLabel1.setOpaque(true);
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 410, 70));
+
+        jLabel2.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setText("Cambiar Contraseña:");
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 100, -1, -1));
+
         nuevaContrasena.setForeground(new java.awt.Color(204, 204, 204));
-        nuevaContrasena.setText("Introduce la nueva contraseña");
+        nuevaContrasena.setText("********");
         nuevaContrasena.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 nuevaContrasenaMouseClicked(evt);
@@ -87,20 +97,7 @@ public class CambioContraseña extends javax.swing.JFrame {
                 nuevaContrasenaMouseExited(evt);
             }
         });
-        nuevaContrasena.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nuevaContrasenaActionPerformed(evt);
-            }
-        });
-        jPanel1.add(nuevaContrasena, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 130, 260, -1));
-
-        jLabel1.setBackground(new java.awt.Color(153, 0, 0));
-        jLabel1.setOpaque(true);
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 410, 70));
-
-        jLabel2.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        jLabel2.setText("Cambiar Contraseña:");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 100, -1, -1));
+        jPanel1.add(nuevaContrasena, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 130, 250, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -132,36 +129,37 @@ public class CambioContraseña extends javax.swing.JFrame {
 
     }//GEN-LAST:event_cancelarBotonMouseExited
 
-    private void nuevaContrasenaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_nuevaContrasenaMouseClicked
-
-
-    }//GEN-LAST:event_nuevaContrasenaMouseClicked
-
-    private void nuevaContrasenaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_nuevaContrasenaMouseExited
-        // TODO add your handling code here:
-    }//GEN-LAST:event_nuevaContrasenaMouseExited
-
     private void cancelarBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarBotonActionPerformed
         dispose();
     }//GEN-LAST:event_cancelarBotonActionPerformed
 
-    private void nuevaContrasenaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nuevaContrasenaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_nuevaContrasenaActionPerformed
-
     private void aceptarBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aceptarBotonActionPerformed
-        try{
+        try {
             funcionesBBDD.loadDriver();
             funcionesBBDD.connect();
             funcionesBBDD.isConnected();
             funcionesBBDD.cambioContrasena(funcionesBBDD.user, nuevaContrasena.getText());
             funcionesBBDD.close();
             dispose();
-        }catch(SQLException e){
-            
+        } catch (SQLException e) {
+
         }
 
     }//GEN-LAST:event_aceptarBotonActionPerformed
+
+    private void nuevaContrasenaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_nuevaContrasenaMouseClicked
+        if (String.valueOf(nuevaContrasena.getPassword()).equals("********")) {
+            nuevaContrasena.setText("");
+            nuevaContrasena.setForeground(Color.black);
+        }
+    }//GEN-LAST:event_nuevaContrasenaMouseClicked
+
+    private void nuevaContrasenaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_nuevaContrasenaMouseExited
+        if (String.valueOf(nuevaContrasena.getPassword()).isEmpty()) {
+            nuevaContrasena.setText("********");
+            nuevaContrasena.setForeground(Color.gray);
+        }
+    }//GEN-LAST:event_nuevaContrasenaMouseExited
 
     /**
      * @param args the command line arguments
@@ -204,6 +202,6 @@ public class CambioContraseña extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField nuevaContrasena;
+    private javax.swing.JPasswordField nuevaContrasena;
     // End of variables declaration//GEN-END:variables
 }

@@ -5,25 +5,27 @@
 package JFrames;
 
 import Funciones.funcionesBBDD;
-import static Funciones.funcionesBBDD.close;
-
-
+import JFrames.*;
 /**
  *
  * @author imba
  */
 public class Principal extends javax.swing.JFrame {
-    public static Principal p1 = new Principal();
-    public static PaginaPeli pp1 = new PaginaPeli();
-    public static LoginJFrame l1 = new LoginJFrame();
-    public static PerfilJFrame perf1= new PerfilJFrame();
+public static Principal prin1 = new Principal();
 
-    
+
     /**
      * Creates new form Principal
      */
     public Principal() {
         initComponents();
+        String img1= Contenido.Contenido.con1.getImagen();
+        String img2= Contenido.Contenido.con2.getImagen();
+        String img3= Contenido.Contenido.con3.getImagen();
+        imagen1.setIcon(new javax.swing.ImageIcon(getClass().getResource(img1)));
+        imagen1.setIcon(new javax.swing.ImageIcon(getClass().getResource(img2)));
+        imagen1.setIcon(new javax.swing.ImageIcon(getClass().getResource(img3)));
+
     }
 
     /**
@@ -35,21 +37,24 @@ public class Principal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel2 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         cerrarSesion = new javax.swing.JButton();
         nombreContenido = new javax.swing.JTextField();
         perfil = new javax.swing.JButton();
         paginaPrincipal = new javax.swing.JButton();
         jComboBox1 = new javax.swing.JComboBox<>();
-        peli1 = new javax.swing.JPanel();
-        jPanel6 = new javax.swing.JPanel();
+        ver3 = new javax.swing.JButton();
         ver1 = new javax.swing.JButton();
         ver2 = new javax.swing.JButton();
-        ver3 = new javax.swing.JButton();
-        jPanel5 = new javax.swing.JPanel();
+        imagen1 = new javax.swing.JLabel();
+        imagen3 = new javax.swing.JLabel();
+        imagen2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Pagina Principal");
+
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(153, 153, 153));
 
@@ -118,86 +123,35 @@ public class Principal extends javax.swing.JFrame {
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
-        peli1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-
-        javax.swing.GroupLayout peli1Layout = new javax.swing.GroupLayout(peli1);
-        peli1.setLayout(peli1Layout);
-        peli1Layout.setHorizontalGroup(
-            peli1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        peli1Layout.setVerticalGroup(
-            peli1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-
-        jPanel6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-
-        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
-        jPanel6.setLayout(jPanel6Layout);
-        jPanel6Layout.setHorizontalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 198, Short.MAX_VALUE)
-        );
-        jPanel6Layout.setVerticalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 265, Short.MAX_VALUE)
-        );
-
-        ver1.setText("Ver");
-
-        ver2.setText("Ver");
+        jPanel2.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 630, -1));
 
         ver3.setText("Ver");
+        jPanel2.add(ver3, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 390, -1, -1));
 
-        jPanel5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        ver1.setText("Ver");
+        jPanel2.add(ver1, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 390, -1, -1));
 
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
+        ver2.setText("Ver");
+        jPanel2.add(ver2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 390, -1, -1));
+
+        imagen1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jPanel2.add(imagen1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, 170, 240));
+        jPanel2.add(imagen3, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 120, 170, 240));
+        jPanel2.add(imagen2, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 120, 170, 240));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(ver1, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
-                    .addComponent(peli1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(ver2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(29, 29, 29)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(ver3, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
-                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(22, 22, 22))
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(56, 56, 56)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(peli1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(ver1)
-                    .addComponent(ver2)
-                    .addComponent(ver3))
-                .addGap(348, 348, 348))
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(55, Short.MAX_VALUE))
         );
 
         pack();
@@ -206,18 +160,18 @@ public class Principal extends javax.swing.JFrame {
 
     private void cerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cerrarSesionActionPerformed
         dispose();
-        l1.setVisible(true);
+        LoginJFrame.login1.setVisible(true);
         funcionesBBDD.close();
     }//GEN-LAST:event_cerrarSesionActionPerformed
 
     private void perfilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_perfilActionPerformed
         dispose();
-        perf1.setVisible(true);
+        PerfilJFrame.perfil1.setVisible(true);
     }//GEN-LAST:event_perfilActionPerformed
 
     private void paginaPrincipalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_paginaPrincipalActionPerformed
         dispose(); // TODO add your handling code here:
-        p1.setVisible(true);
+        this.setVisible(true);
     }//GEN-LAST:event_paginaPrincipalActionPerformed
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
@@ -261,13 +215,14 @@ public class Principal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cerrarSesion;
+    private javax.swing.JLabel imagen1;
+    private javax.swing.JLabel imagen2;
+    private javax.swing.JLabel imagen3;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JTextField nombreContenido;
     private javax.swing.JButton paginaPrincipal;
-    private javax.swing.JPanel peli1;
     private javax.swing.JButton perfil;
     private javax.swing.JButton ver1;
     private javax.swing.JButton ver2;

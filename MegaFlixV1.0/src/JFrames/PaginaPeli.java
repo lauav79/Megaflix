@@ -13,9 +13,9 @@ import javax.swing.ImageIcon;
  * @author imba
  */
 public class PaginaPeli extends javax.swing.JFrame {
-    public static Principal prin1 = new Principal();
-    public static LoginJFrame log1 = new LoginJFrame();
-    public static PerfilJFrame perf1 = new PerfilJFrame();
+    public Principal prin1 = new Principal();
+    public LoginJFrame log1 = new LoginJFrame();
+    public PerfilJFrame perf1 = new PerfilJFrame();
 
     /**
      * Creates new form PaginaPeli

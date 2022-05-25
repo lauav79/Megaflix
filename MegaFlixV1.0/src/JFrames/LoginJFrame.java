@@ -14,9 +14,7 @@ import javax.swing.border.Border;
  * @author admin
  */
 public class LoginJFrame extends javax.swing.JFrame {
-
-    PerfilJFrame p2 = new PerfilJFrame();
-    public static Principal prin1 = new Principal();
+    public static LoginJFrame login1 = new LoginJFrame();
     int xMouse, yMouse, x, y;
 
     /**
@@ -26,9 +24,7 @@ public class LoginJFrame extends javax.swing.JFrame {
      * setContentPane(image);
      */
     public LoginJFrame() {
-
         initComponents();
-
     }
 
     @SuppressWarnings("unchecked")
@@ -202,7 +198,7 @@ public class LoginJFrame extends javax.swing.JFrame {
         funcionesBBDD.connect();
         funcionesBBDD.isConnected();
         funcionesBBDD.iniciosesion(user, pass);
-        prin1.setVisible(true);
+        Principal.prin1.setVisible(true);
         dispose();
 
 

@@ -1,5 +1,6 @@
 package Funciones;
 
+import Contenido.Contenido;
 import Persona.Usuario;
 import com.mysql.cj.PreparedQuery;
 import java.sql.DriverManager;
@@ -24,11 +25,11 @@ public class funcionesBBDD {
 
     // Configuración de la conexión a la base de datos
     private static final String DB_HOST = "localhost";
-    private static final String DB_PORT = "3306";
+    private static final String DB_PORT = "3307";
     private static final String DB_NAME = "megaflix";
     private static final String DB_URL = "jdbc:mysql://" + DB_HOST + ":" + DB_PORT + "/" + DB_NAME + "?serverTimezone=UTC";
     private static final String DB_USER = "root";
-    private static final String DB_PASS = "toor";
+    private static final String DB_PASS = "1231";
     private static final String DB_MSQ_CONN_OK = "CONEXIÓN CORRECTA";
     private static final String DB_MSQ_CONN_NO = "ERROR EN LA CONEXIÓN";
 
@@ -167,7 +168,6 @@ public class funcionesBBDD {
                 String pas = rs.getString(DB_USU_PAS);
                 String bio = rs.getString(DB_USU_BIO);
                 String tUser = rs.getString(DB_USU_TIP);
-
                 if (ali.equals(user) && pas.equals(pass)) {
                     user1.setAlias(ali);
                     user1.setBiogra(bio);
@@ -176,13 +176,57 @@ public class funcionesBBDD {
                     user1.setTipoUser(tUser);
                 }
             }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return user1;
+    }
+
+    public static void recogerContenido() {
+        try {
+            String SQL = "SELECT Imagen FROM contenido inner join usuariovaloracontenido on contenido.id= idContenido order by `Puntuacion` desc limit 3";
+            st = conn.createStatement();
+            ResultSet rs = st.executeQuery(SQL);
+            while (rs.next()) {
+                int id = rs.getInt(DB_CON_ID);
+                String nom = rs.getString(DB_CON_NOM);
+                String dir = rs.getString(DB_CON_DIR);
+                String des = rs.getString(DB_CON_DES);
+                String dur = rs.getString(DB_CON_DUR);
+                String tCon = rs.getString(DB_CON_TIP);
+                int tem = rs.getInt(DB_CON_TEM);
+                String img = rs.getString(DB_CON_IMG);
+                Contenido.con1.setId(id);
+                Contenido.con1.setNombre(nom);
+                Contenido.con1.setDescripcion(des);
+                Contenido.con1.setDirector(dir);
+                Contenido.con1.setDescripcion(des);
+                Contenido.con1.setDuracion(dur);
+                Contenido.con1.setTipoContenido(tCon);
+                Contenido.con1.setTemporadas(tem);
+                rs.next();
+                Contenido.con2.setId(id);
+                Contenido.con2.setNombre(nom);
+                Contenido.con2.setDescripcion(des);
+                Contenido.con2.setDirector(dir);
+                Contenido.con2.setDescripcion(des);
+                Contenido.con2.setDuracion(dur);
+                Contenido.con2.setTipoContenido(tCon);
+                Contenido.con2.setTemporadas(tem);
+                rs.next();
+                Contenido.con3.setId(id);
+                Contenido.con3.setNombre(nom);
+                Contenido.con3.setDescripcion(des);
+                Contenido.con3.setDirector(dir);
+                Contenido.con3.setDescripcion(des);
+                Contenido.con3.setDuracion(dur);
+                Contenido.con3.setTipoContenido(tCon);
+                Contenido.con3.setTemporadas(tem);
+            }
 
         } catch (SQLException ex) {
             ex.printStackTrace();
-
         }
-        return user1;
-
     }
 
     public static void cambioContrasena(String user, String pass) throws SQLException {
@@ -194,9 +238,7 @@ public class funcionesBBDD {
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-
     }
-
     public static void cambioUsuario() throws SQLException {
         try {
             int id = funcionesBBDD.idu;
@@ -204,7 +246,6 @@ public class funcionesBBDD {
             String SQL = "UPDATE `megaflix`.`usuarios` SET `Alias` = '" + us + "' WHERE (`id` = '" + id + "')";
             st = conn.createStatement();
             st.executeUpdate(SQL);
-
         } catch (SQLException ex) {
             ex.printStackTrace();
         }

@@ -9,14 +9,14 @@ import java.sql.SQLException;
 
 /**
  *
- * @author imba
+ * @author Ian
  */
-public class CambioContraseña extends javax.swing.JFrame {
+public class CambiarUsuario extends javax.swing.JFrame {
 
     /**
-     * Creates new form CambioContraseña
+     * Creates new form CambiarUsuario
      */
-    public CambioContraseña() {
+    public CambiarUsuario() {
         initComponents();
     }
 
@@ -32,13 +32,11 @@ public class CambioContraseña extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         aceptarBoton = new javax.swing.JButton();
         cancelarBoton = new javax.swing.JButton();
-        nuevaContrasena = new javax.swing.JTextField();
+        nuevoUsuario = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        TxcambiarUser = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setUndecorated(true);
-        setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(255, 153, 153));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -77,30 +75,30 @@ public class CambioContraseña extends javax.swing.JFrame {
         });
         jPanel1.add(cancelarBoton, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 170, 93, -1));
 
-        nuevaContrasena.setForeground(new java.awt.Color(204, 204, 204));
-        nuevaContrasena.setText("Introduce la nueva contraseña");
-        nuevaContrasena.addMouseListener(new java.awt.event.MouseAdapter() {
+        nuevoUsuario.setForeground(new java.awt.Color(204, 204, 204));
+        nuevoUsuario.setText("Introduce la nueva contraseña");
+        nuevoUsuario.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                nuevaContrasenaMouseClicked(evt);
+                nuevoUsuarioMouseClicked(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                nuevaContrasenaMouseExited(evt);
+                nuevoUsuarioMouseExited(evt);
             }
         });
-        nuevaContrasena.addActionListener(new java.awt.event.ActionListener() {
+        nuevoUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nuevaContrasenaActionPerformed(evt);
+                nuevoUsuarioActionPerformed(evt);
             }
         });
-        jPanel1.add(nuevaContrasena, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 130, 260, -1));
+        jPanel1.add(nuevoUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 130, 260, -1));
 
         jLabel1.setBackground(new java.awt.Color(153, 0, 0));
         jLabel1.setOpaque(true);
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 410, 70));
 
-        jLabel2.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        jLabel2.setText("Cambiar Contraseña:");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 100, -1, -1));
+        TxcambiarUser.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        TxcambiarUser.setText("Cambiar Nombre de usuario:");
+        jPanel1.add(TxcambiarUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 100, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -110,7 +108,7 @@ public class CambioContraseña extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 295, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
         );
 
         pack();
@@ -124,6 +122,19 @@ public class CambioContraseña extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_aceptarBotonMouseExited
 
+    private void aceptarBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aceptarBotonActionPerformed
+        try{
+            funcionesBBDD.loadDriver();
+            funcionesBBDD.connect();
+            funcionesBBDD.isConnected();
+            funcionesBBDD.cambioUsuario();
+            funcionesBBDD.close();
+            dispose();
+        }catch(SQLException e){
+
+        }
+    }//GEN-LAST:event_aceptarBotonActionPerformed
+
     private void cancelarBotonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cancelarBotonMouseEntered
         // TODO add your handling code here:
     }//GEN-LAST:event_cancelarBotonMouseEntered
@@ -132,36 +143,21 @@ public class CambioContraseña extends javax.swing.JFrame {
 
     }//GEN-LAST:event_cancelarBotonMouseExited
 
-    private void nuevaContrasenaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_nuevaContrasenaMouseClicked
-
-
-    }//GEN-LAST:event_nuevaContrasenaMouseClicked
-
-    private void nuevaContrasenaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_nuevaContrasenaMouseExited
-        // TODO add your handling code here:
-    }//GEN-LAST:event_nuevaContrasenaMouseExited
-
     private void cancelarBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarBotonActionPerformed
         dispose();
     }//GEN-LAST:event_cancelarBotonActionPerformed
 
-    private void nuevaContrasenaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nuevaContrasenaActionPerformed
+    private void nuevoUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_nuevoUsuarioMouseClicked
+        
+    }//GEN-LAST:event_nuevoUsuarioMouseClicked
+
+    private void nuevoUsuarioMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_nuevoUsuarioMouseExited
         // TODO add your handling code here:
-    }//GEN-LAST:event_nuevaContrasenaActionPerformed
+    }//GEN-LAST:event_nuevoUsuarioMouseExited
 
-    private void aceptarBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aceptarBotonActionPerformed
-        try{
-            funcionesBBDD.loadDriver();
-            funcionesBBDD.connect();
-            funcionesBBDD.isConnected();
-            funcionesBBDD.cambioContrasena(funcionesBBDD.user, nuevaContrasena.getText());
-            funcionesBBDD.close();
-            dispose();
-        }catch(SQLException e){
-            
-        }
-
-    }//GEN-LAST:event_aceptarBotonActionPerformed
+    private void nuevoUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nuevoUsuarioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_nuevoUsuarioActionPerformed
 
     /**
      * @param args the command line arguments
@@ -180,30 +176,30 @@ public class CambioContraseña extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CambioContraseña.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CambiarUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CambioContraseña.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CambiarUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CambioContraseña.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CambiarUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CambioContraseña.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CambiarUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new CambioContraseña().setVisible(true);
+                new CambiarUsuario().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel TxcambiarUser;
     private javax.swing.JButton aceptarBoton;
     private javax.swing.JButton cancelarBoton;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField nuevaContrasena;
+    private javax.swing.JTextField nuevoUsuario;
     // End of variables declaration//GEN-END:variables
 }

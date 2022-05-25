@@ -1,5 +1,6 @@
 package Funciones;
 
+import Persona.Usuario;
 import com.mysql.cj.PreparedQuery;
 import java.sql.DriverManager;
 import java.sql.Connection;
@@ -9,18 +10,25 @@ import java.sql.ResultSet;
 
 public class funcionesBBDD {
 
-    public static String user = "admin";
+    //Valores donde recogeremos todos los valores del usuario
+    public static String user = "";
+    public static int idu;
+    public static String nCompleto = "";
+    public static String bio = "";
+    public static String TUser = "";
+    public static String pass = "";
+
+    //Definicion de las  clases que ejecutaremos en la conexion a la BD
     private static Connection conn = null;
     private static Statement st = null;
 
-
     // Configuración de la conexión a la base de datos
     private static final String DB_HOST = "localhost";
-    private static final String DB_PORT = "3307";
+    private static final String DB_PORT = "3306";
     private static final String DB_NAME = "megaflix";
     private static final String DB_URL = "jdbc:mysql://" + DB_HOST + ":" + DB_PORT + "/" + DB_NAME + "?serverTimezone=UTC";
     private static final String DB_USER = "root";
-    private static final String DB_PASS = "1231";
+    private static final String DB_PASS = "toor";
     private static final String DB_MSQ_CONN_OK = "CONEXIÓN CORRECTA";
     private static final String DB_MSQ_CONN_NO = "ERROR EN LA CONEXIÓN";
 
@@ -52,7 +60,7 @@ public class funcionesBBDD {
     //Configuracion de la tabla usuarios
     private static final String DB_USU = "usuarios";
     private static final String DB_USU_SELECT = "SELECT * FROM " + DB_USU;
-    private static final String DB_USU_ID = "Id";
+    private static final String DB_USU_ID = "id";
     private static final String DB_USU_NOM = "Nombre";
     private static final String DB_USU_ALI = "Alias";
     private static final String DB_USU_PAS = "passwd";
@@ -60,7 +68,7 @@ public class funcionesBBDD {
     private static final String DB_USU_TIP = "TipoUsuario";
     private static final String DB_USU_EMA = "email";
     private static final String DB_USU_EDA = "edad";
-    private static final String DB_UAP_SELECT = "SELECT " + DB_USU_ALI + "," + DB_USU_PAS + " FROM " + DB_USU;
+    private static final String DB_UAP_SELECT = "SELECT * " + "FROM " + DB_USU;
 
     //Configuracion de la tabla usuariovaloracontenido
     private static final String DB_UVC = "usuariovalocacontenido";
@@ -146,56 +154,57 @@ public class funcionesBBDD {
         }
     }
 
-    public static boolean iniciosesion(String user, String pass) {
-        boolean acceso = false;
-
+    public static Usuario iniciosesion(String user, String pass) {
+        Usuario user1 = new Usuario();
         try {
             String SQL = DB_UAP_SELECT;
             st = conn.createStatement();
             ResultSet rs = st.executeQuery(SQL);
             while (rs.next()) {
+                int idu = rs.getInt(DB_USU_ID);
                 String ali = rs.getString(DB_USU_ALI);
+                String nom = rs.getString(DB_USU_NOM);
                 String pas = rs.getString(DB_USU_PAS);
+                String bio = rs.getString(DB_USU_BIO);
+                String tUser = rs.getString(DB_USU_TIP);
+
                 if (ali.equals(user) && pas.equals(pass)) {
-                    acceso = true;
-                    funcionesBBDD.user = user;
+                    user1.setAlias(ali);
+                    user1.setBiogra(bio);
+                    user1.setId(idu);
+                    user1.setPassw(pas);
+                    user1.setTipoUser(tUser);
                 }
             }
-
-            return acceso;
 
         } catch (SQLException ex) {
             ex.printStackTrace();
 
         }
-        return acceso;
+        return user1;
 
-    }
-
-    public static void datosUsuario(String user) {
-        try {
-            String SQL = DB_USU_SELECT;
-            st = conn.createStatement();
-            ResultSet rs = st.executeQuery(SQL);
-            while (rs.next()) {
-                String ali = rs.getString(DB_USU_ALI);
-                String pas = rs.getString(DB_USU_PAS);
-                String bio = rs.getString(DB_USU_BIO);
-                String ema = rs.getString(DB_USU_EMA);
-                int age = rs.getInt(DB_USU_EDA);
-
-            }
-        } catch (Exception s) {
-        }
     }
 
     public static void cambioContrasena(String user, String pass) throws SQLException {
         try {
-            String SQL = "UPDATE `megaflix`.`usuarios` SET `passwd` = '" + pass  + "' WHERE (`Alias` = '" + user + "')";
+            String SQL = "UPDATE `megaflix`.`usuarios` SET `passwd` = '" + pass + "' WHERE (`Alias` = '" + user + "')";
             st = conn.createStatement();
             st.executeUpdate(SQL);
 
-            
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+    }
+
+    public static void cambioUsuario() throws SQLException {
+        try {
+            int id = funcionesBBDD.idu;
+            String us = funcionesBBDD.user;
+            String SQL = "UPDATE `megaflix`.`usuarios` SET `Alias` = '" + us + "' WHERE (`id` = '" + id + "')";
+            st = conn.createStatement();
+            st.executeUpdate(SQL);
+
         } catch (SQLException ex) {
             ex.printStackTrace();
         }

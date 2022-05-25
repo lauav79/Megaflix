@@ -7,6 +7,7 @@ package JFrames;
 import Funciones.funciones;
 import Funciones.funcionesBBDD;
 import javax.swing.ImageIcon;
+import Persona.Usuario;
 
 /**
  *
@@ -26,10 +27,9 @@ public class PerfilJFrame extends javax.swing.JFrame {
      */
     public PerfilJFrame() {
 
-        funciones image = new funciones();
-        image.setImage("/IMG/FondoLogin.jpg");
-        setContentPane(image);
+        
         initComponents();
+        nombreUser.setText(Usuario.getAlias());
     }
 
     /**
@@ -43,38 +43,27 @@ public class PerfilJFrame extends javax.swing.JFrame {
 
         seleccionContenido = new javax.swing.ButtonGroup();
         jPanel4 = new javax.swing.JPanel();
-        cerrarSesion = new javax.swing.JButton();
         nombreContenido = new javax.swing.JTextField();
-        perfil = new javax.swing.JButton();
         paginaPrincipal = new javax.swing.JButton();
+        cerrarSesion = new javax.swing.JButton();
         jComboBox1 = new javax.swing.JComboBox<>();
         cambiarContrasena = new javax.swing.JButton();
         eliminarCuenta = new javax.swing.JButton();
         cambiarAlias = new javax.swing.JButton();
+        nombreUser = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         imagenColorFondo = new javax.swing.JLabel();
         imagenColorFondo2 = new javax.swing.JLabel();
+        perfil = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(0, 0, 0));
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        setMaximumSize(new java.awt.Dimension(800, 500));
         setUndecorated(true);
-        setPreferredSize(new java.awt.Dimension(800, 500));
 
+        jPanel4.setPreferredSize(new java.awt.Dimension(840, 500));
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        cerrarSesion.setBackground(new java.awt.Color(0, 0, 0));
-        cerrarSesion.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        cerrarSesion.setForeground(new java.awt.Color(255, 255, 255));
-        cerrarSesion.setText("Cerrar Sesión");
-        cerrarSesion.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cerrarSesionActionPerformed(evt);
-            }
-        });
-        jPanel4.add(cerrarSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 0, 120, 60));
 
         nombreContenido.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         nombreContenido.addActionListener(new java.awt.event.ActionListener() {
@@ -83,18 +72,6 @@ public class PerfilJFrame extends javax.swing.JFrame {
             }
         });
         jPanel4.add(nombreContenido, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 10, 280, 30));
-
-        perfil.setBackground(new java.awt.Color(0, 0, 0));
-        perfil.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        perfil.setForeground(new java.awt.Color(255, 255, 255));
-        perfil.setText("Perfil");
-        perfil.setBorderPainted(false);
-        perfil.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                perfilActionPerformed(evt);
-            }
-        });
-        jPanel4.add(perfil, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 0, 110, 60));
 
         paginaPrincipal.setBackground(new java.awt.Color(0, 0, 0));
         paginaPrincipal.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
@@ -107,6 +84,17 @@ public class PerfilJFrame extends javax.swing.JFrame {
             }
         });
         jPanel4.add(paginaPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 60));
+
+        cerrarSesion.setBackground(new java.awt.Color(0, 0, 0));
+        cerrarSesion.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        cerrarSesion.setForeground(new java.awt.Color(255, 255, 255));
+        cerrarSesion.setText("Cerrar Sesión");
+        cerrarSesion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cerrarSesionActionPerformed(evt);
+            }
+        });
+        jPanel4.add(cerrarSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 0, 130, 60));
 
         jComboBox1.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "Peliculas", "Series" }));
@@ -133,10 +121,11 @@ public class PerfilJFrame extends javax.swing.JFrame {
         cambiarAlias.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         cambiarAlias.setText("Cambiar Nombre Usuario");
         jPanel4.add(cambiarAlias, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 380, 220, -1));
+        jPanel4.add(nombreUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, 220, 20));
 
         jLabel1.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/fotoPerfil2.jpg"))); // NOI18N
-        jPanel4.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, 220, -1));
+        jPanel4.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 110, 220, -1));
         jPanel4.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 830, 10));
 
         imagenColorFondo.setBackground(new java.awt.Color(153, 0, 0));
@@ -157,7 +146,19 @@ public class PerfilJFrame extends javax.swing.JFrame {
                 imagenColorFondo2MousePressed(evt);
             }
         });
-        jPanel4.add(imagenColorFondo2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 830, 60));
+        jPanel4.add(imagenColorFondo2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 850, 60));
+
+        perfil.setBackground(new java.awt.Color(0, 0, 0));
+        perfil.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        perfil.setForeground(new java.awt.Color(255, 255, 255));
+        perfil.setText("Perfil");
+        perfil.setBorderPainted(false);
+        perfil.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                perfilActionPerformed(evt);
+            }
+        });
+        jPanel4.add(perfil, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 0, 110, 60));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -165,12 +166,11 @@ public class PerfilJFrame extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, 0)
-                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(0, 0, 0))
+                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, 850, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, 520, Short.MAX_VALUE)
         );
 
         pack();
@@ -265,6 +265,7 @@ public class PerfilJFrame extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTextField nombreContenido;
+    private javax.swing.JLabel nombreUser;
     private javax.swing.JButton paginaPrincipal;
     private javax.swing.JButton perfil;
     private javax.swing.ButtonGroup seleccionContenido;

@@ -20,8 +20,10 @@ public class LoginJFrame extends javax.swing.JFrame {
     int xMouse, yMouse, x, y;
 
     /**
-     * Creates new form LoginJFrame funciones image = new funciones();
-     * image.setImage("/IMG/FondoLogin.jpg"); setContentPane(image);
+     * Creates new form LoginJFrame funciones image = new funciones(); funciones
+     * image = new funciones(); image.setImage("/IMG/FondoLogin.jpg");
+     * setContentPane(image); image.setImage("/IMG/FondoLogin.jpg");
+     * setContentPane(image);
      */
     public LoginJFrame() {
 
@@ -48,10 +50,8 @@ public class LoginJFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Login");
-        setMaximumSize(new java.awt.Dimension(800, 500));
         setMinimumSize(new java.awt.Dimension(800, 500));
         setUndecorated(true);
-        setPreferredSize(new java.awt.Dimension(800, 500));
         setResizable(false);
         setSize(new java.awt.Dimension(800, 500));
 
@@ -202,12 +202,9 @@ public class LoginJFrame extends javax.swing.JFrame {
         funcionesBBDD.connect();
         funcionesBBDD.isConnected();
         funcionesBBDD.iniciosesion(user, pass);
+        prin1.setVisible(true);
+        dispose();
 
-        if (funcionesBBDD.iniciosesion(user, pass) == true) {
-            prin1.setVisible(true);
-            dispose();
-
-        }
 
     }//GEN-LAST:event_iniciarSesionBotonActionPerformed
 

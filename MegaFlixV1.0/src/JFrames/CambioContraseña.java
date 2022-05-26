@@ -5,6 +5,7 @@
 package JFrames;
 
 import Funciones.funcionesBBDD;
+import Persona.Usuario;
 import java.awt.Color;
 import java.sql.SQLException;
 
@@ -138,7 +139,7 @@ public static CambioContraseña c1= new CambioContraseña();
             funcionesBBDD.loadDriver();
             funcionesBBDD.connect();
             funcionesBBDD.isConnected();
-            funcionesBBDD.cambioContrasena(funcionesBBDD.user, nuevaContrasena.getText());
+            funcionesBBDD.cambioContrasena(Usuario.getAlias(), nuevaContrasena.getPassword().toString());
             funcionesBBDD.close();
             dispose();
         } catch (SQLException e) {

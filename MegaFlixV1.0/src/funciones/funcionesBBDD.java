@@ -12,12 +12,6 @@ import java.sql.ResultSet;
 public class funcionesBBDD {
 
     //Valores donde recogeremos todos los valores del usuario
-    public static String user = "";
-    public static int idu;
-    public static String nCompleto = "";
-    public static String bio = "";
-    public static String TUser = "";
-    public static String pass = "";
 
     //Definicion de las  clases que ejecutaremos en la conexion a la BD
     private static Connection conn = null;
@@ -182,53 +176,7 @@ public class funcionesBBDD {
         return user1;
     }
 
-    public static void recogerContenido() {
-        try {
-            String SQL = "SELECT Imagen FROM contenido inner join usuariovaloracontenido on contenido.id= idContenido order by `Puntuacion` desc limit 3";
-            st = conn.createStatement();
-            ResultSet rs = st.executeQuery(SQL);
-            while (rs.next()) {
-                int id = rs.getInt(DB_CON_ID);
-                String nom = rs.getString(DB_CON_NOM);
-                String dir = rs.getString(DB_CON_DIR);
-                String des = rs.getString(DB_CON_DES);
-                String dur = rs.getString(DB_CON_DUR);
-                String tCon = rs.getString(DB_CON_TIP);
-                int tem = rs.getInt(DB_CON_TEM);
-                String img = rs.getString(DB_CON_IMG);
-                Contenido.con1.setId(id);
-                Contenido.con1.setNombre(nom);
-                Contenido.con1.setDescripcion(des);
-                Contenido.con1.setDirector(dir);
-                Contenido.con1.setDescripcion(des);
-                Contenido.con1.setDuracion(dur);
-                Contenido.con1.setTipoContenido(tCon);
-                Contenido.con1.setTemporadas(tem);
-                rs.next();
-                Contenido.con2.setId(id);
-                Contenido.con2.setNombre(nom);
-                Contenido.con2.setDescripcion(des);
-                Contenido.con2.setDirector(dir);
-                Contenido.con2.setDescripcion(des);
-                Contenido.con2.setDuracion(dur);
-                Contenido.con2.setTipoContenido(tCon);
-                Contenido.con2.setTemporadas(tem);
-                rs.next();
-                Contenido.con3.setId(id);
-                Contenido.con3.setNombre(nom);
-                Contenido.con3.setDescripcion(des);
-                Contenido.con3.setDirector(dir);
-                Contenido.con3.setDescripcion(des);
-                Contenido.con3.setDuracion(dur);
-                Contenido.con3.setTipoContenido(tCon);
-                Contenido.con3.setTemporadas(tem);
-            }
-
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-    }
-
+    
     public static void cambioContrasena(String user, String pass) throws SQLException {
         try {
             String SQL = "UPDATE `megaflix`.`usuarios` SET `passwd` = '" + pass + "' WHERE (`Alias` = '" + user + "')";
@@ -239,11 +187,11 @@ public class funcionesBBDD {
             ex.printStackTrace();
         }
     }
-    public static void cambioUsuario() throws SQLException {
+    public static void cambioUsuario(String n) throws SQLException {
         try {
-            int id = funcionesBBDD.idu;
-            String us = funcionesBBDD.user;
-            String SQL = "UPDATE `megaflix`.`usuarios` SET `Alias` = '" + us + "' WHERE (`id` = '" + id + "')";
+            int id = Usuario.getId();
+            String us = n;
+            String SQL = "UPDATE `megaflix`.`usuarios` SET `Alias` = '" + us + "' WHERE (`Id` = '" + id + "')";
             st = conn.createStatement();
             st.executeUpdate(SQL);
         } catch (SQLException ex) {

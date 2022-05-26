@@ -89,7 +89,7 @@ public class PerfilJFrame extends javax.swing.JFrame {
                 cerrarSesionActionPerformed(evt);
             }
         });
-        jPanel4.add(cerrarSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 0, 130, 60));
+        jPanel4.add(cerrarSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 0, 130, 60));
 
         jComboBox1.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "Peliculas", "Series" }));

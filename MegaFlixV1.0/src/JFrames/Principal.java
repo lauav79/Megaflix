@@ -4,27 +4,29 @@
  */
 package JFrames;
 
+import Contenido.Contenido;
+import static Contenido.Contenido.con1;
+import static Contenido.Contenido.con2;
+import static Contenido.Contenido.con3;
 import Funciones.funcionesBBDD;
 import JFrames.*;
+import java.awt.Color;
+import javax.swing.ImageIcon;
+
 /**
  *
  * @author imba
  */
 public class Principal extends javax.swing.JFrame {
-public static Principal prin1 = new Principal();
-
+    public static Principal prin1 = new Principal();
+    static int xMouse,yMouse,x,y;
 
     /**
      * Creates new form Principal
      */
     public Principal() {
+
         initComponents();
-        String img1= Contenido.Contenido.con1.getImagen();
-        String img2= Contenido.Contenido.con2.getImagen();
-        String img3= Contenido.Contenido.con3.getImagen();
-        imagen1.setIcon(new javax.swing.ImageIcon(getClass().getResource(img1)));
-        imagen1.setIcon(new javax.swing.ImageIcon(getClass().getResource(img2)));
-        imagen1.setIcon(new javax.swing.ImageIcon(getClass().getResource(img3)));
 
     }
 
@@ -38,125 +40,194 @@ public static Principal prin1 = new Principal();
     private void initComponents() {
 
         jPanel2 = new javax.swing.JPanel();
-        jPanel1 = new javax.swing.JPanel();
-        cerrarSesion = new javax.swing.JButton();
-        nombreContenido = new javax.swing.JTextField();
-        perfil = new javax.swing.JButton();
-        paginaPrincipal = new javax.swing.JButton();
-        jComboBox1 = new javax.swing.JComboBox<>();
         ver3 = new javax.swing.JButton();
         ver1 = new javax.swing.JButton();
         ver2 = new javax.swing.JButton();
         imagen1 = new javax.swing.JLabel();
         imagen3 = new javax.swing.JLabel();
         imagen2 = new javax.swing.JLabel();
+        nombreContenido = new javax.swing.JTextField();
+        perfil = new javax.swing.JButton();
+        paginaPrincipal = new javax.swing.JButton();
+        jComboBox1 = new javax.swing.JComboBox<>();
+        cerrarSesion = new javax.swing.JButton();
+        cerrarPrograma = new javax.swing.JLabel();
+        imagenColorFondo2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Pagina Principal");
-
-        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jPanel1.setBackground(new java.awt.Color(153, 153, 153));
-
-        cerrarSesion.setBackground(new java.awt.Color(204, 0, 0));
-        cerrarSesion.setText("Cerrar Sesión");
-        cerrarSesion.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cerrarSesionActionPerformed(evt);
+        setUndecorated(true);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
             }
         });
 
-        perfil.setBackground(new java.awt.Color(204, 0, 0));
-        perfil.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        ver3.setText("Ver");
+        ver3.setBorder(null);
+        jPanel2.add(ver3, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 390, 70, -1));
+
+        ver1.setText("Ver");
+        ver1.setBorder(null);
+        jPanel2.add(ver1, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 390, 70, -1));
+
+        ver2.setText("Ver");
+        ver2.setBorder(null);
+        ver2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ver2ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(ver2, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 390, 80, -1));
+
+        imagen1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jPanel2.add(imagen1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 140, 170, 240));
+        jPanel2.add(imagen3, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 140, 170, 240));
+        jPanel2.add(imagen2, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 140, 170, 240));
+
+        nombreContenido.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        nombreContenido.setBorder(null);
+        nombreContenido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nombreContenidoActionPerformed(evt);
+            }
+        });
+        jPanel2.add(nombreContenido, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 10, 280, 30));
+
+        perfil.setBackground(new java.awt.Color(0, 0, 0));
+        perfil.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        perfil.setForeground(new java.awt.Color(255, 255, 255));
         perfil.setText("Perfil");
+        perfil.setBorder(null);
         perfil.setBorderPainted(false);
         perfil.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 perfilActionPerformed(evt);
             }
         });
+        jPanel2.add(perfil, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 0, 110, 50));
 
-        paginaPrincipal.setBackground(new java.awt.Color(204, 0, 0));
-        paginaPrincipal.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        paginaPrincipal.setBackground(new java.awt.Color(0, 0, 0));
+        paginaPrincipal.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        paginaPrincipal.setForeground(new java.awt.Color(255, 255, 255));
         paginaPrincipal.setText("Pagina Principal");
+        paginaPrincipal.setBorder(null);
         paginaPrincipal.setBorderPainted(false);
         paginaPrincipal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 paginaPrincipalActionPerformed(evt);
             }
         });
+        jPanel2.add(paginaPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 130, 50));
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "Peliculas", "Series" }));
+        jComboBox1.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Peliculas", "Series" }));
+        jComboBox1.setBorder(null);
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox1ActionPerformed(evt);
             }
         });
+        jPanel2.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 10, -1, 30));
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(paginaPrincipal)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(perfil, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(nombreContenido)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(cerrarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(paginaPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(perfil, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(nombreContenido, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(cerrarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
+        cerrarSesion.setBackground(new java.awt.Color(0, 0, 0));
+        cerrarSesion.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        cerrarSesion.setForeground(new java.awt.Color(255, 255, 255));
+        cerrarSesion.setText("Cerrar Sesión");
+        cerrarSesion.setBorder(null);
+        cerrarSesion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cerrarSesionActionPerformed(evt);
+            }
+        });
+        jPanel2.add(cerrarSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 0, 130, 50));
 
-        jPanel2.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 630, -1));
+        cerrarPrograma.setBackground(new java.awt.Color(153, 0, 0));
+        cerrarPrograma.setFont(new java.awt.Font("Roboto", 0, 24)); // NOI18N
+        cerrarPrograma.setForeground(new java.awt.Color(255, 255, 255));
+        cerrarPrograma.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        cerrarPrograma.setText("X");
+        cerrarPrograma.setOpaque(true);
+        cerrarPrograma.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cerrarProgramaMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                cerrarProgramaMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                cerrarProgramaMouseExited(evt);
+            }
+        });
+        jPanel2.add(cerrarPrograma, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 0, 50, 50));
 
-        ver3.setText("Ver");
-        jPanel2.add(ver3, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 390, -1, -1));
-
-        ver1.setText("Ver");
-        jPanel2.add(ver1, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 390, -1, -1));
-
-        ver2.setText("Ver");
-        jPanel2.add(ver2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 390, -1, -1));
-
-        imagen1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jPanel2.add(imagen1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, 170, 240));
-        jPanel2.add(imagen3, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 120, 170, 240));
-        jPanel2.add(imagen2, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 120, 170, 240));
+        imagenColorFondo2.setBackground(new java.awt.Color(153, 0, 0));
+        imagenColorFondo2.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        imagenColorFondo2.setOpaque(true);
+        imagenColorFondo2.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                imagenColorFondo2MouseDragged(evt);
+            }
+        });
+        imagenColorFondo2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                imagenColorFondo2MousePressed(evt);
+            }
+        });
+        jPanel2.add(imagenColorFondo2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 850, 50));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(55, Short.MAX_VALUE))
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 641, Short.MAX_VALUE)
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+    }//GEN-LAST:event_formWindowActivated
+
+    private void ver2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ver2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ver2ActionPerformed
+
+    private void imagenColorFondo2MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_imagenColorFondo2MouseDragged
+        int x = evt.getXOnScreen();
+        int y = evt.getYOnScreen();
+
+        this.setLocation(x - xMouse, y - yMouse);
+    }//GEN-LAST:event_imagenColorFondo2MouseDragged
+
+    private void imagenColorFondo2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_imagenColorFondo2MousePressed
+        xMouse = evt.getX();
+        yMouse = evt.getY();
+    }//GEN-LAST:event_imagenColorFondo2MousePressed
+
+    private void nombreContenidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nombreContenidoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_nombreContenidoActionPerformed
+
+    private void perfilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_perfilActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_perfilActionPerformed
+
+    private void paginaPrincipalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_paginaPrincipalActionPerformed
+        dispose(); // TODO add your handling code here:
+        Principal.prin1.setVisible(true);
+    }//GEN-LAST:event_paginaPrincipalActionPerformed
+
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox1ActionPerformed
 
     private void cerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cerrarSesionActionPerformed
         dispose();
@@ -164,19 +235,19 @@ public static Principal prin1 = new Principal();
         funcionesBBDD.close();
     }//GEN-LAST:event_cerrarSesionActionPerformed
 
-    private void perfilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_perfilActionPerformed
-        dispose();
-        PerfilJFrame.perfil1.setVisible(true);
-    }//GEN-LAST:event_perfilActionPerformed
+    private void cerrarProgramaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cerrarProgramaMouseClicked
+        System.exit(0);// TODO add your handling code here:
+    }//GEN-LAST:event_cerrarProgramaMouseClicked
 
-    private void paginaPrincipalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_paginaPrincipalActionPerformed
-        dispose(); // TODO add your handling code here:
-        this.setVisible(true);
-    }//GEN-LAST:event_paginaPrincipalActionPerformed
+    private void cerrarProgramaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cerrarProgramaMouseEntered
+        cerrarPrograma.setBackground(new Color(230, 0, 0));
+        cerrarPrograma.setForeground(Color.black);
+    }//GEN-LAST:event_cerrarProgramaMouseEntered
 
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox1ActionPerformed
+    private void cerrarProgramaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cerrarProgramaMouseExited
+        cerrarPrograma.setBackground(new Color(153, 0, 0));
+        cerrarPrograma.setForeground(Color.white);
+    }//GEN-LAST:event_cerrarProgramaMouseExited
 
     /**
      * @param args the command line arguments
@@ -214,12 +285,13 @@ public static Principal prin1 = new Principal();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel cerrarPrograma;
     private javax.swing.JButton cerrarSesion;
-    private javax.swing.JLabel imagen1;
-    private javax.swing.JLabel imagen2;
-    private javax.swing.JLabel imagen3;
+    private static javax.swing.JLabel imagen1;
+    private static javax.swing.JLabel imagen2;
+    private static javax.swing.JLabel imagen3;
+    private javax.swing.JLabel imagenColorFondo2;
     private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JTextField nombreContenido;
     private javax.swing.JButton paginaPrincipal;

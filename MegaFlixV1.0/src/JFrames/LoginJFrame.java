@@ -4,6 +4,7 @@
  */
 package JFrames;
 
+import Contenido.Contenido;
 import Funciones.funciones;
 import Funciones.funcionesBBDD;
 import java.awt.Color;

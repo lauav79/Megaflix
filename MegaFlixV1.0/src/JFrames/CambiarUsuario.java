@@ -5,6 +5,7 @@
 package JFrames;
 
 import Funciones.funcionesBBDD;
+import Persona.Usuario;
 import java.sql.SQLException;
 
 /**
@@ -127,7 +128,7 @@ public class CambiarUsuario extends javax.swing.JFrame {
             funcionesBBDD.loadDriver();
             funcionesBBDD.connect();
             funcionesBBDD.isConnected();
-            funcionesBBDD.cambioUsuario();
+            funcionesBBDD.cambioUsuario(Usuario.getAlias());
             funcionesBBDD.close();
             dispose();
         }catch(SQLException e){

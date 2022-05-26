@@ -1,26 +1,36 @@
 package JFrames;
+import com.mysql.cj.xdevapi.Statement;
 import java.sql.Connection;
 import funciones.funcionesBBDD;
 import java.awt.Image;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import javax.swing.ImageIcon;
-import java.sql.Blob;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 /**
  *
  * @author Carmen
  */
 public class PrincipalJFrame extends javax.swing.JFrame {
-
-    /**
+        DefaultTableModel modelo;
+ 
+        PreparedStatement st;                                                            
+    /**                                                           
      * Creates new form PrincipalJFrame
      */
-    public PrincipalJFrame() {
+    public PrincipalJFrame() {                                                             
         initComponents();
+        panelTabla.setVisible(false);
+        Tabla.setVisible(false);
         this.setLocationRelativeTo(null);
+        this.setTitle("Portada");
         //Conectar base de datos
         Connection conec= funcionesBBDD.conectar();
+
         // Primera Consulta
         String sql1="Select Imagen from usuariovaloracontenido join contenido on idContenido=contenido.Id where Puntuacion=(Select max(Puntuacion) from usuariovaloracontenido)";
         try {
@@ -55,8 +65,7 @@ public class PrincipalJFrame extends javax.swing.JFrame {
             System.out.println("No se ha encontrado la imagen");
         }
     }
-    
-    
+ 
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -80,6 +89,9 @@ public class PrincipalJFrame extends javax.swing.JFrame {
         rbSerie = new javax.swing.JRadioButton();
         rbPeli = new javax.swing.JRadioButton();
         bBuscar = new javax.swing.JButton();
+        panelTabla = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        Tabla = new javax.swing.JTable();
         jMenuBar1 = new javax.swing.JMenuBar();
         mPortada = new javax.swing.JMenu();
         mContenido = new javax.swing.JMenu();
@@ -148,43 +160,73 @@ public class PrincipalJFrame extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        Tabla.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Nombre"
+            }
+        ));
+        jScrollPane1.setViewportView(Tabla);
+
+        javax.swing.GroupLayout panelTablaLayout = new javax.swing.GroupLayout(panelTabla);
+        panelTabla.setLayout(panelTablaLayout);
+        panelTablaLayout.setHorizontalGroup(
+            panelTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelTablaLayout.createSequentialGroup()
+                .addGap(67, 67, 67)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 648, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(20, Short.MAX_VALUE))
+        );
+        panelTablaLayout.setVerticalGroup(
+            panelTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelTablaLayout.createSequentialGroup()
+                .addGap(0, 53, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(31, 31, 31)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(panelBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addComponent(panelTabla, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                        .addGap(83, 83, 83)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(img1, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(32, 32, 32)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(JButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(img2, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(img3, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(48, Short.MAX_VALUE))
+                            .addComponent(panelBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(img1, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(32, 32, 32)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(JButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(img2, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(img3, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(panelBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(panelTabla, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(img3, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(img2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(img1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(img3, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(img2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(img1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(248, 248, 248)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(JButton2)
                     .addComponent(jButton3)
@@ -286,28 +328,62 @@ public class PrincipalJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_mAcercaActionPerformed
 
     private void bBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bBuscarActionPerformed
+        //Ocultar elemenos que no me hacen falta
+        img1.setVisible(false);
+        img2.setVisible(false);
+        img3.setVisible(false);
+        //Hacer visible la tabla
+        panelTabla.setVisible(true);
+        Tabla.setVisible(true);
+        Tabla.removeAll();
         // Búsqueda de contenido
         //Obtener texto a buscar
         String texto=txtBuscar.getText();
         if(rbSerie.isSelected()){
+            Connection conec= funcionesBBDD.conectar();
            String sqlBuscarSerie="Select Nombre, Imagen from contenido where Tipo='Series' and Nombre like '%"+ texto +"%'"; 
-           Busqueda buscar =new Busqueda();
-           buscar.setVisible(true);
-           this.setVisible(false);
+            try {
+                st=(PreparedStatement)conec.prepareStatement(sqlBuscarSerie);
+                ResultSet rs=st.executeQuery();              
+                Object[] nombre =new Object[1];
+                modelo = (DefaultTableModel) Tabla.getModel();
+                while(rs.next()){
+                   nombre[0]= rs.getString("Nombre");
+                   modelo.addRow(nombre);
+               }
+                Tabla.setModel(modelo);
+            } catch (SQLException ex) {
+                System.out.println("No se ha podido añadir la tabla");
+            }
+
+            
             JOptionPane.showMessageDialog(null, "Ha seleccionado Serie");
         }else if (rbPeli.isSelected()){
+            Connection conec= funcionesBBDD.conectar();
             String sqlBuscarPeli="Select Nombre, Imagen from contenido where Tipo='Peliculas' and Nombre like '%"+ texto +"%'"; 
-            Busqueda buscar =new Busqueda();
-            buscar.setVisible(true);
-            this.setVisible(false);
+             try {
+                st=(PreparedStatement)conec.prepareStatement(sqlBuscarPeli);
+                ResultSet rs=st.executeQuery();              
+                Object[] nombre =new Object[1];
+                modelo = (DefaultTableModel) Tabla.getModel();
+                while(rs.next()){
+                   nombre[0]= rs.getString("Nombre");
+                   modelo.addRow(nombre);
+               }
+                Tabla.setModel(modelo);
+            } catch (SQLException ex) {
+                System.out.println("No se ha podido añadir la tabla");
+            }
+            
             JOptionPane.showMessageDialog(null, "Ha seleccionado Pelicula");
         }else{
             JOptionPane.showMessageDialog(null, "Debe selecionar una opción");
         }
         
+        
         //
     }//GEN-LAST:event_bBuscarActionPerformed
-
+ 
     /**
      * @param args the command line arguments
      */
@@ -342,9 +418,10 @@ public class PrincipalJFrame extends javax.swing.JFrame {
             }
         });
     }
-
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton JButton2;
+    private javax.swing.JTable Tabla;
     private javax.swing.JButton bBuscar;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JLabel img1;
@@ -354,6 +431,7 @@ public class PrincipalJFrame extends javax.swing.JFrame {
     private javax.swing.JButton jButton3;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JMenuItem mAcerca;
     private javax.swing.JMenu mAyuda;
     private javax.swing.JMenu mContenido;
@@ -365,6 +443,7 @@ public class PrincipalJFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem mSeries;
     private javax.swing.JMenu mUsuario;
     private javax.swing.JPanel panelBuscar;
+    private javax.swing.JPanel panelTabla;
     private javax.swing.JRadioButton rbPeli;
     private javax.swing.JRadioButton rbSerie;
     private javax.swing.JTextField txtBuscar;

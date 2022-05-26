@@ -31,28 +31,41 @@ public class GestorContenidoMain extends javax.swing.JFrame {
         String bienv="Bienvenid@ "+ nombre+ "!";
         jLabelBienve.setText(bienv);
         
-        
+        //llenar listas
         listaPeliculas=new ArrayList();
         listaSeries=new ArrayList();
-        //llenarlistas
-        llenarCBPeliculas();
         
+        //llenarCBPeliculas();
+        //llenarCBSeries();
         
     }
     
     //Funciones para cargar la lista de peliculas y series en los comboBox
     public void llenarCBPeliculas() throws ClassNotFoundException{
         //vacio el comboBoxPeliculas
-        jCoBoPelis.removeAllItems();
-        listaPeliculas=FuncionesBBDD.getListaPeliculas();
+        jCoBoContenido.removeAllItems();
+        String sql = "SELECT * FROM contenido WHERE tipo='Peliculas'";
+        listaPeliculas=FuncionesBBDD.getListaContenido(sql);
         Iterator itListaPelis=listaPeliculas.iterator();
         while(itListaPelis.hasNext()){
             Contenido nContenido=(Contenido) itListaPelis.next();
-            jCoBoPelis.addItem(nContenido.toString());
+            jCoBoContenido.addItem(nContenido.toString());
         
         }
         
+    }
+    
+    public void llenarCBSeries() throws ClassNotFoundException{
+        //vacio el comboBoxSeries
+        jCoBoContenido.removeAllItems();
+        String sql = "SELECT * FROM contenido WHERE tipo='Series'";
+        listaSeries=FuncionesBBDD.getListaContenido(sql);
+        Iterator itListaSeries=listaSeries.iterator();
+        while(itListaSeries.hasNext()){
+            Contenido nContenido=(Contenido) itListaSeries.next();
+            jCoBoContenido.addItem(nContenido.toString());
         
+        }
         
     }
 
@@ -73,6 +86,7 @@ public class GestorContenidoMain extends javax.swing.JFrame {
         buttonGroup3 = new javax.swing.ButtonGroup();
         buttonGroup4 = new javax.swing.ButtonGroup();
         buttonGroup5 = new javax.swing.ButtonGroup();
+        buttonGroup6 = new javax.swing.ButtonGroup();
         jTabbedPane2 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
@@ -96,10 +110,11 @@ public class GestorContenidoMain extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
-        jButton5 = new javax.swing.JButton();
-        jTabbedPane3 = new javax.swing.JTabbedPane();
-        jCoBoPelis = new javax.swing.JComboBox<>();
-        jCoBoSerie = new javax.swing.JComboBox<>();
+        jBuBorrar = new javax.swing.JButton();
+        jRaPeliEliminar = new javax.swing.JRadioButton();
+        jRaSeriesEliminar = new javax.swing.JRadioButton();
+        jCoBoContenido = new javax.swing.JComboBox<>();
+        mostrarContenido = new javax.swing.JButton();
         jTabbedPane4 = new javax.swing.JTabbedPane();
 
         jMenu1.setText("jMenu1");
@@ -221,39 +236,41 @@ public class GestorContenidoMain extends javax.swing.JFrame {
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(37, 37, 37)
+                .addGap(31, 31, 31)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
                         .addComponent(jLabel6)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addGap(18, 18, 18)
-                                .addComponent(jSpinnerTemp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel4Layout.createSequentialGroup()
                                 .addComponent(jLabel5)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jTextFiDur, javax.swing.GroupLayout.DEFAULT_SIZE, 327, Short.MAX_VALUE))
-                            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel4Layout.createSequentialGroup()
-                                    .addGap(37, 37, 37)
-                                    .addComponent(jRaPeliAñadir)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(jRaSerieAñadir)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 145, Short.MAX_VALUE)
-                                    .addComponent(jButton4))
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel4Layout.createSequentialGroup()
-                                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel2)
-                                        .addComponent(jLabel1)
-                                        .addComponent(jLabel3))
-                                    .addGap(18, 18, 18)
-                                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(jTextFiNombre)
-                                        .addComponent(jTextFiDesc)
-                                        .addComponent(jTextFiDir, javax.swing.GroupLayout.DEFAULT_SIZE, 344, Short.MAX_VALUE)))))
+                                .addComponent(jTextFiDur, javax.swing.GroupLayout.DEFAULT_SIZE, 333, Short.MAX_VALUE))
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addComponent(jRaPeliAñadir)
+                                .addGap(18, 18, 18)
+                                .addComponent(jRaSerieAñadir)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jButton4))
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel4Layout.createSequentialGroup()
+                                        .addComponent(jLabel4)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jSpinnerTemp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel4Layout.createSequentialGroup()
+                                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel2)
+                                            .addComponent(jLabel1)
+                                            .addComponent(jLabel3))
+                                        .addGap(18, 18, 18)
+                                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(jTextFiNombre)
+                                            .addComponent(jTextFiDesc)
+                                            .addComponent(jTextFiDir, javax.swing.GroupLayout.DEFAULT_SIZE, 344, Short.MAX_VALUE))))
+                                .addGap(0, 0, Short.MAX_VALUE)))
                         .addContainerGap(24, Short.MAX_VALUE))))
         );
         jPanel4Layout.setVerticalGroup(
@@ -291,57 +308,79 @@ public class GestorContenidoMain extends javax.swing.JFrame {
 
         jTabbedPane2.addTab("Añadir", jPanel4);
 
-        jButton5.setText("Eliminar");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        jBuBorrar.setText("Eliminar");
+        jBuBorrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                jBuBorrarActionPerformed(evt);
             }
         });
 
-        jCoBoPelis.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jCoBoPelis.addActionListener(new java.awt.event.ActionListener() {
+        buttonGroup6.add(jRaPeliEliminar);
+        jRaPeliEliminar.setText("Películas");
+        jRaPeliEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCoBoPelisActionPerformed(evt);
+                jRaPeliEliminarActionPerformed(evt);
             }
         });
-        jTabbedPane3.addTab("Películas", jCoBoPelis);
 
-        jCoBoSerie.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Serie1", "Serie2.Serie2" }));
-        jCoBoSerie.addActionListener(new java.awt.event.ActionListener() {
+        buttonGroup6.add(jRaSeriesEliminar);
+        jRaSeriesEliminar.setText("Series");
+
+        jCoBoContenido.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCoBoSerieActionPerformed(evt);
+                jCoBoContenidoActionPerformed(evt);
             }
         });
-        jTabbedPane3.addTab("Series", jCoBoSerie);
+
+        mostrarContenido.setText("Mostrar");
+        mostrarContenido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mostrarContenidoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(210, 210, 210)
-                .addComponent(jLabel7)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(193, 193, 193)
-                        .addComponent(jButton5))
+                        .addGap(402, 402, 402)
+                        .addComponent(jLabel7))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(17, 17, 17)
-                        .addComponent(jTabbedPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 336, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(159, Short.MAX_VALUE))
+                        .addGap(26, 26, 26)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jCoBoContenido, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(jRaPeliEliminar)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jRaSeriesEliminar)
+                                .addGap(68, 68, 68)
+                                .addComponent(mostrarContenido))))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(142, 142, 142)
+                        .addComponent(jBuBorrar)))
+                .addContainerGap(110, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(23, 23, 23)
-                .addComponent(jLabel7)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(12, 12, 12)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jRaPeliEliminar)
+                            .addComponent(jRaSeriesEliminar)
+                            .addComponent(mostrarContenido)))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(57, 57, 57)
+                        .addComponent(jLabel7)))
                 .addGap(18, 18, 18)
-                .addComponent(jTabbedPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 130, Short.MAX_VALUE)
-                .addComponent(jButton5)
-                .addGap(16, 16, 16))
+                .addComponent(jCoBoContenido, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(31, 31, 31)
+                .addComponent(jBuBorrar)
+                .addContainerGap(107, Short.MAX_VALUE))
         );
 
         jTabbedPane2.addTab("Eliminar", jPanel3);
@@ -490,20 +529,33 @@ public class GestorContenidoMain extends javax.swing.JFrame {
 
     private void jRaSerieAñadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRaSerieAñadirActionPerformed
         // TODO add your handling code here:
+        
+        
     }//GEN-LAST:event_jRaSerieAñadirActionPerformed
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+    private void jBuBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBuBorrarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton5ActionPerformed
+        //BOTON DE BORRARR
+        //descompongo el id y el nombre y llamo a la funcion eliminarContenido
+        //String conte=
+        
+    }//GEN-LAST:event_jBuBorrarActionPerformed
 
-    private void jCoBoSerieActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCoBoSerieActionPerformed
+    private void jCoBoContenidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCoBoContenidoActionPerformed
         // TODO add your handling code here:
-        //COMBOSERIES
-    }//GEN-LAST:event_jCoBoSerieActionPerformed
+    }//GEN-LAST:event_jCoBoContenidoActionPerformed
 
-    private void jCoBoPelisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCoBoPelisActionPerformed
+    private void jRaPeliEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRaPeliEliminarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jCoBoPelisActionPerformed
+    }//GEN-LAST:event_jRaPeliEliminarActionPerformed
+
+    private void mostrarContenidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mostrarContenidoActionPerformed
+        // TODO add your handling code here:
+        //compruebo si esta seleccionadas pelis y series
+        
+        
+        //
+    }//GEN-LAST:event_mostrarContenidoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -550,13 +602,13 @@ public class GestorContenidoMain extends javax.swing.JFrame {
     private javax.swing.ButtonGroup buttonGroup3;
     private javax.swing.ButtonGroup buttonGroup4;
     private javax.swing.ButtonGroup buttonGroup5;
+    private javax.swing.ButtonGroup buttonGroup6;
+    private javax.swing.JButton jBuBorrar;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JComboBox<String> jCoBoPelis;
-    private javax.swing.JComboBox<String> jCoBoSerie;
+    private javax.swing.JComboBox<String> jCoBoContenido;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -571,16 +623,18 @@ public class GestorContenidoMain extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JRadioButton jRaPeliAñadir;
+    private javax.swing.JRadioButton jRaPeliEliminar;
     private javax.swing.JRadioButton jRaSerieAñadir;
+    private javax.swing.JRadioButton jRaSeriesEliminar;
     private javax.swing.JSpinner jSpinnerTemp;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTabbedPane jTabbedPane2;
-    private javax.swing.JTabbedPane jTabbedPane3;
     private javax.swing.JTabbedPane jTabbedPane4;
     private javax.swing.JTextField jTextFiDesc;
     private javax.swing.JTextField jTextFiDir;
     private javax.swing.JTextField jTextFiDur;
     private javax.swing.JTextField jTextFiNombre;
+    private javax.swing.JButton mostrarContenido;
     // End of variables declaration//GEN-END:variables
 
 }

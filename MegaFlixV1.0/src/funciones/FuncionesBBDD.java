@@ -166,8 +166,8 @@ public class FuncionesBBDD {
     
     }
     //ha de ser static para llamarlo en llenarCBPeliculas
-    public static ArrayList getListaPeliculas() throws ClassNotFoundException{
-        ArrayList listaPeliculas= new ArrayList();
+    public static ArrayList getListaContenido(String sql) throws ClassNotFoundException{
+        ArrayList listaContenido= new ArrayList();
         Contenido nContenido= null;
         
         
@@ -180,7 +180,7 @@ public class FuncionesBBDD {
             // Obtenemos un Statement de la conexión
             Statement st = conn.createStatement();
             // Ejecutamos una consulta SELECT para obtener la tabla vendedores
-            String sql = "SELECT * FROM contenido WHERE tipo='Peliculas'";
+            
             ResultSet rs = st.executeQuery(sql);
             
        // Recorremos todo el ResultSet y guardamos los datos en un nuevo objeto que
@@ -196,7 +196,7 @@ public class FuncionesBBDD {
             nContenido.setImagen(rs.getString("Imagen"));
             nContenido.setTipo(rs.getString("Tipo"));
             
-            listaPeliculas.add(nContenido);
+            listaContenido.add(nContenido);
             
             
             }
@@ -208,8 +208,33 @@ public class FuncionesBBDD {
         e.printStackTrace();
         }
        //devolvemos el array de objetos contenido
-        return listaPeliculas;
+        return listaContenido;
     
+    }
+    
+    public static void borrarContenido(String id){
+        //primero comprobamos que existe
+        
+        
+        //ahora borramos si existe
+        
+        try{
+            loadDriver();
+            connect();
+            
+            // Preparamos un statement para hacer el borrado del registro.
+            String sql="DELETE FROM contenido WHERE id='"+id+"'";
+            PreparedStatement stmt = conn.prepareStatement(sql);            
+            
+            stmt.executeUpdate();
+            System.out.println("se ha borrado el contenido correctamente!");
+            
+        }catch (SQLException e) {
+        e.printStackTrace();
+        
+    
+        }
+        
     }
 }
 

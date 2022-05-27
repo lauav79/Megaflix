@@ -6,6 +6,7 @@
 package JFrames;
 import Contenido.Contenido;
 import funciones.FuncionesBBDD;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.logging.Level;
@@ -444,11 +445,13 @@ public class GestorContenidoMain extends javax.swing.JFrame {
         String contenido=jCoBoContenido.getSelectedItem().toString();
         String [] partesContenido= contenido.split("-");
         
-        FuncionesBBDD.borrarContenido(partesContenido[0]);
-        
-        
-        
-        //System.out.println(contenido);
+        try {
+            FuncionesBBDD.borrarContenido(partesContenido[0]);
+                        
+            //System.out.println(contenido);
+        } catch (SQLException ex) {
+            Logger.getLogger(GestorContenidoMain.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jBuBorrarActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
@@ -540,6 +543,8 @@ public class GestorContenidoMain extends javax.swing.JFrame {
                 //falta insertar la imagen
                 System.out.println("Se ha insertado el contenido");
             } catch (ClassNotFoundException ex) {
+                Logger.getLogger(GestorContenidoMain.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SQLException ex) {
                 Logger.getLogger(GestorContenidoMain.class.getName()).log(Level.SEVERE, null, ex);
             }
 

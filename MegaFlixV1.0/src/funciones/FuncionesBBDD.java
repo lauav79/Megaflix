@@ -134,15 +134,13 @@ public class FuncionesBBDD {
     
     
     //INSERTAR O BORRAR CONTENIDO A LA BBDD
-    public static void añadirContenido(String nombre, String descripcion, String director, int temporadas, String duracion, String tipo) throws ClassNotFoundException{
+    public static void añadirContenido(String nombre, String descripcion, String director, int temporadas, String duracion, String tipo) throws ClassNotFoundException, SQLException{
                 
         //INSERCCION
         try{
-           // Cargamos la clase que implementa el Driver
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            // Creamos una nueva conexión a la base de datos 'Megaflix'
-            String url = "jdbc:mysql://"+DB_HOST+":"+DB_PORT+"/"+DB_NAME+"?serverTimezone=UTC";
-            Connection conn = (Connection) DriverManager.getConnection(url,"root","toor");
+  
+            loadDriver();
+            connect();
             
             // Preparamos un statement para hacer la inserción del registro.
             PreparedStatement stmt = conn.prepareStatement("INSERT INTO contenido VALUES (?,?,?,?,?,?,?,?)");
@@ -165,6 +163,7 @@ public class FuncionesBBDD {
         
     
         }
+        conn.close();
         
     
     }
@@ -175,11 +174,8 @@ public class FuncionesBBDD {
         
         
         try {
-            // Cargamos la clase que implementa el Driver
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            // Creamos una nueva conexión a la base de datos 'jardineria'
-            String url = "jdbc:mysql://"+DB_HOST+":"+DB_PORT+"/"+DB_NAME+"?serverTimezone=UTC";
-            Connection conn = (Connection) DriverManager.getConnection(url,"root","toor");
+            loadDriver();
+            connect();
             // Obtenemos un Statement de la conexión
             Statement st = conn.createStatement();
             // Ejecutamos una consulta SELECT para obtener la tabla vendedores
@@ -215,7 +211,7 @@ public class FuncionesBBDD {
     
     }
     
-    public static void borrarContenido(String id){
+    public static void borrarContenido(String id) throws SQLException{
                
         try{
             loadDriver();
@@ -226,7 +222,7 @@ public class FuncionesBBDD {
             PreparedStatement stmt = conn.prepareStatement(sql);            
             
             stmt.executeUpdate();
-            System.out.println("se ha borrado el contenido correctamente!");
+            //System.out.println("se ha borrado el contenido correctamente!");
             JOptionPane.showMessageDialog(null, "El contenido se ha borrado correctamente");
             
         }catch (SQLException e) {
@@ -234,6 +230,7 @@ public class FuncionesBBDD {
         
     
         }
+        conn.close();
         
     }
 }

@@ -501,6 +501,9 @@ public class GestorContenidoMain extends javax.swing.JFrame {
         int temporadas= (Integer) jSpinnerTemp.getValue();
         String duracion=jTextFiDur.getText();
         String tipo="ninguno";
+        String genero=jCoBoContenido.getSelectedItem().toString();
+        String [] partesGnero= genero.split("-");
+        
 
         //compruebo que los campos comunes a series y pelis no estén vacios
         //las temporadas se controlan si se ha elegido serie
@@ -587,6 +590,8 @@ public class GestorContenidoMain extends javax.swing.JFrame {
             String mensajeFinal="No se ha podido insertar el contenido por errores en los datos dados."+mError;
             JOptionPane.showMessageDialog(null, mensajeFinal, "Error de inserción", JOptionPane.WARNING_MESSAGE);
         }
+        
+        //insertar generoContenido
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jTextFiDirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFiDirActionPerformed

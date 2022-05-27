@@ -9,19 +9,19 @@ package Genero;
  * @author Laura Álvarez
  */
 public class Genero {
-    private String idgenero;
+    private int idgenero;
     private String nombre;
     
-    public Genero(String id, String nombre){
+    public Genero(int id, String nombre){
         this.idgenero=id;
         this.nombre=nombre;
     }
 
-    public String getIdgenero() {
+    public int getIdgenero() {
         return idgenero;
     }
 
-    public void setIdgenero(String idgenero) {
+    public void setIdgenero(int idgenero) {
         this.idgenero = idgenero;
     }
 
@@ -33,5 +33,15 @@ public class Genero {
         this.nombre = nombre;
     }
     
+    /**
+     * 
+     * 
+     * @return String de nombre e id del genero
+     */
+    @Override
+    public String toString() {
+        String generoIdNombre=""+idgenero+"-"+nombre;
+        return generoIdNombre;
+    }
     
 }

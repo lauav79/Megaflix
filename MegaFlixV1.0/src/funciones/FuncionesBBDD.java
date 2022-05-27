@@ -1,6 +1,7 @@
 package funciones;
 
 import Contenido.Contenido;
+import Genero.Genero;
 import java.sql.DriverManager;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -232,6 +233,43 @@ public class FuncionesBBDD {
         }
         conn.close();
         
+    }
+    //
+    public static ArrayList getListaGeneros(String sql) throws ClassNotFoundException{
+        ArrayList listaGeneros= new ArrayList();
+        Genero nGenero= null;
+        
+        
+        try {
+            loadDriver();
+            connect();
+            // Obtenemos un Statement de la conexión
+            Statement st = conn.createStatement();
+            // Ejecutamos una consulta SELECT para obtener la tabla generos
+            
+            ResultSet rs = st.executeQuery(sql);
+            
+       // Recorremos todo el ResultSet y guardamos los datos en un nuevo objeto que
+       //insertamos en el arraylist de listaPeliculas
+            while(rs.next()) {
+            nGenero= new Genero(0,"Nombre");
+            nGenero.setIdgenero(rs.getInt("idgenero"));
+            nGenero.setNombre(rs.getString("Nombre"));
+            
+            listaGeneros.add(nGenero);
+            
+            
+            }
+            // Cerramos el statement y la conexión
+            st.close();
+            conn.close();
+        } 
+       catch (SQLException e) {
+        e.printStackTrace();
+        }
+       //devolvemos el array de objetos contenido
+        return listaGeneros;
+    
     }
 }
 

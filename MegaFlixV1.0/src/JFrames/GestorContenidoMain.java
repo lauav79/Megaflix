@@ -5,6 +5,7 @@
 
 package JFrames;
 import Contenido.Contenido;
+import Genero.Genero;
 import funciones.FuncionesBBDD;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -21,6 +22,8 @@ public class GestorContenidoMain extends javax.swing.JFrame {
     
     ArrayList listaPeliculas;
     ArrayList listaSeries;
+    ArrayList listaGeneros;
+
 
     /** Creates new form GestorContenidoMain
      * @throws java.lang.ClassNotFoundException */
@@ -35,9 +38,10 @@ public class GestorContenidoMain extends javax.swing.JFrame {
         //llenar listas
         listaPeliculas=new ArrayList();
         listaSeries=new ArrayList();
+        listaGeneros=new ArrayList();
         
-        //llenarCBPeliculas();
-        //llenarCBSeries();
+        //lleno la lista de generos
+        llenarCBGenero();
         
     }
     
@@ -65,6 +69,20 @@ public class GestorContenidoMain extends javax.swing.JFrame {
         while(itListaSeries.hasNext()){
             Contenido nContenido=(Contenido) itListaSeries.next();
             jCoBoContenido.addItem(nContenido.toString());
+        
+        }
+        
+    }
+    
+    public void llenarCBGenero() throws ClassNotFoundException{
+        //vacio el comboBoxPeliculas
+        jCoBoGenero.removeAllItems();
+        String sql = "SELECT * FROM genero";
+        listaGeneros=FuncionesBBDD.getListaGeneros(sql);
+        Iterator itListaGeneros=listaGeneros.iterator();
+        while(itListaGeneros.hasNext()){
+            Genero nGenero=(Genero) itListaGeneros.next();
+            jCoBoGenero.addItem(nGenero.toString());
         
         }
         
@@ -109,6 +127,8 @@ public class GestorContenidoMain extends javax.swing.JFrame {
         jTextFiDir = new javax.swing.JTextField();
         jButton4 = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jCoBoGenero = new javax.swing.JComboBox<>();
         jPanel3 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         jBuBorrar = new javax.swing.JButton();
@@ -179,7 +199,7 @@ public class GestorContenidoMain extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton2)
                     .addComponent(jButton3))
-                .addContainerGap(130, Short.MAX_VALUE))
+                .addContainerGap(133, Short.MAX_VALUE))
         );
 
         jTabbedPane2.addTab("", jPanel1);
@@ -208,7 +228,7 @@ public class GestorContenidoMain extends javax.swing.JFrame {
 
         jLabel4.setText("Temporadas:(series)");
 
-        jLabel5.setText("Duración: (h y mins)");
+        jLabel5.setText("Duración: (mins)");
 
         jTextFiNombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -232,6 +252,10 @@ public class GestorContenidoMain extends javax.swing.JFrame {
             }
         });
 
+        jLabel8.setText("Género:");
+
+        jCoBoGenero.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
@@ -240,15 +264,21 @@ public class GestorContenidoMain extends javax.swing.JFrame {
                 .addGap(31, 31, 31)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addComponent(jLabel6)
+                        .addComponent(jLabel8)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel6))
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addGap(29, 29, 29)
+                                .addComponent(jCoBoGenero, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel4Layout.createSequentialGroup()
                                 .addComponent(jLabel5)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jTextFiDur, javax.swing.GroupLayout.DEFAULT_SIZE, 333, Short.MAX_VALUE))
+                                .addComponent(jTextFiDur, javax.swing.GroupLayout.DEFAULT_SIZE, 342, Short.MAX_VALUE))
                             .addGroup(jPanel4Layout.createSequentialGroup()
                                 .addComponent(jRaPeliAñadir)
                                 .addGap(18, 18, 18)
@@ -272,7 +302,7 @@ public class GestorContenidoMain extends javax.swing.JFrame {
                                             .addComponent(jTextFiDesc)
                                             .addComponent(jTextFiDir, javax.swing.GroupLayout.DEFAULT_SIZE, 344, Short.MAX_VALUE))))
                                 .addGap(0, 0, Short.MAX_VALUE)))
-                        .addContainerGap(24, Short.MAX_VALUE))))
+                        .addContainerGap(34, Short.MAX_VALUE))))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -302,9 +332,13 @@ public class GestorContenidoMain extends javax.swing.JFrame {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(jTextFiDur, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(16, 16, 16)
+                .addGap(11, 11, 11)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8)
+                    .addComponent(jCoBoGenero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel6)
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jTabbedPane2.addTab("Añadir", jPanel4);
@@ -381,7 +415,7 @@ public class GestorContenidoMain extends javax.swing.JFrame {
                 .addComponent(jCoBoContenido, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(31, 31, 31)
                 .addComponent(jBuBorrar)
-                .addContainerGap(107, Short.MAX_VALUE))
+                .addContainerGap(110, Short.MAX_VALUE))
         );
 
         jTabbedPane2.addTab("Eliminar", jPanel3);
@@ -631,6 +665,7 @@ public class GestorContenidoMain extends javax.swing.JFrame {
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JComboBox<String> jCoBoContenido;
+    private javax.swing.JComboBox<String> jCoBoGenero;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -638,6 +673,7 @@ public class GestorContenidoMain extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabelBienve;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JPanel jPanel1;

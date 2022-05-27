@@ -120,7 +120,7 @@ public class Contenido {
     @Override
     public String toString() {
         //return "Contenido{" + "Nombre=" + Nombre + ", Id=" + Id + '}';
-        String contenidoIdNombre=""+Id+"- "+Nombre;
+        String contenidoIdNombre=""+Id+"-"+Nombre;
         return contenidoIdNombre;
     }
     

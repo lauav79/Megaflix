@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 
 
@@ -155,10 +156,12 @@ public class FuncionesBBDD {
             stmt.setString(8, tipo);
             
             stmt.executeUpdate();
+            JOptionPane.showMessageDialog(null, "El contenido se ha insertado correctamente");
              
             
         }catch (SQLException e) {
         e.printStackTrace();
+        JOptionPane.showMessageDialog(null, "El contenido no se ha podido insertar correctamente");
         
     
         }
@@ -213,11 +216,7 @@ public class FuncionesBBDD {
     }
     
     public static void borrarContenido(String id){
-        //primero comprobamos que existe
-        
-        
-        //ahora borramos si existe
-        
+               
         try{
             loadDriver();
             connect();
@@ -228,6 +227,7 @@ public class FuncionesBBDD {
             
             stmt.executeUpdate();
             System.out.println("se ha borrado el contenido correctamente!");
+            JOptionPane.showMessageDialog(null, "El contenido se ha borrado correctamente");
             
         }catch (SQLException e) {
         e.printStackTrace();

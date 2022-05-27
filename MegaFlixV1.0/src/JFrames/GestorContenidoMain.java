@@ -400,50 +400,84 @@ public class GestorContenidoMain extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void mostrarContenidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mostrarContenidoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+        
+        //compruebo si esta seleccionadas pelis y series
+        //Cargo los datos en el comboBox según la seleccion del checkbox
+        if(jRaPeliEliminar.isSelected()){
+            try {
+                llenarCBPeliculas();
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(GestorContenidoMain.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+        }else if(jRaSeriesEliminar.isSelected()){
+            try {
+                llenarCBSeries();
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(GestorContenidoMain.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }else{
+            jCoBoContenido.addItem("Selecciona películas o series");
+        }
+        
+        
+        
+        
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
+        //
+    }//GEN-LAST:event_mostrarContenidoActionPerformed
 
-    private void jRaPeliAñadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRaPeliAñadirActionPerformed
+    private void jCoBoContenidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCoBoContenidoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jRaPeliAñadirActionPerformed
+    }//GEN-LAST:event_jCoBoContenidoActionPerformed
 
-    private void jTextFiNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFiNombreActionPerformed
+    private void jRaPeliEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRaPeliEliminarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFiNombreActionPerformed
+    }//GEN-LAST:event_jRaPeliEliminarActionPerformed
+
+    private void jBuBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBuBorrarActionPerformed
+        // TODO add your handling code here:
+        //BOTON DE BORRARR
+        //descompongo el id y el nombre y llamo a la funcion eliminarContenido
+        String contenido=jCoBoContenido.getSelectedItem().toString();
+        String [] partesContenido= contenido.split("-");
+        
+        FuncionesBBDD.borrarContenido(partesContenido[0]);
+        
+        
+        
+        //System.out.println(contenido);
+    }//GEN-LAST:event_jBuBorrarActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
         //recojo los datos
-        
+
         boolean insertOK=true;
         String mError="";
-        
+
         String nombre= jTextFiNombre.getText();
         String descripcion= jTextFiDesc.getText();
         String director= jTextFiDir.getText();
         int temporadas= (Integer) jSpinnerTemp.getValue();
         String duracion=jTextFiDur.getText();
         String tipo="ninguno";
-        
+
         //compruebo que los campos comunes a series y pelis no estén vacios
         //las temporadas se controlan si se ha elegido serie
         int longNombre=nombre.length();
         int longDesc=descripcion.length();
         int longDir=director.length();
         int longDur=duracion.length();
-        
+
         if(longNombre==0 || longDesc==0 || longDir==0){
             insertOK=false;
             mError=mError+"\n |Comprueba que has rellenado los campos de nombre, descripción y director.|";
-            
+
         }
-       
-        
+
         /*
         System.out.println("nombre:" +nombre);
         System.out.println("descr:" +descripcion);
@@ -451,7 +485,7 @@ public class GestorContenidoMain extends javax.swing.JFrame {
         System.out.println("dur:" +duracion);
         System.out.println("dir:" +director);
         */
-        
+
         //tipo de contenido con checkbox
         if(jRaPeliAñadir.isSelected()){
             tipo="Peliculas";
@@ -459,10 +493,10 @@ public class GestorContenidoMain extends javax.swing.JFrame {
         if(jRaSerieAñadir.isSelected()){
             tipo="Series";
         }
-        
+
         //System.out.println("tipo:" +tipo);
         //CONDICIONES SERIE
-        
+
         if ("Series".equals(tipo)){
             //si es serie tiene que tener temporadas, más de 0
             if(temporadas<=0){
@@ -474,9 +508,9 @@ public class GestorContenidoMain extends javax.swing.JFrame {
                 duracion="";
             }
         }
-        
+
         if ("Peliculas".equals(tipo)){
-            //ha de tener duración 
+            //ha de tener duración
             if(longDur==0){
                 insertOK=false;
                 mError=mError+"\n |Una película ha de tener duración|";
@@ -486,76 +520,59 @@ public class GestorContenidoMain extends javax.swing.JFrame {
                 insertOK=false;
                 mError=mError+"\n |Una película no ha de tener temporadas|";
             }
-            
+
         }
-        
-        
+
         if ("ninguno".equals(tipo)){
             insertOK=false;
             mError=mError+"\n |No has selecionado el tipo de contenido(Película/Serie)|";
-            
+
         }
-        
+
         System.out.println("Errores"+ mError);
-        
+
         //inserto el nuevo registro en bbdd
         if(insertOK==true){
             //llamo a la funcion para insertar contenido
-            
-                try{
-                    FuncionesBBDD.añadirContenido(nombre,descripcion,director,temporadas,duracion,tipo);
-                    //falta insertar la imagen
-                    System.out.println("Se ha insertado el contenido");
-                } catch (ClassNotFoundException ex) {
+
+            try{
+                FuncionesBBDD.añadirContenido(nombre,descripcion,director,temporadas,duracion,tipo);
+                //falta insertar la imagen
+                System.out.println("Se ha insertado el contenido");
+            } catch (ClassNotFoundException ex) {
                 Logger.getLogger(GestorContenidoMain.class.getName()).log(Level.SEVERE, null, ex);
             }
-                
-            
-            
+
         }else{
-            //muestro los errores 
+            //muestro los errores
             String mensajeFinal="No se ha podido insertar el contenido por errores en los datos dados."+mError;
             JOptionPane.showMessageDialog(null, mensajeFinal, "Error de inserción", JOptionPane.WARNING_MESSAGE);
-        }   
-        
-        
-        
-        
+        }
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jTextFiDirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFiDirActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFiDirActionPerformed
 
+    private void jTextFiNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFiNombreActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFiNombreActionPerformed
+
     private void jRaSerieAñadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRaSerieAñadirActionPerformed
         // TODO add your handling code here:
-        
-        
     }//GEN-LAST:event_jRaSerieAñadirActionPerformed
 
-    private void jBuBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBuBorrarActionPerformed
+    private void jRaPeliAñadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRaPeliAñadirActionPerformed
         // TODO add your handling code here:
-        //BOTON DE BORRARR
-        //descompongo el id y el nombre y llamo a la funcion eliminarContenido
-        //String conte=
-        
-    }//GEN-LAST:event_jBuBorrarActionPerformed
+    }//GEN-LAST:event_jRaPeliAñadirActionPerformed
 
-    private void jCoBoContenidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCoBoContenidoActionPerformed
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jCoBoContenidoActionPerformed
+    }//GEN-LAST:event_jButton3ActionPerformed
 
-    private void jRaPeliEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRaPeliEliminarActionPerformed
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jRaPeliEliminarActionPerformed
-
-    private void mostrarContenidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mostrarContenidoActionPerformed
-        // TODO add your handling code here:
-        //compruebo si esta seleccionadas pelis y series
-        
-        
-        //
-    }//GEN-LAST:event_mostrarContenidoActionPerformed
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments

@@ -7,7 +7,10 @@ package JFrames;
 import Contenido.Contenido;
 import Funciones.funciones;
 import Funciones.funcionesBBDD;
+import static Funciones.funcionesBBDD.iniciosesion;
+import Persona.Usuario;
 import java.awt.Color;
+import javax.swing.JOptionPane;
 import javax.swing.border.Border;
 
 /**
@@ -195,12 +198,16 @@ public class LoginJFrame extends javax.swing.JFrame {
 
         String user = campoUsuario.getText();
         String pass = new String(campoContrasena.getPassword());
-        funcionesBBDD.loadDriver();
         funcionesBBDD.connect();
         funcionesBBDD.isConnected();
-        funcionesBBDD.iniciosesion(user, pass);
+        iniciosesion(user, pass);
+        if(funcionesBBDD.acceso==true){        
         Principal.prin1.setVisible(true);
         dispose();
+        }else{
+             JOptionPane.showMessageDialog(null,"Usuario o contraseña incorrectos");
+        }
+
 
 
     }//GEN-LAST:event_iniciarSesionBotonActionPerformed

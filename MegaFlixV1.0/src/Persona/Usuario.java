@@ -12,8 +12,9 @@ import Persona.Persona;
  */
 public class Usuario extends Persona {
 
-    public static int id;
-    public static String nombre, alias, passw, biogra, tipoUser;
+    public static Usuario user1 = new Usuario();
+    public int id;
+    public String nombre, alias, passw, biogra, tipoUser;
 
     public Usuario() {
 
@@ -26,10 +27,9 @@ public class Usuario extends Persona {
         this.passw = p;
         this.biogra = b;
         this.tipoUser = t;
-
     }
 
-    public static int getId() {
+    public int getId() {
         return id;
     }
 
@@ -37,7 +37,7 @@ public class Usuario extends Persona {
         this.id = id;
     }
 
-    public static String getNombre() {
+    public String getNombre() {
         return nombre;
     }
 
@@ -45,7 +45,7 @@ public class Usuario extends Persona {
         this.nombre = nombre;
     }
 
-    public static String getAlias() {
+    public String getAlias() {
         return alias;
     }
 
@@ -53,7 +53,7 @@ public class Usuario extends Persona {
         this.alias = alias;
     }
 
-    public static String getPassw() {
+    public String getPassw() {
         return passw;
     }
 
@@ -61,7 +61,7 @@ public class Usuario extends Persona {
         this.passw = passw;
     }
 
-    public static String getBiogra() {
+    public String getBiogra() {
         return biogra;
     }
 
@@ -69,7 +69,7 @@ public class Usuario extends Persona {
         this.biogra = biogra;
     }
 
-    public static String getTipoUser() {
+    public String getTipoUser() {
         return tipoUser;
     }
 

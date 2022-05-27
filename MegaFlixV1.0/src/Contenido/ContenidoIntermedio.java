@@ -4,42 +4,55 @@
  */
 package Contenido;
 
+import Funciones.funcionesBBDD;
+import Persona.Usuario;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author imba
  */
 public class ContenidoIntermedio {
-    static int  idUser,idContenido;
-    static double puntuacion;
-    static String comentario;
-    
-    public ContenidoIntermedio(){
-        
-    }
-    public ContenidoIntermedio(int iu, int ic, double pun, String co){
-        this.comentario=co;
-        this.idContenido=ic;
-        this.idUser=iu;
-        this.puntuacion=pun;
+
+    private static Connection conn = null;
+    private static Statement st = null;
+    int idUser, idContenido;
+    double puntuacion;
+    String comentario;
+
+    public ContenidoIntermedio() {
+
     }
 
-    public static int getIdUser() {
-        return idUser;
+    public ContenidoIntermedio(int ic, double pun, String co) {
+        this.comentario = co;
+        this.idContenido = ic;
+        this.puntuacion = pun;
+    }
+
+    public int getIdUser() {
+        return this.idUser;
     }
 
     public void setIdUser(int idUser) {
         this.idUser = idUser;
     }
 
-    public static int getIdContenido() {
-        return idContenido;
+    public int getIdContenido() {
+        return this.idContenido;
     }
 
     public void setIdContenido(int idContenido) {
         this.idContenido = idContenido;
     }
 
-    public static double getPuntuacion() {
+    public double getPuntuacion() {
         return puntuacion;
     }
 
@@ -47,11 +60,50 @@ public class ContenidoIntermedio {
         this.puntuacion = puntuacion;
     }
 
-    public static String getComentario() {
+    public String getComentario() {
         return comentario;
     }
 
     public void setComentario(String comentario) {
         this.comentario = comentario;
+    }
+
+    public static DefaultTableModel mostrarContenido() {
+        String[] nombresColumnas = {"Nombre", "Puntuacion", "Comentario"};
+        String[] registros = new String[3];
+        DefaultTableModel modelo = new DefaultTableModel(null, nombresColumnas);
+        String sql = "select contenido.Nombre,Puntuacion,Comentario from usuariovaloracontenido inner join contenido on idContenido=contenido.id inner join usuarios on idUsuario=usuarios.Id where usuarios.Alias like \"admin\";";
+        Connection cn = null;
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+        try {
+            cn = funcionesBBDD.connect();
+            pst = cn.prepareStatement(sql);
+            rs = pst.executeQuery();
+            while (rs.next()) {
+                registros[0] = rs.getString("Nombre");
+                registros[1] = rs.getString("Puntuacion");
+                registros[2] = rs.getString("Comentario");
+                modelo.addRow(registros);
+            }
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al conectar");
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (pst != null) {
+                    pst.close();
+                }
+                if (cn != null) {
+                    cn.close();
+                }
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, e);
+            }
+        }
+        return modelo;
     }
 }

@@ -6,6 +6,7 @@ package JFrames;
 
 import Funciones.funcionesBBDD;
 import Persona.Usuario;
+import static Persona.Usuario.user1;
 import java.sql.SQLException;
 
 /**
@@ -39,7 +40,7 @@ public class CambiarUsuario extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(255, 153, 153));
+        jPanel1.setBackground(new java.awt.Color(0, 0, 0));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         aceptarBoton.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
@@ -98,6 +99,7 @@ public class CambiarUsuario extends javax.swing.JFrame {
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 410, 70));
 
         TxcambiarUser.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        TxcambiarUser.setForeground(new java.awt.Color(255, 255, 255));
         TxcambiarUser.setText("Cambiar Nombre de usuario:");
         jPanel1.add(TxcambiarUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 100, -1, -1));
 
@@ -128,7 +130,7 @@ public class CambiarUsuario extends javax.swing.JFrame {
             funcionesBBDD.loadDriver();
             funcionesBBDD.connect();
             funcionesBBDD.isConnected();
-            funcionesBBDD.cambioUsuario(Usuario.getAlias());
+            funcionesBBDD.cambioUsuario(user1.getAlias());
             funcionesBBDD.close();
             dispose();
         }catch(SQLException e){

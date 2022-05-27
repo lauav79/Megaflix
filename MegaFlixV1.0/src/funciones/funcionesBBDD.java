@@ -1,21 +1,24 @@
 package Funciones;
 
 import Contenido.Contenido;
+import Contenido.ContenidoIntermedio;
 import Persona.Usuario;
+import static Persona.Usuario.user1;
 import com.mysql.cj.PreparedQuery;
 import java.sql.DriverManager;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.ResultSet;
+import javax.swing.table.DefaultTableModel;
 
 public class funcionesBBDD {
 
     //Valores donde recogeremos todos los valores del usuario
-
     //Definicion de las  clases que ejecutaremos en la conexion a la BD
     private static Connection conn = null;
     private static Statement st = null;
+    public static boolean acceso=false;
 
     // Configuración de la conexión a la base de datos
     private static final String DB_HOST = "localhost";
@@ -63,7 +66,6 @@ public class funcionesBBDD {
     private static final String DB_USU_TIP = "TipoUsuario";
     private static final String DB_USU_EMA = "email";
     private static final String DB_USU_EDA = "edad";
-    private static final String DB_UAP_SELECT = "SELECT * " + "FROM " + DB_USU;
 
     //Configuracion de la tabla usuariovaloracontenido
     private static final String DB_UVC = "usuariovalocacontenido";
@@ -83,18 +85,18 @@ public class funcionesBBDD {
      * Intenta cargar el JDBC driver.
      * @return true si pudo cargar el driver, false en caso contrario
      */
-    public static boolean loadDriver() {
+    public static void loadDriver() {
         try {
             System.out.print("Cargando Driver...");
             Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
             System.out.println("OK!");
-            return true;
+
         } catch (ClassNotFoundException ex) {
             ex.printStackTrace();
-            return false;
+
         } catch (Exception ex) {
             ex.printStackTrace();
-            return false;
+
         }
     }
 
@@ -103,16 +105,15 @@ public class funcionesBBDD {
      *
      * @return true si pudo conectarse, false en caso contrario
      */
-    public static boolean connect() {
+    public static Connection connect() {
         try {
             System.out.print("Conectando a la base de datos...");
             conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS);
             System.out.println("OK!");
-            return true;
         } catch (SQLException ex) {
             ex.printStackTrace();
-            return false;
         }
+        return conn;
     }
 
     /**
@@ -120,19 +121,19 @@ public class funcionesBBDD {
      *
      * @return true si la conexión existe y es válida, false en caso contrario
      */
-    public static boolean isConnected() {
+    public static void isConnected() {
         // Comprobamos estado de la conexión
         try {
             if (conn != null && conn.isValid(0)) {
                 System.out.println(DB_MSQ_CONN_OK);
-                return true;
+
             } else {
-                return false;
+
             }
         } catch (SQLException ex) {
             System.out.println(DB_MSQ_CONN_NO);
             ex.printStackTrace();
-            return false;
+
         }
     }
 
@@ -150,9 +151,8 @@ public class funcionesBBDD {
     }
 
     public static Usuario iniciosesion(String user, String pass) {
-        Usuario user1 = new Usuario();
         try {
-            String SQL = DB_UAP_SELECT;
+            String SQL = "SELECT * FROM usuarios WHERE Alias=\""+user+"\"";
             st = conn.createStatement();
             ResultSet rs = st.executeQuery(SQL);
             while (rs.next()) {
@@ -162,22 +162,23 @@ public class funcionesBBDD {
                 String pas = rs.getString(DB_USU_PAS);
                 String bio = rs.getString(DB_USU_BIO);
                 String tUser = rs.getString(DB_USU_TIP);
+                System.out.println(ali+" "+pas);
                 if (ali.equals(user) && pas.equals(pass)) {
-                    user1.setAlias(ali);
-                    user1.setBiogra(bio);
-                    user1.setId(idu);
-                    user1.setPassw(pas);
-                    user1.setTipoUser(tUser);
+                    Usuario.user1.setAlias(ali);
+                    Usuario.user1.setBiogra(bio);
+                    Usuario.user1.setId(idu);
+                    Usuario.user1.setPassw(pas);
+                    Usuario.user1.setTipoUser(tUser);
+                    acceso=true;
                 }
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        return user1;
+        return null;
     }
 
-    
-    public static void cambioContrasena(String user, String pass) throws SQLException {
+    public static void cambioContrasena(String user, String pass) {
         try {
             String SQL = "UPDATE `megaflix`.`usuarios` SET `passwd` = '" + pass + "' WHERE (`Alias` = '" + user + "')";
             st = conn.createStatement();
@@ -187,9 +188,10 @@ public class funcionesBBDD {
             ex.printStackTrace();
         }
     }
+
     public static void cambioUsuario(String n) throws SQLException {
         try {
-            int id = Usuario.getId();
+            int id = user1.getId();
             String us = n;
             String SQL = "UPDATE `megaflix`.`usuarios` SET `Alias` = '" + us + "' WHERE (`Id` = '" + id + "')";
             st = conn.createStatement();
@@ -199,4 +201,5 @@ public class funcionesBBDD {
         }
 
     }
+
 }

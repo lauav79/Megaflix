@@ -6,6 +6,7 @@ package JFrames;
 
 import Funciones.funcionesBBDD;
 import Persona.Usuario;
+import static Persona.Usuario.user1;
 import java.awt.Color;
 import java.sql.SQLException;
 
@@ -135,16 +136,13 @@ public static CambioContraseña c1= new CambioContraseña();
     }//GEN-LAST:event_cancelarBotonActionPerformed
 
     private void aceptarBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aceptarBotonActionPerformed
-        try {
-            funcionesBBDD.loadDriver();
-            funcionesBBDD.connect();
-            funcionesBBDD.isConnected();
-            funcionesBBDD.cambioContrasena(Usuario.getAlias(), nuevaContrasena.getPassword().toString());
-            funcionesBBDD.close();
-            dispose();
-        } catch (SQLException e) {
-
-        }
+        funcionesBBDD.loadDriver();
+        funcionesBBDD.connect();
+        funcionesBBDD.isConnected();
+        funcionesBBDD.cambioContrasena(user1.getAlias(), nuevaContrasena.getPassword().toString());
+        System.out.println(user1.getAlias());
+        funcionesBBDD.close();
+        dispose();
 
     }//GEN-LAST:event_aceptarBotonActionPerformed
 

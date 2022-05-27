@@ -5,9 +5,6 @@
 package JFrames;
 
 import Contenido.Contenido;
-import static Contenido.Contenido.con1;
-import static Contenido.Contenido.con2;
-import static Contenido.Contenido.con3;
 import Funciones.funcionesBBDD;
 import JFrames.*;
 import java.awt.Color;
@@ -25,8 +22,8 @@ public class Principal extends javax.swing.JFrame {
      * Creates new form Principal
      */
     public Principal() {
-
         initComponents();
+        imagen1.setIcon(getI());Contenido.con1.getImagen();
 
     }
 
@@ -217,7 +214,8 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_nombreContenidoActionPerformed
 
     private void perfilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_perfilActionPerformed
-        // TODO add your handling code here:
+        dispose();
+        PerfilJFrame.perfil1.setVisible(true);
     }//GEN-LAST:event_perfilActionPerformed
 
     private void paginaPrincipalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_paginaPrincipalActionPerformed

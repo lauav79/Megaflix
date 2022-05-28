@@ -23,7 +23,7 @@ public class GestorContenidoMain extends javax.swing.JFrame {
     ArrayList listaPeliculas;
     ArrayList listaSeries;
     ArrayList listaGeneros;
-
+    ArrayList listaGenCon;
 
     /** Creates new form GestorContenidoMain
      * @throws java.lang.ClassNotFoundException */
@@ -50,7 +50,7 @@ public class GestorContenidoMain extends javax.swing.JFrame {
         //vacio el comboBoxPeliculas
         jCoBoContenido.removeAllItems();
         String sql = "SELECT * FROM contenido WHERE tipo='Peliculas'";
-        listaPeliculas=FuncionesBBDD.getListaContenido(sql);
+        listaPeliculas=FuncionesBBDD.getListas(sql,"Contenidos");
         Iterator itListaPelis=listaPeliculas.iterator();
         while(itListaPelis.hasNext()){
             Contenido nContenido=(Contenido) itListaPelis.next();
@@ -64,7 +64,7 @@ public class GestorContenidoMain extends javax.swing.JFrame {
         //vacio el comboBoxSeries
         jCoBoContenido.removeAllItems();
         String sql = "SELECT * FROM contenido WHERE tipo='Series'";
-        listaSeries=FuncionesBBDD.getListaContenido(sql);
+        listaSeries=FuncionesBBDD.getListas(sql,"Contenidos");
         Iterator itListaSeries=listaSeries.iterator();
         while(itListaSeries.hasNext()){
             Contenido nContenido=(Contenido) itListaSeries.next();
@@ -78,7 +78,7 @@ public class GestorContenidoMain extends javax.swing.JFrame {
         //vacio el comboBoxPeliculas
         jCoBoGenero.removeAllItems();
         String sql = "SELECT * FROM genero";
-        listaGeneros=FuncionesBBDD.getListaGeneros(sql);
+        listaGeneros=FuncionesBBDD.getListas(sql,"Generos");
         Iterator itListaGeneros=listaGeneros.iterator();
         while(itListaGeneros.hasNext()){
             Genero nGenero=(Genero) itListaGeneros.next();
@@ -480,7 +480,7 @@ public class GestorContenidoMain extends javax.swing.JFrame {
         String [] partesContenido= contenido.split("-");
         
         try {
-            FuncionesBBDD.borrarContenido(partesContenido[0]);
+            FuncionesBBDD.borrarRegistro(partesContenido[0],"Contenido");
                         
             //System.out.println(contenido);
         } catch (SQLException ex) {
@@ -495,14 +495,16 @@ public class GestorContenidoMain extends javax.swing.JFrame {
         boolean insertOK=true;
         String mError="";
 
+        //recojo los datos de los TextField
         String nombre= jTextFiNombre.getText();
         String descripcion= jTextFiDesc.getText();
         String director= jTextFiDir.getText();
         int temporadas= (Integer) jSpinnerTemp.getValue();
         String duracion=jTextFiDur.getText();
         String tipo="ninguno";
-        String genero=jCoBoContenido.getSelectedItem().toString();
-        String [] partesGnero= genero.split("-");
+        String genero=jCoBoGenero.getSelectedItem().toString();
+        //separo el id del nombre para luego insertarlo en generoContenido en bbdd
+        String [] partesGenero= genero.split("-");
         
 
         //compruebo que los campos comunes a series y pelis no estén vacios
@@ -518,38 +520,10 @@ public class GestorContenidoMain extends javax.swing.JFrame {
 
         }
 
-        /*
-        System.out.println("nombre:" +nombre);
-        System.out.println("descr:" +descripcion);
-        System.out.println("temp:" +temporadas);
-        System.out.println("dur:" +duracion);
-        System.out.println("dir:" +director);
-        */
 
         //tipo de contenido con checkbox
         if(jRaPeliAñadir.isSelected()){
             tipo="Peliculas";
-        }
-        if(jRaSerieAñadir.isSelected()){
-            tipo="Series";
-        }
-
-        //System.out.println("tipo:" +tipo);
-        //CONDICIONES SERIE
-
-        if ("Series".equals(tipo)){
-            //si es serie tiene que tener temporadas, más de 0
-            if(temporadas<=0){
-                insertOK=false;
-                mError=mError+"\n |Una serie ha de tener más de 0 temporadas|";
-            }
-            //si se ha introducido duración, la seteamos vacia.
-            if(longDur>0){
-                duracion="";
-            }
-        }
-
-        if ("Peliculas".equals(tipo)){
             //ha de tener duración
             if(longDur==0){
                 insertOK=false;
@@ -560,31 +534,69 @@ public class GestorContenidoMain extends javax.swing.JFrame {
                 insertOK=false;
                 mError=mError+"\n |Una película no ha de tener temporadas|";
             }
-
-        }
-
-        if ("ninguno".equals(tipo)){
+        }else if(jRaSerieAñadir.isSelected()){
+            tipo="Series";
+            //si es serie tiene que tener temporadas, más de 0
+            if(temporadas<=0){
+                insertOK=false;
+                mError=mError+"\n |Una serie ha de tener más de 0 temporadas|";
+            }
+            //si se ha introducido duración, la seteamos vacia.
+            if(longDur>0){
+                duracion="";
+            }
+        }else{
             insertOK=false;
             mError=mError+"\n |No has selecionado el tipo de contenido(Película/Serie)|";
-
         }
+        
 
         System.out.println("Errores"+ mError);
+        //HACER UN JOPTIONPANE
 
         //inserto el nuevo registro en bbdd
         if(insertOK==true){
             //llamo a la funcion para insertar contenido
+            ArrayList listaContIns=new ArrayList();
 
             try{
                 FuncionesBBDD.añadirContenido(nombre,descripcion,director,temporadas,duracion,tipo);
                 //falta insertar la imagen
                 System.out.println("Se ha insertado el contenido");
+                //(int idCont, int idGen)
+                /*
+                String sql="SELECT * from contenido where Nombre=\""+ nombre+ "\"";
+                FuncionesBBDD.getListas(sql,"Contenidos");
+                Iterator itListaCont=listaContIns.iterator();
+                while(itListaCont.hasNext()){
+                    Contenido nCont=(Contenido) itListaCont.next();
+                    System.out.println(nCont);
+                    int idCont = nCont.getId();        
+                    System.out.println(idCont);
+                }
+                */
+                
             } catch (ClassNotFoundException ex) {
                 Logger.getLogger(GestorContenidoMain.class.getName()).log(Level.SEVERE, null, ex);
             } catch (SQLException ex) {
                 Logger.getLogger(GestorContenidoMain.class.getName()).log(Level.SEVERE, null, ex);
             }
-
+            
+            int idCont = 0;
+            //saco el id del genero del array con el que cargo los generos
+            int idGen=Integer.parseInt(partesGenero[0]);
+            //saco el id del contenido con una consulta
+            idCont=FuncionesBBDD.getIdCont(nombre);
+            System.out.println(idCont);
+            
+            try {
+                FuncionesBBDD.añadirGeneroContenido(idCont,idGen);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(GestorContenidoMain.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SQLException ex) {
+                Logger.getLogger(GestorContenidoMain.class.getName()).log(Level.SEVERE, null, ex);
+            }
+             
         }else{
             //muestro los errores
             String mensajeFinal="No se ha podido insertar el contenido por errores en los datos dados."+mError;

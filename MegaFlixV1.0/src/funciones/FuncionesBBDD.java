@@ -145,6 +145,7 @@ public class FuncionesBBDD {
             
             // Preparamos un statement para hacer la inserción del registro.
             PreparedStatement stmt = conn.prepareStatement("INSERT INTO contenido VALUES (?,?,?,?,?,?,?,?)");
+            //aunque en la bbdd es int, para poder setearlo a null(porque es autoncremental) ha de ser String
             stmt.setString(1, null);
             stmt.setString(2, nombre);
             stmt.setString(3, director);
@@ -168,63 +169,56 @@ public class FuncionesBBDD {
         
     
     }
-    //ha de ser static para llamarlo en llenarCBPeliculas
-    public static ArrayList getListaContenido(String sql) throws ClassNotFoundException{
-        ArrayList listaContenido= new ArrayList();
-        Contenido nContenido= null;
-        
-        
-        try {
+     public static void añadirGeneroContenido(int idCont, int idGen) throws ClassNotFoundException, SQLException{
+                
+        //INSERCCION
+        try{
+  
             loadDriver();
             connect();
-            // Obtenemos un Statement de la conexión
-            Statement st = conn.createStatement();
-            // Ejecutamos una consulta SELECT para obtener la tabla vendedores
             
-            ResultSet rs = st.executeQuery(sql);
+            // Preparamos un statement para hacer la inserción del registro.
+            PreparedStatement stmt = conn.prepareStatement("INSERT INTO generocontenido VALUES (?,?,?)");
+            //aunque en la bbdd es int, para poder setearlo a null(porque es autoncremental) ha de ser String 
+            stmt.setString(1, null);
+            stmt.setInt(2, idCont);
+            stmt.setInt(3, idGen);
+           
+            System.out.println(stmt);
             
-       // Recorremos todo el ResultSet y guardamos los datos en un nuevo objeto que
-       //insertamos en el arraylist de listaPeliculas
-            while(rs.next()) {
-            nContenido= new Contenido("Nombre", "Director", "Tipo", "Descripcion", "Duracion", "Imagen", 0, 0);
-            nContenido.setId(rs.getInt("id"));
-            nContenido.setNombre(rs.getString("Nombre"));      
-            nContenido.setDirector(rs.getString("Director"));
-            nContenido.setDescripcion(rs.getString("Descripcion"));
-            nContenido.setTemporadas(rs.getInt("Temporadas"));
-            nContenido.setDuracion(rs.getString("Duracion"));
-            nContenido.setImagen(rs.getString("Imagen"));
-            nContenido.setTipo(rs.getString("Tipo"));
+            stmt.executeUpdate();
+            JOptionPane.showMessageDialog(null, "El registro de generoContenido se ha insertado correctamente");
+             
             
-            listaContenido.add(nContenido);
-            
-            
-            }
-            // Cerramos el statement y la conexión
-            st.close();
-            conn.close();
-        } 
-       catch (SQLException e) {
+        }catch (SQLException e) {
         e.printStackTrace();
+        JOptionPane.showMessageDialog(null, "El registro de generoContenido no se ha podido insertar correctamente");
+        
+    
         }
-       //devolvemos el array de objetos contenido
-        return listaContenido;
+        conn.close();
+        
     
     }
-    
-    public static void borrarContenido(String id) throws SQLException{
-               
+    //borrar genero o contenido segun el string tabla que le pasamos
+    public static void borrarRegistro(String id,String tabla) throws SQLException{
+        String sql="";
         try{
             loadDriver();
             connect();
             
             // Preparamos un statement para hacer el borrado del registro.
-            String sql="DELETE FROM contenido WHERE id='"+id+"'";
+            if("Contenido".equals(tabla)){
+                sql="DELETE FROM contenido WHERE id='"+id+"'";
+            }else if("Genero".equals(tabla)){
+                sql="DELETE FROM genero WHERE id='"+id+"'";
+            }
+            
             PreparedStatement stmt = conn.prepareStatement(sql);            
             
             stmt.executeUpdate();
             //System.out.println("se ha borrado el contenido correctamente!");
-            JOptionPane.showMessageDialog(null, "El contenido se ha borrado correctamente");
+            JOptionPane.showMessageDialog(null, "El registro de la tabla: "+ tabla+", se ha borrado correctamente");
             
         }catch (SQLException e) {
         e.printStackTrace();
@@ -234,10 +228,14 @@ public class FuncionesBBDD {
         conn.close();
         
     }
-    //
-    public static ArrayList getListaGeneros(String sql) throws ClassNotFoundException{
-        ArrayList listaGeneros= new ArrayList();
+    //Con esta funcion se devuelven la lista de generos, contenidos 
+    public static ArrayList getListas(String sql,String lista) throws ClassNotFoundException{
+        //ArrayList listaGeneros= new ArrayList();
+        //ArrayList listaContenido=new ArrayList();
+        ArrayList listaDevolver=new ArrayList();
         Genero nGenero= null;
+        
+        Contenido nContenido=null;
         
         
         try {
@@ -245,30 +243,76 @@ public class FuncionesBBDD {
             connect();
             // Obtenemos un Statement de la conexión
             Statement st = conn.createStatement();
-            // Ejecutamos una consulta SELECT para obtener la tabla generos
+            // Ejecutamos una consulta SELECT para obtener la tabla que deseamos
             
             ResultSet rs = st.executeQuery(sql);
             
-       // Recorremos todo el ResultSet y guardamos los datos en un nuevo objeto que
-       //insertamos en el arraylist de listaPeliculas
-            while(rs.next()) {
-            nGenero= new Genero(0,"Nombre");
-            nGenero.setIdgenero(rs.getInt("idgenero"));
-            nGenero.setNombre(rs.getString("Nombre"));
+            // Recorremos todo el ResultSet y guardamos los datos en un nuevo objeto que
+            //insertamos en el arraylist de listaDevolver
+       
+            //si  lista=genero devolvemos arraylist de onjetos genero
+            if("Generos".equals(lista)){
+                while(rs.next()) {
+                    nGenero= new Genero(0,"Nombre");
+                    nGenero.setIdgenero(rs.getInt("idgenero"));
+                    nGenero.setNombre(rs.getString("Nombre"));
+
+                    listaDevolver.add(nGenero);
+                }
             
-            listaGeneros.add(nGenero);
-            
-            
+            //si  lista=contenido devolvemos arraylist de onjetos contenido
+            }else if("Contenidos".equals(lista)){
+                while(rs.next()) {
+                     nContenido= new Contenido("Nombre", "Director", "Tipo", "Descripcion", "Duracion", "Imagen", 0, 0);
+                     nContenido.setId(rs.getInt("id"));
+                     nContenido.setNombre(rs.getString("Nombre"));      
+                     nContenido.setDirector(rs.getString("Director"));
+                     nContenido.setDescripcion(rs.getString("Descripcion"));
+                     nContenido.setTemporadas(rs.getInt("Temporadas"));
+                     nContenido.setDuracion(rs.getString("Duracion"));
+                     nContenido.setImagen(rs.getString("Imagen"));
+                     nContenido.setTipo(rs.getString("Tipo"));
+                     System.out.println(nContenido.toString());
+
+                     listaDevolver.add(nContenido);
+                }
             }
             // Cerramos el statement y la conexión
             st.close();
             conn.close();
-        } 
+        }
+        
        catch (SQLException e) {
         e.printStackTrace();
         }
        //devolvemos el array de objetos contenido
-        return listaGeneros;
+        return listaDevolver;
+    
+    }
+    public static int getIdCont(String nombre){
+        
+        int idCon=0;
+        loadDriver();
+        connect();
+        String sql="SELECT id from contenido where Nombre=\""+ nombre+ "\";";
+        try {
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+            //st.close();
+            
+            //guardo en el arraylist el nombre y la altura
+            while(rs.next()){
+                 idCon=rs.getInt("id");
+            }
+            
+          
+            return idCon;
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return 0;
+        }
+    
+    
     
     }
 }

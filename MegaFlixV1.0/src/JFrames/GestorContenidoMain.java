@@ -77,12 +77,14 @@ public class GestorContenidoMain extends javax.swing.JFrame {
     public void llenarCBGenero() throws ClassNotFoundException{
         //vacio el comboBoxPeliculas
         jCoBoGenero.removeAllItems();
+        jCoBoGenEliminar.removeAllItems();
         String sql = "SELECT * FROM genero";
         listaGeneros=FuncionesBBDD.getListas(sql,"Generos");
         Iterator itListaGeneros=listaGeneros.iterator();
         while(itListaGeneros.hasNext()){
             Genero nGenero=(Genero) itListaGeneros.next();
             jCoBoGenero.addItem(nGenero.toString());
+            jCoBoGenEliminar.addItem(nGenero.toString());
         
         }
         
@@ -136,7 +138,15 @@ public class GestorContenidoMain extends javax.swing.JFrame {
         jRaSeriesEliminar = new javax.swing.JRadioButton();
         jCoBoContenido = new javax.swing.JComboBox<>();
         mostrarContenido = new javax.swing.JButton();
-        jTabbedPane4 = new javax.swing.JTabbedPane();
+        jPanel5 = new javax.swing.JPanel();
+        jPanel6 = new javax.swing.JPanel();
+        jPanel7 = new javax.swing.JPanel();
+        jBuAñadirGen = new javax.swing.JButton();
+        jLabel9 = new javax.swing.JLabel();
+        jTeFiNombreGenA = new javax.swing.JTextField();
+        jPanel8 = new javax.swing.JPanel();
+        jBuEliminarGen = new javax.swing.JButton();
+        jCoBoGenEliminar = new javax.swing.JComboBox<>();
 
         jMenu1.setText("jMenu1");
 
@@ -178,7 +188,7 @@ public class GestorContenidoMain extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabelBienve, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 238, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 452, Short.MAX_VALUE)
                 .addComponent(jButton1)
                 .addGap(14, 14, 14))
             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -199,7 +209,7 @@ public class GestorContenidoMain extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton2)
                     .addComponent(jButton3))
-                .addContainerGap(133, Short.MAX_VALUE))
+                .addContainerGap(317, Short.MAX_VALUE))
         );
 
         jTabbedPane2.addTab("", jPanel1);
@@ -278,15 +288,13 @@ public class GestorContenidoMain extends javax.swing.JFrame {
                             .addGroup(jPanel4Layout.createSequentialGroup()
                                 .addComponent(jLabel5)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jTextFiDur, javax.swing.GroupLayout.DEFAULT_SIZE, 342, Short.MAX_VALUE))
-                            .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addComponent(jRaPeliAñadir)
-                                .addGap(18, 18, 18)
-                                .addComponent(jRaSerieAñadir)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jButton4))
+                                .addComponent(jTextFiDur, javax.swing.GroupLayout.DEFAULT_SIZE, 448, Short.MAX_VALUE))
                             .addGroup(jPanel4Layout.createSequentialGroup()
                                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel4Layout.createSequentialGroup()
+                                        .addComponent(jRaPeliAñadir)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jRaSerieAñadir))
                                     .addGroup(jPanel4Layout.createSequentialGroup()
                                         .addComponent(jLabel4)
                                         .addGap(18, 18, 18)
@@ -300,18 +308,20 @@ public class GestorContenidoMain extends javax.swing.JFrame {
                                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                             .addComponent(jTextFiNombre)
                                             .addComponent(jTextFiDesc)
-                                            .addComponent(jTextFiDir, javax.swing.GroupLayout.DEFAULT_SIZE, 344, Short.MAX_VALUE))))
+                                            .addComponent(jTextFiDir, javax.swing.GroupLayout.DEFAULT_SIZE, 344, Short.MAX_VALUE)))
+                                    .addGroup(jPanel4Layout.createSequentialGroup()
+                                        .addGap(248, 248, 248)
+                                        .addComponent(jButton4)))
                                 .addGap(0, 0, Short.MAX_VALUE)))
-                        .addContainerGap(34, Short.MAX_VALUE))))
+                        .addContainerGap(142, Short.MAX_VALUE))))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(10, 10, 10)
+                .addGap(12, 12, 12)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jRaPeliAñadir)
-                    .addComponent(jRaSerieAñadir)
-                    .addComponent(jButton4))
+                    .addComponent(jRaSerieAñadir))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
@@ -338,7 +348,9 @@ public class GestorContenidoMain extends javax.swing.JFrame {
                     .addComponent(jCoBoGenero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel6)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jButton4)
+                .addContainerGap(142, Short.MAX_VALUE))
         );
 
         jTabbedPane2.addTab("Añadir", jPanel4);
@@ -385,51 +397,165 @@ public class GestorContenidoMain extends javax.swing.JFrame {
                         .addComponent(jLabel7))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(26, 26, 26)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jCoBoContenido, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jRaPeliEliminar)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jRaSeriesEliminar)
-                                .addGap(68, 68, 68)
-                                .addComponent(mostrarContenido))))
+                        .addComponent(jRaPeliEliminar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jRaSeriesEliminar)
+                        .addGap(44, 44, 44)
+                        .addComponent(mostrarContenido))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(142, 142, 142)
+                        .addGap(134, 134, 134)
+                        .addComponent(jCoBoContenido, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
                         .addComponent(jBuBorrar)))
-                .addContainerGap(110, Short.MAX_VALUE))
+                .addContainerGap(164, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(57, 57, 57)
+                        .addComponent(jLabel7))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(12, 12, 12)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jRaPeliEliminar)
                             .addComponent(jRaSeriesEliminar)
-                            .addComponent(mostrarContenido)))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(57, 57, 57)
-                        .addComponent(jLabel7)))
-                .addGap(18, 18, 18)
-                .addComponent(jCoBoContenido, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31)
-                .addComponent(jBuBorrar)
-                .addContainerGap(110, Short.MAX_VALUE))
+                            .addComponent(mostrarContenido))))
+                .addGap(39, 39, 39)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jCoBoContenido, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBuBorrar))
+                .addContainerGap(333, Short.MAX_VALUE))
         );
 
         jTabbedPane2.addTab("Eliminar", jPanel3);
-        jTabbedPane2.addTab("Géneros", jTabbedPane4);
+
+        jPanel7.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        jBuAñadirGen.setText("Añadir");
+        jBuAñadirGen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBuAñadirGenActionPerformed(evt);
+            }
+        });
+
+        jLabel9.setText("Nombre:");
+
+        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
+        jPanel7.setLayout(jPanel7Layout);
+        jPanel7Layout.setHorizontalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
+                .addGap(43, 43, 43)
+                .addComponent(jLabel9)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jTeFiNombreGenA, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 151, Short.MAX_VALUE)
+                .addComponent(jBuAñadirGen)
+                .addGap(33, 33, 33))
+        );
+        jPanel7Layout.setVerticalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addGap(41, 41, 41)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jBuAñadirGen)
+                    .addComponent(jLabel9)
+                    .addComponent(jTeFiNombreGenA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(46, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                .addContainerGap(104, Short.MAX_VALUE)
+                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                .addContainerGap(61, Short.MAX_VALUE)
+                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(46, 46, 46))
+        );
+
+        jPanel8.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        jBuEliminarGen.setText("Eliminar");
+        jBuEliminarGen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBuEliminarGenActionPerformed(evt);
+            }
+        });
+
+        jCoBoGenEliminar.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jCoBoGenEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCoBoGenEliminarActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
+        jPanel8.setLayout(jPanel8Layout);
+        jPanel8Layout.setHorizontalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
+                .addGap(68, 68, 68)
+                .addComponent(jCoBoGenEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 248, Short.MAX_VALUE)
+                .addComponent(jBuEliminarGen)
+                .addGap(26, 26, 26))
+        );
+        jPanel8Layout.setVerticalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
+                .addContainerGap(47, Short.MAX_VALUE)
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jBuEliminarGen)
+                    .addComponent(jCoBoGenEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(39, 39, 39))
+        );
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(105, Short.MAX_VALUE))
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGap(14, 14, 14)
+                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(81, Short.MAX_VALUE))
+        );
+
+        jTabbedPane2.addTab("Géneros", jPanel5);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane2)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jTabbedPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 728, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane2)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jTabbedPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 487, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 15, Short.MAX_VALUE))
         );
 
         pack();
@@ -564,24 +690,13 @@ public class GestorContenidoMain extends javax.swing.JFrame {
         //inserto el nuevo registro en bbdd
         if(insertOK==true){
             //llamo a la funcion para insertar contenido
-            ArrayList listaContIns=new ArrayList();
+           
 
             try{
                 FuncionesBBDD.añadirContenido(nombre,descripcion,director,temporadas,duracion,tipo);
                 //falta insertar la imagen
                 System.out.println("Se ha insertado el contenido");
-                //(int idCont, int idGen)
-                /*
-                String sql="SELECT * from contenido where Nombre=\""+ nombre+ "\"";
-                FuncionesBBDD.getListas(sql,"Contenidos");
-                Iterator itListaCont=listaContIns.iterator();
-                while(itListaCont.hasNext()){
-                    Contenido nCont=(Contenido) itListaCont.next();
-                    System.out.println(nCont);
-                    int idCont = nCont.getId();        
-                    System.out.println(idCont);
-                }
-                */
+                
                 
             } catch (ClassNotFoundException ex) {
                 Logger.getLogger(GestorContenidoMain.class.getName()).log(Level.SEVERE, null, ex);
@@ -596,6 +711,7 @@ public class GestorContenidoMain extends javax.swing.JFrame {
             idCont=FuncionesBBDD.getIdCont(nombre);
             System.out.println(idCont);
             
+            //insertar generoContenido del nuevo contenido
             try {
                 FuncionesBBDD.añadirGeneroContenido(idCont,idGen);
             } catch (ClassNotFoundException ex) {
@@ -610,7 +726,7 @@ public class GestorContenidoMain extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, mensajeFinal, "Error de inserción", JOptionPane.WARNING_MESSAGE);
         }
         
-        //insertar generoContenido
+      
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jTextFiDirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFiDirActionPerformed
@@ -636,6 +752,55 @@ public class GestorContenidoMain extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jBuEliminarGenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBuEliminarGenActionPerformed
+        // TODO add your handling code here:
+        //Recojo el valor del comboBox
+        String generoEliminar=jCoBoGenEliminar.getSelectedItem().toString();
+        //el id estará en [0]
+        String [] partesGenEliminar= generoEliminar.split("-");
+        try {
+            //elimino en bbdd
+            FuncionesBBDD.borrarRegistro(partesGenEliminar[0], "Genero");
+        } catch (SQLException ex) {
+            Logger.getLogger(GestorContenidoMain.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //cargo de nuevo los generos
+        try {
+            
+            llenarCBGenero();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(GestorContenidoMain.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jBuEliminarGenActionPerformed
+
+    private void jBuAñadirGenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBuAñadirGenActionPerformed
+        // TODO add your handling code here:
+        //Recojo el valor del nombre del género
+        String nombreGen=jTeFiNombreGenA.getText();
+        boolean insertGenOK=true;
+        String mErrorGen="Errores: \n";
+        
+        //compruebo que el campo nombre no esté vacío
+        int longNombreGen=nombreGen.length();
+        if(longNombreGen==0){
+            insertGenOK=false;
+        }
+        
+        //inserto en bbdd el nuevo genero
+        if(insertGenOK=true){
+            
+        }else{
+            //muestro los errores
+            String mensajeFinal="No se ha podido insertar el género por errores en los datos dados."+mErrorGen;
+            JOptionPane.showMessageDialog(null, mensajeFinal, "Error de inserción", JOptionPane.WARNING_MESSAGE);
+        }
+        
+    }//GEN-LAST:event_jBuAñadirGenActionPerformed
+
+    private void jCoBoGenEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCoBoGenEliminarActionPerformed
+        
+    }//GEN-LAST:event_jCoBoGenEliminarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -683,12 +848,15 @@ public class GestorContenidoMain extends javax.swing.JFrame {
     private javax.swing.ButtonGroup buttonGroup4;
     private javax.swing.ButtonGroup buttonGroup5;
     private javax.swing.ButtonGroup buttonGroup6;
+    private javax.swing.JButton jBuAñadirGen;
     private javax.swing.JButton jBuBorrar;
+    private javax.swing.JButton jBuEliminarGen;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JComboBox<String> jCoBoContenido;
+    private javax.swing.JComboBox<String> jCoBoGenEliminar;
     private javax.swing.JComboBox<String> jCoBoGenero;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -698,12 +866,17 @@ public class GestorContenidoMain extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel jLabelBienve;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
     private javax.swing.JRadioButton jRaPeliAñadir;
     private javax.swing.JRadioButton jRaPeliEliminar;
     private javax.swing.JRadioButton jRaSerieAñadir;
@@ -711,7 +884,7 @@ public class GestorContenidoMain extends javax.swing.JFrame {
     private javax.swing.JSpinner jSpinnerTemp;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTabbedPane jTabbedPane2;
-    private javax.swing.JTabbedPane jTabbedPane4;
+    private javax.swing.JTextField jTeFiNombreGenA;
     private javax.swing.JTextField jTextFiDesc;
     private javax.swing.JTextField jTextFiDir;
     private javax.swing.JTextField jTextFiDur;

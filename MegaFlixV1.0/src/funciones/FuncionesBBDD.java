@@ -200,6 +200,37 @@ public class FuncionesBBDD {
         
     
     }
+     public static void añadirGenero(String nombre) throws ClassNotFoundException, SQLException{
+                
+        //INSERCCION
+        try{
+  
+            loadDriver();
+            connect();
+            
+            // Preparamos un statement para hacer la inserción del registro.
+            PreparedStatement stmt = conn.prepareStatement("INSERT INTO genero VALUES (?,?)");
+            //aunque en la bbdd es int, para poder setearlo a null(porque es autoncremental) ha de ser String 
+            stmt.setString(1, null);
+            stmt.setString(2, nombre);;
+           
+            System.out.println(stmt);
+            
+            stmt.executeUpdate();
+            JOptionPane.showMessageDialog(null, "El registro de Género se ha insertado correctamente");
+             
+            
+        }catch (SQLException e) {
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(null, "El registro de Género no se ha podido insertar correctamente");
+        
+    
+        }
+        conn.close();
+        
+    
+    }
+     
     //borrar genero o contenido segun el string tabla que le pasamos
     public static void borrarRegistro(String id,String tabla) throws SQLException{
         String sql="";
@@ -211,7 +242,7 @@ public class FuncionesBBDD {
             if("Contenido".equals(tabla)){
                 sql="DELETE FROM contenido WHERE id='"+id+"'";
             }else if("Genero".equals(tabla)){
-                sql="DELETE FROM genero WHERE id='"+id+"'";
+                sql="DELETE FROM genero WHERE idgenero='"+id+"'";
             }
             
             PreparedStatement stmt = conn.prepareStatement(sql);            
@@ -320,25 +351,6 @@ public class FuncionesBBDD {
     
     
     }
-    /*
-    public void mostrarContenido(){
     
-        if(jRaPeliEliminar.isSelected()){
-            try {
-                llenarCBPeliculas();
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(GestorContenidoMain.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            
-        }else if(jRaSeriesEliminar.isSelected()){
-            try {
-                llenarCBSeries();
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(GestorContenidoMain.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }else{
-            jCoBoContenido.addItem("Selecciona películas o series");
-        }
-    }*/
 }
 

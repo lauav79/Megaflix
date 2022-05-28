@@ -15,7 +15,7 @@ import java.sql.SQLException;
 public class mainPruebas {
     
     public static void main(String[] args) throws FileNotFoundException, SQLException, IOException {
-        PrincipalJFrame prueba = new PrincipalJFrame();
+        PortadaJFrame prueba = new PortadaJFrame();
         prueba.setVisible(true);
   
     }

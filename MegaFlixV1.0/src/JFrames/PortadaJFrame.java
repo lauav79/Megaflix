@@ -11,13 +11,13 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Carmen
  */
-public class PrincipalJFrame extends javax.swing.JFrame {
+public class PortadaJFrame extends javax.swing.JFrame {
         DefaultTableModel modelo;
         PreparedStatement st;                                                            
     /**                                                           
      * Creates new form PrincipalJFrame
      */
-    public PrincipalJFrame() {                                                             
+    public PortadaJFrame() {                                                             
         initComponents();
         panelTabla.setVisible(false);
         Tabla.setVisible(false);
@@ -408,20 +408,21 @@ public class PrincipalJFrame extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(PrincipalJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PortadaJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(PrincipalJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PortadaJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(PrincipalJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PortadaJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(PrincipalJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PortadaJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new PrincipalJFrame().setVisible(true);
+                new PortadaJFrame().setVisible(true);
             }
         });
     }

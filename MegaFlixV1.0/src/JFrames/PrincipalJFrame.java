@@ -5,8 +5,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import javax.swing.ImageIcon;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 /**
@@ -320,7 +318,6 @@ public class PrincipalJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_mSalirActionPerformed
 
     private void mPerfilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mPerfilActionPerformed
-        // TODO add your handling code here:
         //Mostrar el FRAME del PERFIL del USUARIO
         PerfilJFrame perfil = new PerfilJFrame();
         //Mostrar el frame de perfil
@@ -353,14 +350,14 @@ public class PrincipalJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_bBuscarActionPerformed
 
     private void mSeriesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mSeriesActionPerformed
-        this.setTitle("Todas las series");
+        this.setTitle("Todas las Series");
         visualizarTabla();
         String sqlTSeries="Select Nombre from contenido where Tipo='Series'";
         crearTabla(sqlTSeries);
     }//GEN-LAST:event_mSeriesActionPerformed
 
     private void mPeliculasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mPeliculasActionPerformed
-          this.setTitle("Todas las Películas");
+        this.setTitle("Todas las Películas");
         visualizarTabla();
         String sqlTPelis="Select Nombre from contenido where Tipo='Peliculas'";
         crearTabla(sqlTPelis);

@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import javax.swing.ImageIcon;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 /**
@@ -234,9 +236,16 @@ public class PrincipalJFrame extends javax.swing.JFrame {
 
         mContenido.setText("Contenido");
 
+        mSeries.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.ALT_DOWN_MASK));
         mSeries.setText("Series");
+        mSeries.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mSeriesActionPerformed(evt);
+            }
+        });
         mContenido.add(mSeries);
 
+        mPeliculas.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.ALT_DOWN_MASK));
         mPeliculas.setText("Peliculas");
         mContenido.add(mPeliculas);
 
@@ -323,14 +332,7 @@ public class PrincipalJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_mAcercaActionPerformed
 
     private void bBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bBuscarActionPerformed
-        //Ocultar elemenos que no me hacen falta
-        img1.setVisible(false);
-        img2.setVisible(false);
-        img3.setVisible(false);
-        //Hacer visible la tabla
-        panelTabla.setVisible(true);
-        Tabla.setVisible(true);
-        Tabla.removeAll();
+       visualizarTabla();
         // Búsqueda de contenido
         //Obtener texto a buscar
         String texto=txtBuscar.getText();
@@ -342,6 +344,7 @@ public class PrincipalJFrame extends javax.swing.JFrame {
                 ResultSet rs=st.executeQuery();              
                 Object[] nombre =new Object[1];
                 modelo = (DefaultTableModel) Tabla.getModel();
+                //Vaciar la tabla antes de cada búsqueda
                 modelo.setRowCount(0);
                 while(rs.next()){
                    nombre[0]= rs.getString("Nombre");
@@ -361,6 +364,7 @@ public class PrincipalJFrame extends javax.swing.JFrame {
                 ResultSet rs=st.executeQuery();              
                 Object[] nombre =new Object[1];
                 modelo = (DefaultTableModel) Tabla.getModel();
+                //Vaciar la tabla antes de cada búsqueda
                 modelo.setRowCount(0);
                 while(rs.next()){
                    nombre[0]= rs.getString("Nombre");
@@ -375,7 +379,41 @@ public class PrincipalJFrame extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Debe selecionar una opción");
         }
     }//GEN-LAST:event_bBuscarActionPerformed
- 
+
+    private void mSeriesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mSeriesActionPerformed
+        visualizarTabla();
+        String sqlTSeries="Select Nombre from contenido where Tipo='Series'";
+        Connection conec= funcionesBBDD.conectar();
+            try {
+                st= conec.prepareStatement("Select Nombre from contenido where Tipo='Series'");
+                ResultSet rs=st.executeQuery();
+                Object[] nombre =new Object[1];
+                modelo = (DefaultTableModel) Tabla.getModel();
+                //Vaciar la tabla antes de cada búsqueda
+                modelo.setRowCount(0);
+                while(rs.next()){
+                   nombre[0]= rs.getString("Nombre");
+                   modelo.addRow(nombre);
+               }
+                Tabla.setModel(modelo);
+                conec.close();
+            } catch (SQLException ex) {
+                System.out.println("No se ha podido añadir la tabla");
+            }
+    }//GEN-LAST:event_mSeriesActionPerformed
+     public void visualizarTabla(){
+         //Ocultar elemenos que no me hacen falta
+        img1.setVisible(false);
+        img2.setVisible(false);
+        img3.setVisible(false);
+        //Hacer visible la tabla
+        panelTabla.setVisible(true);
+        Tabla.setVisible(true);
+        Tabla.removeAll();
+    }
+    public void crearTabla(){
+        
+    }
     /**
      * @param args the command line arguments
      */

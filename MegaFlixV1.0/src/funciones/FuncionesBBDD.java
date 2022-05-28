@@ -289,6 +289,11 @@ public class FuncionesBBDD {
         return listaDevolver;
     
     }
+    /**
+     * 
+     * @param nombre el nombre del contenido del que queremos sacar el id
+     * @return el  id del contenido
+     */
     public static int getIdCont(String nombre){
         
         int idCon=0;
@@ -315,5 +320,25 @@ public class FuncionesBBDD {
     
     
     }
+    /*
+    public void mostrarContenido(){
+    
+        if(jRaPeliEliminar.isSelected()){
+            try {
+                llenarCBPeliculas();
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(GestorContenidoMain.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+        }else if(jRaSeriesEliminar.isSelected()){
+            try {
+                llenarCBSeries();
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(GestorContenidoMain.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }else{
+            jCoBoContenido.addItem("Selecciona películas o series");
+        }
+    }*/
 }
 

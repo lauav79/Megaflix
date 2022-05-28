@@ -434,12 +434,14 @@ public class GestorContenidoMain extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void mostrarContenidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mostrarContenidoActionPerformed
-        // TODO add your handling code here:
-        
-        //compruebo si esta seleccionadas pelis y series
-        //Cargo los datos en el comboBox según la seleccion del checkbox
+    
+    
+    /**
+     * rellena el combobox segun lo que este seleccionado en el checkbutton
+     * 
+    */
+    
+    private void cargarTipoSeleccionado(){
         if(jRaPeliEliminar.isSelected()){
             try {
                 llenarCBPeliculas();
@@ -456,12 +458,11 @@ public class GestorContenidoMain extends javax.swing.JFrame {
         }else{
             jCoBoContenido.addItem("Selecciona películas o series");
         }
-        
-        
-        
-        
-
+    }
+    private void mostrarContenidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mostrarContenidoActionPerformed
         //
+        cargarTipoSeleccionado();
+                
     }//GEN-LAST:event_mostrarContenidoActionPerformed
 
     private void jCoBoContenidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCoBoContenidoActionPerformed
@@ -486,6 +487,12 @@ public class GestorContenidoMain extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(GestorContenidoMain.class.getName()).log(Level.SEVERE, null, ex);
         }
+        //al acabar de borrar volvemos a cargar o actualizar el combobox
+        cargarTipoSeleccionado();
+        
+        //al borrar el registro de contenido, los registros de generoContenido
+        //que tuvieran como idContenido el que acabamos de borrar, se borra tambien
+        //ya que en bbdd está como ON DELETE CASCADE
     }//GEN-LAST:event_jBuBorrarActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed

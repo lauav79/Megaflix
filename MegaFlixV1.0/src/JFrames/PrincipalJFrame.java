@@ -1,14 +1,10 @@
 package JFrames;
-import com.mysql.cj.xdevapi.Statement;
 import java.sql.Connection;
 import funciones.funcionesBBDD;
-import java.awt.Image;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import javax.swing.ImageIcon;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 /**
@@ -17,7 +13,6 @@ import javax.swing.table.DefaultTableModel;
  */
 public class PrincipalJFrame extends javax.swing.JFrame {
         DefaultTableModel modelo;
- 
         PreparedStatement st;                                                            
     /**                                                           
      * Creates new form PrincipalJFrame
@@ -39,7 +34,7 @@ public class PrincipalJFrame extends javax.swing.JFrame {
                 if(res.next()){
                 img1.setIcon(new ImageIcon(res.getString("Imagen")));
                 }
-        } catch (Exception ex) {
+        } catch (SQLException ex) {
             System.out.println("No se ha encontrado la imagen");
         }
         //Segunda Consulta
@@ -50,7 +45,7 @@ public class PrincipalJFrame extends javax.swing.JFrame {
                 if(res2.next()){
                 img2.setIcon(new ImageIcon(res2.getString("Imagen")));
                 }
-        } catch (Exception ex) {
+        } catch (SQLException ex) {
             System.out.println("No se ha encontrado la imagen");
         }
          //Tercera Consulta
@@ -61,12 +56,12 @@ public class PrincipalJFrame extends javax.swing.JFrame {
                 if(res3.next()){
                 img3.setIcon(new ImageIcon(res3.getString("Imagen")));
                 }
-        } catch (Exception ex) {
+                conec.close();
+        } catch (SQLException ex) {
             System.out.println("No se ha encontrado la imagen");
         }
+       
     }
- 
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -347,17 +342,17 @@ public class PrincipalJFrame extends javax.swing.JFrame {
                 ResultSet rs=st.executeQuery();              
                 Object[] nombre =new Object[1];
                 modelo = (DefaultTableModel) Tabla.getModel();
+                modelo.setRowCount(0);
                 while(rs.next()){
                    nombre[0]= rs.getString("Nombre");
                    modelo.addRow(nombre);
                }
                 Tabla.setModel(modelo);
+                conec.close();
             } catch (SQLException ex) {
                 System.out.println("No se ha podido añadir la tabla");
             }
 
-            
-            JOptionPane.showMessageDialog(null, "Ha seleccionado Serie");
         }else if (rbPeli.isSelected()){
             Connection conec= funcionesBBDD.conectar();
             String sqlBuscarPeli="Select Nombre, Imagen from contenido where Tipo='Peliculas' and Nombre like '%"+ texto +"%'"; 
@@ -366,22 +361,19 @@ public class PrincipalJFrame extends javax.swing.JFrame {
                 ResultSet rs=st.executeQuery();              
                 Object[] nombre =new Object[1];
                 modelo = (DefaultTableModel) Tabla.getModel();
+                modelo.setRowCount(0);
                 while(rs.next()){
                    nombre[0]= rs.getString("Nombre");
                    modelo.addRow(nombre);
                }
                 Tabla.setModel(modelo);
+                conec.close();
             } catch (SQLException ex) {
                 System.out.println("No se ha podido añadir la tabla");
             }
-            
-            JOptionPane.showMessageDialog(null, "Ha seleccionado Pelicula");
         }else{
             JOptionPane.showMessageDialog(null, "Debe selecionar una opción");
         }
-        
-        
-        //
     }//GEN-LAST:event_bBuscarActionPerformed
  
     /**

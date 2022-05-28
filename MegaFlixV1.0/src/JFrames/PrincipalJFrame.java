@@ -247,6 +247,11 @@ public class PrincipalJFrame extends javax.swing.JFrame {
 
         mPeliculas.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.ALT_DOWN_MASK));
         mPeliculas.setText("Peliculas");
+        mPeliculas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mPeliculasActionPerformed(evt);
+            }
+        });
         mContenido.add(mPeliculas);
 
         jMenuBar1.add(mContenido);
@@ -337,55 +342,43 @@ public class PrincipalJFrame extends javax.swing.JFrame {
         //Obtener texto a buscar
         String texto=txtBuscar.getText();
         if(rbSerie.isSelected()){
-            Connection conec= funcionesBBDD.conectar();
            String sqlBuscarSerie="Select Nombre, Imagen from contenido where Tipo='Series' and Nombre like '%"+ texto +"%'"; 
-            try {
-                st=(PreparedStatement)conec.prepareStatement(sqlBuscarSerie);
-                ResultSet rs=st.executeQuery();              
-                Object[] nombre =new Object[1];
-                modelo = (DefaultTableModel) Tabla.getModel();
-                //Vaciar la tabla antes de cada búsqueda
-                modelo.setRowCount(0);
-                while(rs.next()){
-                   nombre[0]= rs.getString("Nombre");
-                   modelo.addRow(nombre);
-               }
-                Tabla.setModel(modelo);
-                conec.close();
-            } catch (SQLException ex) {
-                System.out.println("No se ha podido añadir la tabla");
-            }
-
+           crearTabla(sqlBuscarSerie);
         }else if (rbPeli.isSelected()){
-            Connection conec= funcionesBBDD.conectar();
             String sqlBuscarPeli="Select Nombre, Imagen from contenido where Tipo='Peliculas' and Nombre like '%"+ texto +"%'"; 
-             try {
-                st=(PreparedStatement)conec.prepareStatement(sqlBuscarPeli);
-                ResultSet rs=st.executeQuery();              
-                Object[] nombre =new Object[1];
-                modelo = (DefaultTableModel) Tabla.getModel();
-                //Vaciar la tabla antes de cada búsqueda
-                modelo.setRowCount(0);
-                while(rs.next()){
-                   nombre[0]= rs.getString("Nombre");
-                   modelo.addRow(nombre);
-               }
-                Tabla.setModel(modelo);
-                conec.close();
-            } catch (SQLException ex) {
-                System.out.println("No se ha podido añadir la tabla");
-            }
+            crearTabla(sqlBuscarPeli);
         }else{
             JOptionPane.showMessageDialog(null, "Debe selecionar una opción");
         }
     }//GEN-LAST:event_bBuscarActionPerformed
 
     private void mSeriesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mSeriesActionPerformed
+        this.setTitle("Todas las series");
         visualizarTabla();
         String sqlTSeries="Select Nombre from contenido where Tipo='Series'";
-        Connection conec= funcionesBBDD.conectar();
+        crearTabla(sqlTSeries);
+    }//GEN-LAST:event_mSeriesActionPerformed
+
+    private void mPeliculasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mPeliculasActionPerformed
+          this.setTitle("Todas las Películas");
+        visualizarTabla();
+        String sqlTPelis="Select Nombre from contenido where Tipo='Peliculas'";
+        crearTabla(sqlTPelis);
+    }//GEN-LAST:event_mPeliculasActionPerformed
+     public void visualizarTabla(){
+        //Ocultar elemenos
+        img1.setVisible(false);
+        img2.setVisible(false);
+        img3.setVisible(false);
+        //Hacer visible la tabla
+        panelTabla.setVisible(true);
+        Tabla.setVisible(true);
+        Tabla.removeAll();
+    }
+    public void crearTabla(String sql){
+         Connection conec= funcionesBBDD.conectar();
             try {
-                st= conec.prepareStatement("Select Nombre from contenido where Tipo='Series'");
+                st= conec.prepareStatement(sql);
                 ResultSet rs=st.executeQuery();
                 Object[] nombre =new Object[1];
                 modelo = (DefaultTableModel) Tabla.getModel();
@@ -400,19 +393,6 @@ public class PrincipalJFrame extends javax.swing.JFrame {
             } catch (SQLException ex) {
                 System.out.println("No se ha podido añadir la tabla");
             }
-    }//GEN-LAST:event_mSeriesActionPerformed
-     public void visualizarTabla(){
-         //Ocultar elemenos que no me hacen falta
-        img1.setVisible(false);
-        img2.setVisible(false);
-        img3.setVisible(false);
-        //Hacer visible la tabla
-        panelTabla.setVisible(true);
-        Tabla.setVisible(true);
-        Tabla.removeAll();
-    }
-    public void crearTabla(){
-        
     }
     /**
      * @param args the command line arguments

@@ -1,35 +1,31 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package JFrames;
 
-import Contenido.Contenido;
 import javax.swing.ImageIcon;
 import JFrames.PortadaJFrame;
-import com.mysql.cj.Query;
 import funciones.funcionesBBDD;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import javax.swing.JLabel;
 /**
  *
  * @author Carmen
  */
 public class MostrarContenido extends javax.swing.JFrame {
-    Object[] datos= new Object[5];
-    PortadaJFrame contenido = new PortadaJFrame();
+    PortadaJFrame titulo = new PortadaJFrame();
     /**
      * Creates new form MostrarContenido
      */
     public MostrarContenido(){
         initComponents();
+        txtNombre.setText("");
+        txtDirector.setText("");
+        txtDescripcion.setText("");
+        txtDuracion.setText("");
+        imgContenido.setIcon(new ImageIcon(""));
         this.setTitle("Mostrar Contenido");
         this.setLocationRelativeTo(null);
-        imgContenido.setIcon(new ImageIcon(contenido.imagen1));
-        String sqlMostrarContenido ="Select Nombre, Descripcion,Director,Duracion from contenido where Imagen='"+ contenido.imagen1+ "'";
+        String sqlMostrarContenido ="Select Nombre, Descripcion,Director,Duracion,Imagen from contenido where Nombre='El juego del calamar'"/*+titulo.texto+"'"*/;
         Connection conec = funcionesBBDD.conectar();
          try{
             PreparedStatement ps= conec.prepareStatement(sqlMostrarContenido);
@@ -39,16 +35,23 @@ public class MostrarContenido extends javax.swing.JFrame {
                 txtDirector.setText(rs.getString("Director"));
                 txtDescripcion.setText(rs.getString("Descripcion"));
                 txtDuracion.setText(rs.getString("Duracion"));
+                imgContenido.setIcon(new ImageIcon(rs.getString("Imagen")));
             }else{
                 txtNombre.setText("");
                 txtDirector.setText("");
                 txtDescripcion.setText("");
                 txtDuracion.setText("");
+                imgContenido.setIcon(new ImageIcon(""));
             }
+        conec.close();
 
       }catch(SQLException e){
           System.out.println("No se ha podido realizar la sentencia");
       }
+         
+
+             
+         
       /* mostrarContenido(sqlMostrarContenido);
         txtNombre=datos[0];
         txtDescripcion=datos[1];
@@ -97,54 +100,56 @@ public class MostrarContenido extends javax.swing.JFrame {
     private void initComponents() {
 
         imgContenido = new javax.swing.JLabel();
-        txtNombre = new javax.swing.JLabel();
         txtDuracion = new javax.swing.JLabel();
-        txtDirector = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtDescripcion = new javax.swing.JTextArea();
+        txtNombre = new javax.swing.JTextField();
+        txtDirector = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         imgContenido.setText("imagen");
 
-        txtNombre.setText("nombreSerie|pelicula");
-
         txtDuracion.setText("Duracion");
 
-        txtDirector.setText("Director");
-
+        txtDescripcion.setEditable(false);
         txtDescripcion.setColumns(20);
+        txtDescripcion.setLineWrap(true);
         txtDescripcion.setRows(5);
         jScrollPane1.setViewportView(txtDescripcion);
+
+        txtNombre.setEditable(false);
+
+        txtDirector.setEditable(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(txtDuracion, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(118, 118, 118))
             .addGroup(layout.createSequentialGroup()
                 .addGap(27, 27, 27)
                 .addComponent(imgContenido, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(69, 69, 69)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtDirector, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 372, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(154, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(txtDuracion, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(118, 118, 118))
+                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtDirector, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 349, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(177, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(49, 49, 49)
+                .addGap(44, 44, 44)
+                .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(7, 7, 7)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(imgContenido, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(txtNombre)
-                        .addGap(36, 36, 36)
-                        .addComponent(txtDirector)
+                        .addComponent(txtDirector, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
@@ -181,6 +186,9 @@ public class MostrarContenido extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(MostrarContenido.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -194,8 +202,8 @@ public class MostrarContenido extends javax.swing.JFrame {
     private javax.swing.JLabel imgContenido;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea txtDescripcion;
-    private javax.swing.JLabel txtDirector;
+    private javax.swing.JTextField txtDirector;
     private javax.swing.JLabel txtDuracion;
-    private javax.swing.JLabel txtNombre;
+    private javax.swing.JTextField txtNombre;
     // End of variables declaration//GEN-END:variables
 }

@@ -14,24 +14,9 @@ import javax.swing.table.DefaultTableModel;
 public class PortadaJFrame extends javax.swing.JFrame {
         DefaultTableModel modelo;
         PreparedStatement st;
-        public String imagen1,imagen2,imagen3;
-        public String genImagen;
+        public String texto;
 
-    public String getImagen1() {
-        return imagen1;
-    }
 
-    public void setImagen1(String imagen1) {
-        this.imagen1 = imagen1;
-    }
-
-    public String getGenImagen() {
-        return genImagen;
-    }
-
-    public void setGenImagen(String genImagen) {
-        this.genImagen = genImagen;
-    }
         
     /**                                                           
      * Creates new form PrincipalJFrame
@@ -42,18 +27,18 @@ public class PortadaJFrame extends javax.swing.JFrame {
         Tabla.setVisible(false);
         this.setLocationRelativeTo(null);
         this.setTitle("Portada");
+        String sql3Mejores="Select Nombre from contenido as c inner join usuariovaloracontenido on IdContenido=c.Id order by Puntuacion desc limit 3";
+        cargarDatosCombo(sql3Mejores);
         //Conectar base de datos
         Connection conec= funcionesBBDD.conectar();
-
         // Primera Consulta
         String sql1="Select Imagen from usuariovaloracontenido join contenido on idContenido=contenido.Id where Puntuacion=(Select max(Puntuacion) from usuariovaloracontenido)";
-        try {
+       try {
                 PreparedStatement pst = conec.prepareStatement(sql1);
                 ResultSet res = pst.executeQuery();
                 if(res.next()){
                 img1.setIcon(new ImageIcon(res.getString("Imagen"))); 
-                imagen1=res.getString("Imagen");
-                    System.out.println(imagen1);
+
             }
         } catch (SQLException ex) {
             System.out.println("No se ha encontrado la imagen");
@@ -65,7 +50,6 @@ public class PortadaJFrame extends javax.swing.JFrame {
                 ResultSet res2= ps2.executeQuery();
                 if(res2.next()){
                 img2.setIcon(new ImageIcon(res2.getString("Imagen")));
-                imagen2=res2.getString("Imagen");
                 }
         } catch (SQLException ex) {
             System.out.println("No se ha encontrado la imagen");
@@ -77,13 +61,12 @@ public class PortadaJFrame extends javax.swing.JFrame {
                 ResultSet res3= ps3.executeQuery();
                 if(res3.next()){
                 img3.setIcon(new ImageIcon(res3.getString("Imagen")));
-                imagen3=res3.getString("Imagen");
                 }
                 conec.close();
         } catch (SQLException ex) {
             System.out.println("No se ha encontrado la imagen");
         }
-       
+      
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -107,6 +90,8 @@ public class PortadaJFrame extends javax.swing.JFrame {
         panelTabla = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         Tabla = new javax.swing.JTable();
+        jVer = new javax.swing.JButton();
+        jCombo = new javax.swing.JComboBox<>();
         jMenuBar1 = new javax.swing.JMenuBar();
         mPortada = new javax.swing.JMenu();
         mContenido = new javax.swing.JMenu();
@@ -118,6 +103,7 @@ public class PortadaJFrame extends javax.swing.JFrame {
         mUsuario = new javax.swing.JMenu();
         mPerfil = new javax.swing.JMenuItem();
         mLogout = new javax.swing.JMenuItem();
+        menuAdmin = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -202,6 +188,13 @@ public class PortadaJFrame extends javax.swing.JFrame {
                 .addContainerGap(47, Short.MAX_VALUE))
         );
 
+        jVer.setText("Ver");
+        jVer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jVerActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -220,7 +213,12 @@ public class PortadaJFrame extends javax.swing.JFrame {
                                 .addComponent(img3, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(panelTabla, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(panelTabla, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(32, 32, 32)
+                        .addComponent(jCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jVer, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -236,7 +234,11 @@ public class PortadaJFrame extends javax.swing.JFrame {
                         .addComponent(img3, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(img2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(img1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(306, 306, 306))
+                .addGap(31, 31, 31)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jVer)
+                    .addComponent(jCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(249, 249, 249))
         );
 
         mPortada.setText("Portada");
@@ -299,6 +301,16 @@ public class PortadaJFrame extends javax.swing.JFrame {
 
         mLogout.setText("Log Out");
         mUsuario.add(mLogout);
+
+        menuAdmin.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.ALT_DOWN_MASK | java.awt.event.InputEvent.SHIFT_DOWN_MASK));
+        menuAdmin.setText("Administrar");
+        menuAdmin.setEnabled(false);
+        menuAdmin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuAdminActionPerformed(evt);
+            }
+        });
+        mUsuario.add(menuAdmin);
 
         jMenuBar1.add(mUsuario);
 
@@ -365,6 +377,7 @@ public class PortadaJFrame extends javax.swing.JFrame {
         this.setTitle("Todas las Series");
         visualizarTabla();
         String sqlTSeries="Select Nombre from contenido where Tipo='Series'";
+        cargarDatosCombo(sqlTSeries);
         crearTabla(sqlTSeries);
     }//GEN-LAST:event_mSeriesActionPerformed
 
@@ -372,15 +385,26 @@ public class PortadaJFrame extends javax.swing.JFrame {
         this.setTitle("Todas las Películas");
         visualizarTabla();
         String sqlTPelis="Select Nombre from contenido where Tipo='Peliculas'";
+        cargarDatosCombo(sqlTPelis);
         crearTabla(sqlTPelis);
     }//GEN-LAST:event_mPeliculasActionPerformed
 
     private void img1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_img1MouseClicked
-       MostrarContenido conte = new MostrarContenido();
-       conte.setVisible(true);
-
-       this.dispose();
+      
     }//GEN-LAST:event_img1MouseClicked
+
+    private void jVerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jVerActionPerformed
+       texto=jCombo.getSelectedItem().toString();
+       System.out.println(texto);
+       MostrarContenido visualizar = new MostrarContenido();
+       visualizar.setVisible(true);
+    }//GEN-LAST:event_jVerActionPerformed
+
+    private void menuAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAdminActionPerformed
+        // TODO add your handling code here:
+        //Habilitar si el usuario es admin
+        //Ir a menu de gestion
+    }//GEN-LAST:event_menuAdminActionPerformed
      public void visualizarTabla(){
         //Ocultar elemenos
         img1.setVisible(false);
@@ -409,6 +433,20 @@ public class PortadaJFrame extends javax.swing.JFrame {
             } catch (SQLException ex) {
                 System.out.println("No se ha podido añadir la tabla");
             }
+    }
+    public void cargarDatosCombo(String sql){
+        Connection conec=funcionesBBDD.conectar();
+        try{
+            jCombo.removeAllItems();
+            PreparedStatement ps=conec.prepareStatement(sql);
+            ResultSet rs= ps.executeQuery(sql);
+            while(rs.next()){
+                jCombo.addItem(rs.getString("Nombre"));
+            }
+            conec.close();
+        }catch(SQLException e){
+            System.out.println("No se ha podido cargar el combo");
+        }
     }
     /**
      * @param args the command line arguments
@@ -453,9 +491,11 @@ public class PortadaJFrame extends javax.swing.JFrame {
     private javax.swing.JLabel img1;
     private javax.swing.JLabel img2;
     private javax.swing.JLabel img3;
+    private javax.swing.JComboBox<String> jCombo;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JButton jVer;
     private javax.swing.JMenuItem mAcerca;
     private javax.swing.JMenu mAyuda;
     private javax.swing.JMenu mContenido;
@@ -466,6 +506,7 @@ public class PortadaJFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem mSalir;
     private javax.swing.JMenuItem mSeries;
     private javax.swing.JMenu mUsuario;
+    private javax.swing.JMenuItem menuAdmin;
     private javax.swing.JPanel panelBuscar;
     private javax.swing.JPanel panelTabla;
     private javax.swing.JRadioButton rbPeli;

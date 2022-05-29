@@ -11,7 +11,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Carmen
  */
-public class PortadaJFrame extends javax.swing.JFrame {
+public class PortadaJFrameAdmin extends javax.swing.JFrame {
         DefaultTableModel modelo;
         PreparedStatement st;
         public String texto;
@@ -21,7 +21,7 @@ public class PortadaJFrame extends javax.swing.JFrame {
     /**                                                           
      * Creates new form PrincipalJFrame
      */
-    public PortadaJFrame() {                                                             
+    public PortadaJFrameAdmin() {                                                             
         initComponents();
         panelTabla.setVisible(false);
         Tabla.setVisible(false);
@@ -103,6 +103,7 @@ public class PortadaJFrame extends javax.swing.JFrame {
         mUsuario = new javax.swing.JMenu();
         mPerfil = new javax.swing.JMenuItem();
         mLogout = new javax.swing.JMenuItem();
+        menuAdmin = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -301,6 +302,16 @@ public class PortadaJFrame extends javax.swing.JFrame {
         mLogout.setText("Log Out");
         mUsuario.add(mLogout);
 
+        menuAdmin.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.ALT_DOWN_MASK | java.awt.event.InputEvent.SHIFT_DOWN_MASK));
+        menuAdmin.setText("Administrar");
+        menuAdmin.setEnabled(false);
+        menuAdmin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuAdminActionPerformed(evt);
+            }
+        });
+        mUsuario.add(menuAdmin);
+
         jMenuBar1.add(mUsuario);
 
         setJMenuBar(jMenuBar1);
@@ -388,6 +399,12 @@ public class PortadaJFrame extends javax.swing.JFrame {
        MostrarContenido visualizar = new MostrarContenido();
        visualizar.setVisible(true);
     }//GEN-LAST:event_jVerActionPerformed
+
+    private void menuAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAdminActionPerformed
+        // TODO add your handling code here:
+        //Habilitar si el usuario es admin
+        //Ir a menu de gestion
+    }//GEN-LAST:event_menuAdminActionPerformed
      public void visualizarTabla(){
         //Ocultar elemenos
         img1.setVisible(false);
@@ -448,21 +465,23 @@ public class PortadaJFrame extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(PortadaJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PortadaJFrameAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(PortadaJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PortadaJFrameAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(PortadaJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PortadaJFrameAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(PortadaJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PortadaJFrameAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new PortadaJFrame().setVisible(true);
+                new PortadaJFrameAdmin().setVisible(true);
             }
         });
     }
@@ -489,6 +508,7 @@ public class PortadaJFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem mSalir;
     private javax.swing.JMenuItem mSeries;
     private javax.swing.JMenu mUsuario;
+    private javax.swing.JMenuItem menuAdmin;
     private javax.swing.JPanel panelBuscar;
     private javax.swing.JPanel panelTabla;
     private javax.swing.JRadioButton rbPeli;

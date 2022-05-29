@@ -119,7 +119,7 @@ public class funcionesBBDD {
         }
     }
     
-    /*
+    
       //Con esta funcion se devuelven la lista de titulos
     public static ArrayList getTitulo(String sql){
         ArrayList listaDevolver=new ArrayList();
@@ -141,6 +141,6 @@ public class funcionesBBDD {
             }
         return listaDevolver;
     }
-*/
+
     
 }

@@ -116,6 +116,11 @@ public class Contenido {
     public void setTemporadas(int Temporadas) {
         this.Temporadas = Temporadas;
     }
-    
+     @Override
+    public String toString() {
+        //return "Contenido{" + "Nombre=" + Nombre + ", Id=" + Id + '}';
+        String contenidoNombre=""+Nombre;
+        return contenidoNombre;
+    }
     
 }

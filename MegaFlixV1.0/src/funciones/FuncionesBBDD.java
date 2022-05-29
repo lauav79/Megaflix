@@ -292,6 +292,16 @@ public class FuncionesBBDD {
                 }
             
             //si  lista=contenido devolvemos arraylist de onjetos contenido
+            }else if("Comentarios".equals(lista)){
+                while(rs.next()) {
+                    nGenero= new Genero(0,"Nombre");
+                    nGenero.setIdgenero(rs.getInt("idgenero"));
+                    nGenero.setNombre(rs.getString("Nombre"));
+
+                    listaDevolver.add(nGenero);
+                }
+                
+                
             }else if("Contenidos".equals(lista)){
                 while(rs.next()) {
                      nContenido= new Contenido("Nombre", "Director", "Tipo", "Descripcion", "Duracion", "Imagen", 0, 0);

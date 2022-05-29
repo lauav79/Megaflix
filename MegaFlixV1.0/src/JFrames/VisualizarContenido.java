@@ -3,43 +3,91 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package JFrames;
+import Contenido.Contenido;
 import  funciones.FuncionesBBDD;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 
 /**
  *
  * @author admin
  */
 public class VisualizarContenido extends javax.swing.JFrame {
-
+    ArrayList listaDatos=new ArrayList();
+    ArrayList listaComentarios=new ArrayList();
+    
     /**
      * Creates new form VisualizarContenido
      */
     //AÑADIR LOS CAMPOS como parametros 
-    public VisualizarContenido() {
+    public VisualizarContenido() throws ClassNotFoundException {
         initComponents();
-        /*
-        funcionesBBDD.loadDriver();
-        funcionesBBDD.connect();
-        */
-        String titulo="el juego del calamar";
-        //añadir los saltos de linea cuando tenga
-        String descripcion="una serie coreana muy chuli \n con muchas cosas y muchas muertes muchisimas \nla verdad muy trau";
-       
+        //GET EL ID 
+        int id=2;
         
+        //tabla de contenido
+        String titulo="";
+        String descripcion="";
+        String director="";
+        String imagen;
+        String duracion="";
+        int temporadas=0;
+        String tipo="";
+        
+        
+        //tabla de comentarios
+        double valoracion;
+        //String valoracionStr=String.valueOf(valoracion);
+        String comentario;
+        String usuario;
+        //tabla generocontenido
+        String genero;
+        
+        
+        String sql="SELECT * FROM contenido WHERE id="+id;
+        listaDatos=FuncionesBBDD.getListas(sql, "Contenidos");
+        Iterator itListaDatosPelis=listaDatos.iterator();
+        while(itListaDatosPelis.hasNext()){
+            Contenido nContenido=(Contenido) itListaDatosPelis.next();
+            titulo=nContenido.getNombre();
+            descripcion=nContenido.getDescripcion();
+            imagen=nContenido.getImagen();
+            duracion=nContenido.getDuracion();
+            temporadas=nContenido.getTemporadas();
+            tipo=nContenido.getTipo();
+        
+        }
+        //trato el string de descripcion.
+        int numCarac=65  ;
+        String descBien="";
+        int longDesc=descripcion.length()-1;
+        for(int i=0;i<=longDesc;i++){
+            char c=descripcion.charAt(i);
+            descBien+=c;
+            if(i%numCarac==0 && i>0){
+                descBien+="-\n";
+            }            
+        }
+                
         //comentatios
-        double valoracion=3.3;
-        String valoracionStr=String.valueOf(valoracion);;
-        String comentario="Muy buena pelicula";
-        String usuario="alej34";
         
+        
+        //si es pelicula muestro solo duracion
+        
+        //si es serie muestro solo las temporadas
         
         jLabelTitulo.setText(titulo);
-        textArDesc.setText(descripcion);
-        jLabelValor.setText(valoracionStr);
-        textArcoment.setText(comentario);
-        jLaUser.setText(usuario);
+        //jLabelGenero.setText(genero);
+        //textArcoment.setText(comentario);
+        textArDesc.setText(descBien);
+        jLabelTemp.setText(Integer.toString(temporadas));
+        jLabelDur.setText(duracion);
+        //jLaUser.setText(usuario);
     }
     
 
@@ -65,12 +113,14 @@ public class VisualizarContenido extends javax.swing.JFrame {
         textArcoment = new java.awt.TextArea();
         textArDesc = new java.awt.TextArea();
         jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
+        jLabelDur = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
+        jLabelTemp = new javax.swing.JLabel();
+        jLabelGenero = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jLabelTitulo.setFont(new java.awt.Font("Georgia", 1, 18)); // NOI18N
         jLabelTitulo.setLabelFor(jLabelTitulo);
         jLabelTitulo.setText("titulo");
 
@@ -141,46 +191,48 @@ public class VisualizarContenido extends javax.swing.JFrame {
 
         jLabel5.setText("Duración:");
 
-        jLabel6.setText("tiempo");
+        jLabelDur.setText("tiempo");
 
         jLabel7.setText("Temporada:");
 
-        jLabel8.setText("nT");
+        jLabelTemp.setText("nT");
+
+        jLabelGenero.setText("Género");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(38, 38, 38)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabelTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButtonAtras)
-                        .addGap(26, 26, 26))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(55, 55, 55)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addComponent(textArDesc, javax.swing.GroupLayout.PREFERRED_SIZE, 345, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel6))
+                        .addComponent(jLabelDur))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel7)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel8)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabelTemp)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3)
+                    .addComponent(textArDesc, javax.swing.GroupLayout.PREFERRED_SIZE, 427, javax.swing.GroupLayout.PREFERRED_SIZE)))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(38, 38, 38)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabelGenero)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabelTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButtonAtras)
+                        .addGap(26, 26, 26))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -189,7 +241,9 @@ public class VisualizarContenido extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabelTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButtonAtras))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabelGenero)
+                .addGap(4, 4, 4)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
@@ -204,11 +258,11 @@ public class VisualizarContenido extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel5)
-                            .addComponent(jLabel6))
+                            .addComponent(jLabelDur))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel7)
-                            .addComponent(jLabel8))
+                            .addComponent(jLabelTemp))
                         .addGap(0, 0, Short.MAX_VALUE))))
         );
 
@@ -249,7 +303,11 @@ public class VisualizarContenido extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new VisualizarContenido().setVisible(true);
+                try {
+                    new VisualizarContenido().setVisible(true);
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(VisualizarContenido.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
@@ -263,9 +321,10 @@ public class VisualizarContenido extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabelDur;
+    private javax.swing.JLabel jLabelGenero;
+    private javax.swing.JLabel jLabelTemp;
     private javax.swing.JLabel jLabelTitulo;
     private javax.swing.JLabel jLabelValor;
     private javax.swing.JPanel jPanel2;

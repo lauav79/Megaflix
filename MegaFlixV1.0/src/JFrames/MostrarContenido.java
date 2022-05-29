@@ -15,6 +15,8 @@ public class MostrarContenido extends javax.swing.JFrame {
      */
     public MostrarContenido() {
         initComponents();
+        this.setTitle("Mostrar Contenido");
+        this.setLocationRelativeTo(null);
     }
 
     /**

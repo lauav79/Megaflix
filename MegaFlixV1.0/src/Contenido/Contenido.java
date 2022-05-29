@@ -30,7 +30,18 @@ public class Contenido {
         this.Descripcion = Descripcion;
         this.Imagen = Imagen;
     }
-   
+    
+    //Nuevo constructor
+
+    public Contenido(String Nombre, String Director, String Descripcion, String Duracion, String Imagen) {
+        this.Nombre = Nombre;
+        this.Director = Director;
+        this.Descripcion = Descripcion;
+        this.Duracion = Duracion;
+        this.Imagen = Imagen;
+    }
+    
+    
     //Getters y Setters
     public String getNombre() {
         return Nombre;

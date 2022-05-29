@@ -74,7 +74,12 @@ public class VisualizarContenido extends javax.swing.JFrame {
             }            
         }
                 
-        //comentatios
+        //comentarios
+        sql="SELECT * FROM usuariovaloracontenido WHERE idContenido="+id;
+        FuncionesBBDD.getListas(sql,"Comentarios");
+        
+        //cargo los comentarios 
+        
         
         
         //si es pelicula muestro solo duracion
@@ -141,6 +146,11 @@ public class VisualizarContenido extends javax.swing.JFrame {
         jPanel2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         jBuSiguiente.setText("Siguiente");
+        jBuSiguiente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBuSiguienteActionPerformed(evt);
+            }
+        });
 
         jLabelValor.setText("Valor");
 
@@ -272,6 +282,11 @@ public class VisualizarContenido extends javax.swing.JFrame {
     private void jButtonAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAtrasActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButtonAtrasActionPerformed
+
+    private void jBuSiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBuSiguienteActionPerformed
+        // TODO add your handling code here:
+        //cargo siguiente comentario
+    }//GEN-LAST:event_jBuSiguienteActionPerformed
 
     /**
      * @param args the command line arguments

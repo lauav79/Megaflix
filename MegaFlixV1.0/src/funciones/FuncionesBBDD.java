@@ -2,6 +2,7 @@ package funciones;
 
 import Contenido.Contenido;
 import Genero.Genero;
+import Valoraciones.Valoracion;
 import java.sql.DriverManager;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -265,7 +266,7 @@ public class FuncionesBBDD {
         //ArrayList listaContenido=new ArrayList();
         ArrayList listaDevolver=new ArrayList();
         Genero nGenero= null;
-        
+        Valoracion nValoracion=null;
         Contenido nContenido=null;
         
         
@@ -294,11 +295,13 @@ public class FuncionesBBDD {
             //si  lista=contenido devolvemos arraylist de onjetos contenido
             }else if("Comentarios".equals(lista)){
                 while(rs.next()) {
-                    nGenero= new Genero(0,"Nombre");
-                    nGenero.setIdgenero(rs.getInt("idgenero"));
-                    nGenero.setNombre(rs.getString("Nombre"));
+                    nValoracion= new Valoracion(0,0,0,0,"Comentario");
+                    nValoracion.setId(rs.getInt("id"));
+                    nValoracion.setIdContenido(rs.getInt("idContenido"));
+                    nValoracion.setIdUsuario(rs.getInt("idUsuario"));
+                    nValoracion.setComentario(rs.getString("Comentario"));
 
-                    listaDevolver.add(nGenero);
+                    listaDevolver.add(nValoracion);
                 }
                 
                 

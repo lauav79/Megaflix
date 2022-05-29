@@ -789,7 +789,15 @@ public class GestorContenidoMain extends javax.swing.JFrame {
         
         //inserto en bbdd el nuevo genero
         if(insertGenOK=true){
-            
+            try {
+                FuncionesBBDD.añadirGenero(nombreGen);
+                //actualizo con comboBox de género con el nuevo registro
+                llenarCBGenero();
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(GestorContenidoMain.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SQLException ex) {
+                Logger.getLogger(GestorContenidoMain.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }else{
             //muestro los errores
             String mensajeFinal="No se ha podido insertar el género por errores en los datos dados."+mErrorGen;

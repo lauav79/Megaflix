@@ -290,6 +290,7 @@ public class PortadaJFrameAdmin extends javax.swing.JFrame {
         jMenuBar1.add(mAyuda);
 
         mUsuario.setText("Usuario");
+        mUsuario.setEnabled(false);
 
         mPerfil.setText("Perfil");
         mPerfil.addActionListener(new java.awt.event.ActionListener() {

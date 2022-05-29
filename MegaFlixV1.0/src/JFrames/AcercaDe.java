@@ -17,7 +17,7 @@ public class AcercaDe extends javax.swing.JDialog {
         //Ponerle un título a la Pestaña
         this.setLocationRelativeTo(this);
         this.setTitle("Acerca De");
-        lblAcercaLogo.setIcon(new ImageIcon("./img/logo.png"));
+        lblAcercaLogo.setIcon(new ImageIcon("./src/imagenes/logo.png"));
     }
 
     /**

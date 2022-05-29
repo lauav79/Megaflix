@@ -47,6 +47,10 @@ public class Contenido {
         this.Duracion="";
         this.Imagen="";
     }
+
+    public Contenido(String nombre) {
+        this.Nombre=""; //To change body of generated methods, choose Tools | Templates.
+    }
     
     //Getters y Setters
     public String getNombre() {

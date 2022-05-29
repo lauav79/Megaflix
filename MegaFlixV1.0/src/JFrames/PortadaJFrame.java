@@ -1,10 +1,15 @@
 package JFrames;
+import Contenido.Contenido;
 import java.sql.Connection;
 import funciones.funcionesBBDD;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import javax.swing.ImageIcon;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 /**
@@ -14,7 +19,8 @@ import javax.swing.table.DefaultTableModel;
 public class PortadaJFrame extends javax.swing.JFrame {
         DefaultTableModel modelo;
         PreparedStatement st;
-        public String texto;
+        String texto="";
+        //ArrayList listaTitulos;
 
 
         
@@ -29,6 +35,12 @@ public class PortadaJFrame extends javax.swing.JFrame {
         this.setTitle("Portada");
         String sql3Mejores="Select Nombre from contenido as c inner join usuariovaloracontenido on IdContenido=c.Id order by Puntuacion desc limit 3";
         cargarDatosCombo(sql3Mejores);
+        /* try {
+             
+                datosCombo(sql3Mejores);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(PortadaJFrame.class.getName()).log(Level.SEVERE, null, ex);
+            }*/
         //Conectar base de datos
         Connection conec= funcionesBBDD.conectar();
         // Primera Consulta
@@ -92,6 +104,7 @@ public class PortadaJFrame extends javax.swing.JFrame {
         Tabla = new javax.swing.JTable();
         jVer = new javax.swing.JButton();
         jCombo = new javax.swing.JComboBox<>();
+        lblMusica = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         mPortada = new javax.swing.JMenu();
         mContenido = new javax.swing.JMenu();
@@ -194,6 +207,14 @@ public class PortadaJFrame extends javax.swing.JFrame {
             }
         });
 
+        jCombo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboActionPerformed(evt);
+            }
+        });
+
+        lblMusica.setText("Musica");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -219,6 +240,10 @@ public class PortadaJFrame extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(jVer, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(lblMusica, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(200, 200, 200))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -237,7 +262,9 @@ public class PortadaJFrame extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jVer)
                     .addComponent(jCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(249, 249, 249))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblMusica, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(153, 153, 153))
         );
 
         mPortada.setText("Portada");
@@ -383,11 +410,18 @@ public class PortadaJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_img1MouseClicked
 
     private void jVerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jVerActionPerformed
-       texto=jCombo.getSelectedItem().toString();
+       //texto=jCombo.getSelectedItem().toString();
        System.out.println(texto);
        MostrarContenido visualizar = new MostrarContenido();
        visualizar.setVisible(true);
+       this.setVisible(false);
     }//GEN-LAST:event_jVerActionPerformed
+
+    private void jComboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboActionPerformed
+        // TODO add your handling code here:
+        texto=jCombo.getSelectedItem().toString();
+
+    }//GEN-LAST:event_jComboActionPerformed
      public void visualizarTabla(){
         //Ocultar elemenos
         img1.setVisible(false);
@@ -431,6 +465,16 @@ public class PortadaJFrame extends javax.swing.JFrame {
             System.out.println("No se ha podido cargar el combo");
         }
     }
+    
+   /* public void datosCombo(String sql) throws ClassNotFoundException{
+           jCombo.removeAllItems();
+            listaTitulos=funcionesBBDD.getTitulo(sql);
+            Iterator itListaTitulos=listaTitulos.iterator();
+            while(itListaTitulos.hasNext()){
+            Contenido nContenido=(Contenido) itListaTitulos.next();
+            jCombo.addItem(nContenido.toString());
+            }
+    }*/
     /**
      * @param args the command line arguments
      */
@@ -479,6 +523,7 @@ public class PortadaJFrame extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton jVer;
+    private javax.swing.JLabel lblMusica;
     private javax.swing.JMenuItem mAcerca;
     private javax.swing.JMenu mAyuda;
     private javax.swing.JMenu mContenido;

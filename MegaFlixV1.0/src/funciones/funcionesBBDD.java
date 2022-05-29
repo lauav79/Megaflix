@@ -1,10 +1,12 @@
 package funciones;
 
+import Contenido.Contenido;
 import java.sql.DriverManager;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 
 
 
@@ -116,5 +118,29 @@ public class funcionesBBDD {
             ex.printStackTrace();
         }
     }
+    
+    /*
+      //Con esta funcion se devuelven la lista de titulos
+    public static ArrayList getTitulo(String sql){
+        ArrayList listaDevolver=new ArrayList();
+        Contenido nContenido=null;
+        try {
+            loadDriver();
+            connect();
+            // Obtenemos un Statement de la conexión
+            Statement st = conn.createStatement();
+            // Ejecutamos una consulta SELECT para obtener la tabla que deseamos
+            ResultSet rs = st.executeQuery(sql);
+                while(rs.next()) {
+                   nContenido= new Contenido("Nombre");
+                   nContenido.setNombre(rs.getString("Nombre"));
+                   listaDevolver.add(nContenido);
+                }
+            }catch(SQLException e){
+            System.out.println("Error al añadir titulos");
+            }
+        return listaDevolver;
+    }
+*/
     
 }

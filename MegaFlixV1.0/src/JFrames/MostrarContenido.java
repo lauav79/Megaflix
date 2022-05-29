@@ -25,7 +25,8 @@ public class MostrarContenido extends javax.swing.JFrame {
         imgContenido.setIcon(new ImageIcon(""));
         this.setTitle("Mostrar Contenido");
         this.setLocationRelativeTo(null);
-        String sqlMostrarContenido ="Select Nombre, Descripcion,Director,Duracion,Imagen from contenido where Nombre='El juego del calamar'"/*+titulo.texto+"'"*/;
+        System.out.println(titulo.texto);
+        String sqlMostrarContenido ="Select Nombre, Descripcion,Director,Duracion,Imagen from contenido where Nombre='"+titulo.texto+"'";
         Connection conec = funcionesBBDD.conectar();
          try{
             PreparedStatement ps= conec.prepareStatement(sqlMostrarContenido);
@@ -48,47 +49,8 @@ public class MostrarContenido extends javax.swing.JFrame {
       }catch(SQLException e){
           System.out.println("No se ha podido realizar la sentencia");
       }
-         
 
-             
-         
-      /* mostrarContenido(sqlMostrarContenido);
-        txtNombre=datos[0];
-        txtDescripcion=datos[1];
-        txtDirector=datos[2];
-        txtDuracion=datos[3];*/
     } 
-    /*
-       public Contenido visualizarContenido(String imagen){
-           Contenido cont;
-           Connection conec= funcionesBBDD.conectar();
-           try{
-           Query ps=conec.createQuery("Select Nombre, Descripcion,Director,Duracion from contenido where Imagen= :Imagen");
-           Query ps.setParameter("Imagen", imagen);
-           cont= (Contenido)  ps.ge
-           }catch(SQLException e){
-               System.out.println("Problemas en la consulta");
-           }
-           return cont;
-       }*/
- /*   public void mostrarContenido(String sql){
-        Connection conec= funcionesBBDD.conectar();
-            try {
-                PreparedStatement st = conec.prepareStatement(sql);
-                ResultSet rs=st.executeQuery();
-                Object[] datos =new Object[5];
-                while(rs.next()){
-                   datos[0]= rs.getString("Nombre");
-                   datos[1]= rs.getString("Descripcion");
-                   datos[2]= rs.getString("Director");
-                   datos[3]= rs.getString("Duracion");
-               }
-
-                conec.close();
-            } catch (SQLException ex) {
-                System.out.println("No se ha podido recoger los datos");
-            }
-    }*/
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -105,6 +67,7 @@ public class MostrarContenido extends javax.swing.JFrame {
         txtDescripcion = new javax.swing.JTextArea();
         txtNombre = new javax.swing.JTextField();
         txtDirector = new javax.swing.JTextField();
+        btnAtras = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -122,6 +85,13 @@ public class MostrarContenido extends javax.swing.JFrame {
 
         txtDirector.setEditable(false);
 
+        btnAtras.setText("Atrás");
+        btnAtras.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAtrasActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -135,16 +105,24 @@ public class MostrarContenido extends javax.swing.JFrame {
                 .addComponent(imgContenido, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(69, 69, 69)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtDirector, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 349, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(177, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtDirector, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 349, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 140, Short.MAX_VALUE)
+                        .addComponent(btnAtras, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(92, 92, 92))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(44, 44, 44)
-                .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnAtras))
                 .addGap(7, 7, 7)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(imgContenido, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -159,6 +137,12 @@ public class MostrarContenido extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtrasActionPerformed
+        this.dispose();
+        PortadaJFrame portada =new PortadaJFrame();
+        portada.setVisible(true);
+    }//GEN-LAST:event_btnAtrasActionPerformed
 
     /**
      * @param args the command line arguments
@@ -199,6 +183,7 @@ public class MostrarContenido extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAtras;
     private javax.swing.JLabel imgContenido;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea txtDescripcion;

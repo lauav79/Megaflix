@@ -13,7 +13,26 @@ import javax.swing.table.DefaultTableModel;
  */
 public class PortadaJFrame extends javax.swing.JFrame {
         DefaultTableModel modelo;
-        PreparedStatement st;                                                           
+        PreparedStatement st;
+        public String imagen1,imagen2,imagen3;
+        public String genImagen;
+
+    public String getImagen1() {
+        return imagen1;
+    }
+
+    public void setImagen1(String imagen1) {
+        this.imagen1 = imagen1;
+    }
+
+    public String getGenImagen() {
+        return genImagen;
+    }
+
+    public void setGenImagen(String genImagen) {
+        this.genImagen = genImagen;
+    }
+        
     /**                                                           
      * Creates new form PrincipalJFrame
      */
@@ -32,8 +51,10 @@ public class PortadaJFrame extends javax.swing.JFrame {
                 PreparedStatement pst = conec.prepareStatement(sql1);
                 ResultSet res = pst.executeQuery();
                 if(res.next()){
-                img1.setIcon(new ImageIcon(res.getString("Imagen")));
-                }
+                img1.setIcon(new ImageIcon(res.getString("Imagen"))); 
+                imagen1=res.getString("Imagen");
+                    System.out.println(imagen1);
+            }
         } catch (SQLException ex) {
             System.out.println("No se ha encontrado la imagen");
         }
@@ -44,6 +65,7 @@ public class PortadaJFrame extends javax.swing.JFrame {
                 ResultSet res2= ps2.executeQuery();
                 if(res2.next()){
                 img2.setIcon(new ImageIcon(res2.getString("Imagen")));
+                imagen2=res2.getString("Imagen");
                 }
         } catch (SQLException ex) {
             System.out.println("No se ha encontrado la imagen");
@@ -55,6 +77,7 @@ public class PortadaJFrame extends javax.swing.JFrame {
                 ResultSet res3= ps3.executeQuery();
                 if(res3.next()){
                 img3.setIcon(new ImageIcon(res3.getString("Imagen")));
+                imagen3=res3.getString("Imagen");
                 }
                 conec.close();
         } catch (SQLException ex) {
@@ -166,17 +189,17 @@ public class PortadaJFrame extends javax.swing.JFrame {
         panelTabla.setLayout(panelTablaLayout);
         panelTablaLayout.setHorizontalGroup(
             panelTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelTablaLayout.createSequentialGroup()
-                .addGap(31, 31, 31)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelTablaLayout.createSequentialGroup()
+                .addContainerGap(63, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 648, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(56, Short.MAX_VALUE))
+                .addGap(24, 24, 24))
         );
         panelTablaLayout.setVerticalGroup(
             panelTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelTablaLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(78, Short.MAX_VALUE))
+                .addContainerGap(47, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -186,18 +209,18 @@ public class PortadaJFrame extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(126, 126, 126)
-                        .addComponent(img1, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(40, 40, 40)
-                        .addComponent(img2, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(img3, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(83, 83, 83)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(panelBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(img1, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(40, 40, 40)
+                                .addComponent(img2, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(img3, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(panelTabla, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(36, 36, 36)
-                        .addComponent(panelBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(panelTabla, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -353,10 +376,10 @@ public class PortadaJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_mPeliculasActionPerformed
 
     private void img1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_img1MouseClicked
-        //Mostrar el contenido
-        MostrarContenido cont1 = new MostrarContenido();
-        cont1.setVisible(true);
-        this.dispose();
+       MostrarContenido conte = new MostrarContenido();
+       conte.setVisible(true);
+
+       this.dispose();
     }//GEN-LAST:event_img1MouseClicked
      public void visualizarTabla(){
         //Ocultar elemenos

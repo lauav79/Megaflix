@@ -4,20 +4,88 @@
  */
 package JFrames;
 
+import Contenido.Contenido;
+import javax.swing.ImageIcon;
+import JFrames.PortadaJFrame;
+import com.mysql.cj.Query;
+import funciones.funcionesBBDD;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import javax.swing.JLabel;
 /**
  *
  * @author Carmen
  */
 public class MostrarContenido extends javax.swing.JFrame {
-
+    Object[] datos= new Object[5];
+    PortadaJFrame contenido = new PortadaJFrame();
     /**
      * Creates new form MostrarContenido
      */
-    public MostrarContenido() {
+    public MostrarContenido(){
         initComponents();
         this.setTitle("Mostrar Contenido");
         this.setLocationRelativeTo(null);
-    }
+        imgContenido.setIcon(new ImageIcon(contenido.imagen1));
+        String sqlMostrarContenido ="Select Nombre, Descripcion,Director,Duracion from contenido where Imagen='"+ contenido.imagen1+ "'";
+        Connection conec = funcionesBBDD.conectar();
+         try{
+            PreparedStatement ps= conec.prepareStatement(sqlMostrarContenido);
+            ResultSet rs=ps.executeQuery();
+            if(rs.next()){
+                txtNombre.setText(rs.getString("Nombre"));
+                txtDirector.setText(rs.getString("Director"));
+                txtDescripcion.setText(rs.getString("Descripcion"));
+                txtDuracion.setText(rs.getString("Duracion"));
+            }else{
+                txtNombre.setText("");
+                txtDirector.setText("");
+                txtDescripcion.setText("");
+                txtDuracion.setText("");
+            }
+
+      }catch(SQLException e){
+          System.out.println("No se ha podido realizar la sentencia");
+      }
+      /* mostrarContenido(sqlMostrarContenido);
+        txtNombre=datos[0];
+        txtDescripcion=datos[1];
+        txtDirector=datos[2];
+        txtDuracion=datos[3];*/
+    } 
+    /*
+       public Contenido visualizarContenido(String imagen){
+           Contenido cont;
+           Connection conec= funcionesBBDD.conectar();
+           try{
+           Query ps=conec.createQuery("Select Nombre, Descripcion,Director,Duracion from contenido where Imagen= :Imagen");
+           Query ps.setParameter("Imagen", imagen);
+           cont= (Contenido)  ps.ge
+           }catch(SQLException e){
+               System.out.println("Problemas en la consulta");
+           }
+           return cont;
+       }*/
+ /*   public void mostrarContenido(String sql){
+        Connection conec= funcionesBBDD.conectar();
+            try {
+                PreparedStatement st = conec.prepareStatement(sql);
+                ResultSet rs=st.executeQuery();
+                Object[] datos =new Object[5];
+                while(rs.next()){
+                   datos[0]= rs.getString("Nombre");
+                   datos[1]= rs.getString("Descripcion");
+                   datos[2]= rs.getString("Director");
+                   datos[3]= rs.getString("Duracion");
+               }
+
+                conec.close();
+            } catch (SQLException ex) {
+                System.out.println("No se ha podido recoger los datos");
+            }
+    }*/
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -28,23 +96,26 @@ public class MostrarContenido extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        img = new javax.swing.JLabel();
+        imgContenido = new javax.swing.JLabel();
         txtNombre = new javax.swing.JLabel();
-        labelDescripcion = new javax.swing.JLabel();
-        duracion = new javax.swing.JLabel();
-        director = new javax.swing.JLabel();
+        txtDuracion = new javax.swing.JLabel();
+        txtDirector = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        txtDescripcion = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        img.setText("imagen");
+        imgContenido.setText("imagen");
 
         txtNombre.setText("nombreSerie|pelicula");
 
-        labelDescripcion.setText("Descripcion");
+        txtDuracion.setText("Duracion");
 
-        duracion.setText("Duracion");
+        txtDirector.setText("Director");
 
-        director.setText("Director");
+        txtDescripcion.setColumns(20);
+        txtDescripcion.setRows(5);
+        jScrollPane1.setViewportView(txtDescripcion);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -52,16 +123,16 @@ public class MostrarContenido extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(27, 27, 27)
-                .addComponent(img, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(imgContenido, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(69, 69, 69)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(labelDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 423, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(director, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(103, Short.MAX_VALUE))
+                    .addComponent(txtDirector, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 372, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(154, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(duracion, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtDuracion, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(118, 118, 118))
         );
         layout.setVerticalGroup(
@@ -69,15 +140,15 @@ public class MostrarContenido extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(49, 49, 49)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(img, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(imgContenido, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(txtNombre)
                         .addGap(36, 36, 36)
-                        .addComponent(director)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(labelDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txtDirector)
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
-                .addComponent(duracion)
+                .addComponent(txtDuracion)
                 .addContainerGap(137, Short.MAX_VALUE))
         );
 
@@ -120,10 +191,11 @@ public class MostrarContenido extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel director;
-    private javax.swing.JLabel duracion;
-    private javax.swing.JLabel img;
-    private javax.swing.JLabel labelDescripcion;
+    private javax.swing.JLabel imgContenido;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextArea txtDescripcion;
+    private javax.swing.JLabel txtDirector;
+    private javax.swing.JLabel txtDuracion;
     private javax.swing.JLabel txtNombre;
     // End of variables declaration//GEN-END:variables
 }

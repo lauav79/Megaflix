@@ -40,7 +40,13 @@ public class Contenido {
         this.Duracion = Duracion;
         this.Imagen = Imagen;
     }
-    
+    public Contenido(){
+        this.Nombre="";
+        this.Director="";
+        this.Descripcion="";
+        this.Duracion="";
+        this.Imagen="";
+    }
     
     //Getters y Setters
     public String getNombre() {

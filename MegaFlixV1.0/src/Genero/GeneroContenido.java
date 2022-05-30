@@ -9,14 +9,22 @@ package Genero;
  * @author Laura Álvarez
  */
 public class GeneroContenido {
-    private  int idGenCon;
-    private int idCont;
-    private int idGen;
+    private String nombreGen;
+    private  int idGenCon,idCont,idGen;
     
-    public GeneroContenido(int idGC,int idC,int idG){
+    public GeneroContenido(String nombreG,int idGC,int idC,int idG){
+        this.nombreGen=nombreG;
         this.idCont=idC;
         this.idGen=idG;
         this.idGenCon=idGC;
+    }
+
+    public String getNombreGen() {
+        return nombreGen;
+    }
+
+    public void setNombreGen(String nombreGen) {
+        this.nombreGen = nombreGen;
     }
 
     public int getIdGenCon() {

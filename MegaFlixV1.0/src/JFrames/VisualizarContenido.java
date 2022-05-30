@@ -4,6 +4,8 @@
  */
 package JFrames;
 import Contenido.Contenido;
+import Genero.Genero;
+import Genero.GeneroContenido;
 import  funciones.FuncionesBBDD;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -28,7 +30,7 @@ public class VisualizarContenido extends javax.swing.JFrame {
     public VisualizarContenido() throws ClassNotFoundException {
         initComponents();
         //GET EL ID 
-        int id=2;
+        int id=1;
         
         //tabla de contenido
         String titulo="";
@@ -45,10 +47,11 @@ public class VisualizarContenido extends javax.swing.JFrame {
         //String valoracionStr=String.valueOf(valoracion);
         String comentario;
         String usuario;
+        
         //tabla generocontenido
-        String genero;
+        String genero="";
         
-        
+        //Saco los datos del contenido que se va a visualizar
         String sql="SELECT * FROM contenido WHERE id="+id;
         listaDatos=FuncionesBBDD.getListas(sql, "Contenidos");
         Iterator itListaDatosPelis=listaDatos.iterator();
@@ -73,7 +76,22 @@ public class VisualizarContenido extends javax.swing.JFrame {
                 descBien+="-\n";
             }            
         }
-                
+        
+        //saco el género a partir de la tabla generocontenido
+        sql="SELECT * "
+            + "FROM genero NATURAL JOIN"
+            + " generocontenido WHERE idContenido="+id;
+        listaDatos=FuncionesBBDD.getListas(sql, "GenerosContenido");
+         Iterator itListaDatosGenero=listaDatos.iterator();
+        while(itListaDatosGenero.hasNext()){
+            GeneroContenido nGeneroCont=(GeneroContenido) itListaDatosGenero.next();
+            genero+=" "+nGeneroCont.getNombreGen();
+            System.out.println("Genero"+genero);
+        }
+        System.out.println("Genero"+genero);
+        
+        
+        
         //comentarios
         sql="SELECT * FROM usuariovaloracontenido WHERE idContenido="+id;
         FuncionesBBDD.getListas(sql,"Comentarios");
@@ -87,7 +105,7 @@ public class VisualizarContenido extends javax.swing.JFrame {
         //si es serie muestro solo las temporadas
         
         jLabelTitulo.setText(titulo);
-        //jLabelGenero.setText(genero);
+        jLabelGenero.setText(genero);
         //textArcoment.setText(comentario);
         textArDesc.setText(descBien);
         jLabelTemp.setText(Integer.toString(temporadas));

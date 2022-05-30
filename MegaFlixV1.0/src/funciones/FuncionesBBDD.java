@@ -2,6 +2,7 @@ package funciones;
 
 import Contenido.Contenido;
 import Genero.Genero;
+import Genero.GeneroContenido;
 import Valoraciones.Valoracion;
 import java.sql.DriverManager;
 import java.sql.Connection;
@@ -268,7 +269,7 @@ public class FuncionesBBDD {
         Genero nGenero= null;
         Valoracion nValoracion=null;
         Contenido nContenido=null;
-        
+        GeneroContenido nGenCon=null;
         
         try {
             loadDriver();
@@ -307,7 +308,7 @@ public class FuncionesBBDD {
                 
             }else if("Contenidos".equals(lista)){
                 while(rs.next()) {
-                     nContenido= new Contenido("Nombre", "Director", "Tipo", "Descripcion", "Duracion", "Imagen", 0, 0);
+                     nContenido= new Contenido("Nombre","Director", "Tipo","Descrip","Duración","Img",0,0);
                      nContenido.setId(rs.getInt("id"));
                      nContenido.setNombre(rs.getString("Nombre"));      
                      nContenido.setDirector(rs.getString("Director"));
@@ -320,6 +321,19 @@ public class FuncionesBBDD {
 
                      listaDevolver.add(nContenido);
                 }
+            }else if("GenerosContenido".equals(lista)){
+                while(rs.next()){
+                    nGenCon= new GeneroContenido("NombreGenero",0,0,0);
+                    nGenCon.setNombreGen(rs.getString("Nombre"));
+                    nGenCon.setIdGenCon(rs.getInt("id"));
+                    nGenCon.setIdCont(rs.getInt("idContenido"));      
+                    nGenCon.setIdCont(rs.getInt("idgenero"));
+                    listaDevolver.add(nGenCon);
+                
+                }
+                     
+                     
+                      
             }
             // Cerramos el statement y la conexión
             st.close();
@@ -364,6 +378,7 @@ public class FuncionesBBDD {
     
     
     }
+    
     
 }
 

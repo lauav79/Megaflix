@@ -30,7 +30,7 @@ public class VisualizarContenido extends javax.swing.JFrame {
     public VisualizarContenido() throws ClassNotFoundException {
         initComponents();
         //GET EL ID 
-        int id=1;
+        int id=2;
         
         //tabla de contenido
         String titulo="";
@@ -101,15 +101,23 @@ public class VisualizarContenido extends javax.swing.JFrame {
         
         
         //si es pelicula muestro solo duracion
+        if ("Peliculas".equals(tipo)){
+            jLaDur.setText("Duración:");
+            jLabelDur.setText(duracion);
         
+        }else if("Series".equals(tipo)){
+            jLaTe.setText("Temporadas:");
+            jLabelTemp.setText(Integer.toString(temporadas));
+        
+        }
         //si es serie muestro solo las temporadas
         
         jLabelTitulo.setText(titulo);
         jLabelGenero.setText(genero);
         //textArcoment.setText(comentario);
         textArDesc.setText(descBien);
-        jLabelTemp.setText(Integer.toString(temporadas));
-        jLabelDur.setText(duracion);
+        
+        
         //jLaUser.setText(usuario);
     }
     
@@ -135,9 +143,9 @@ public class VisualizarContenido extends javax.swing.JFrame {
         jLaUser = new javax.swing.JLabel();
         textArcoment = new java.awt.TextArea();
         textArDesc = new java.awt.TextArea();
-        jLabel5 = new javax.swing.JLabel();
+        jLaDur = new javax.swing.JLabel();
         jLabelDur = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
+        jLaTe = new javax.swing.JLabel();
         jLabelTemp = new javax.swing.JLabel();
         jLabelGenero = new javax.swing.JLabel();
 
@@ -157,9 +165,9 @@ public class VisualizarContenido extends javax.swing.JFrame {
             }
         });
 
-        jLabel2.setText("Comentarios");
+        jLabel2.setText("Comentarios:");
 
-        jLabel3.setText("Descripción");
+        jLabel3.setText("Descripción:");
 
         jPanel2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
@@ -217,14 +225,6 @@ public class VisualizarContenido extends javax.swing.JFrame {
 
         textArDesc.setEditable(false);
 
-        jLabel5.setText("Duración:");
-
-        jLabelDur.setText("tiempo");
-
-        jLabel7.setText("Temporada:");
-
-        jLabelTemp.setText("nT");
-
         jLabelGenero.setText("Género");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -235,14 +235,14 @@ public class VisualizarContenido extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel5)
+                        .addComponent(jLaDur)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabelDur))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel7)
+                        .addComponent(jLaTe)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabelTemp)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 158, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2)
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -285,11 +285,11 @@ public class VisualizarContenido extends javax.swing.JFrame {
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel5)
+                            .addComponent(jLaDur)
                             .addComponent(jLabelDur))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel7)
+                            .addComponent(jLaTe)
                             .addComponent(jLabelTemp))
                         .addGap(0, 0, Short.MAX_VALUE))))
         );
@@ -348,13 +348,13 @@ public class VisualizarContenido extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBuSiguiente;
     private javax.swing.JButton jButtonAtras;
+    private javax.swing.JLabel jLaDur;
+    private javax.swing.JLabel jLaTe;
     private javax.swing.JLabel jLaUser;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabelDur;
     private javax.swing.JLabel jLabelGenero;
     private javax.swing.JLabel jLabelTemp;

@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 
@@ -216,7 +217,7 @@ public class FuncionesBBDD {
             stmt.setString(1, null);
             stmt.setString(2, nombre);;
            
-            System.out.println(stmt);
+            //System.out.println(stmt);
             
             stmt.executeUpdate();
             JOptionPane.showMessageDialog(null, "El registro de Género se ha insertado correctamente");
@@ -378,6 +379,56 @@ public class FuncionesBBDD {
     
     
     }
+    
+    public static String getImagenCont(int id){
+        String sql=sql="SELECT Imagen FROM contenido WHERE id="+id;
+        String img="";
+        try {
+            FuncionesBBDD.loadDriver();
+            FuncionesBBDD.connect();
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+            while(rs.next()){
+                img=(rs.getString("Imagen"));
+            }
+        }catch (SQLException e) {
+            e.printStackTrace();   
+        
+        }
+        return img;
+    }
+    
+    public static void añadirComentario(String coment, double punt,int idUser, int idCont) throws SQLException{
+        try{
+  
+            loadDriver();
+            connect();
+            
+            // Preparamos un statement para hacer la inserción del registro.
+            PreparedStatement stmt = conn.prepareStatement("INSERT INTO usuariovaloracontenido VALUES (?,?,?,?,?)");
+            //aunque en la bbdd es int, para poder setearlo a null(porque es autoncremental) ha de ser String 
+            stmt.setString(1, null);
+            stmt.setInt(2, idUser);
+            stmt.setInt(3,idCont );
+            stmt.setDouble(4,punt);
+            stmt.setString(5,coment);
+           
+            System.out.println(stmt);
+            
+            stmt.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Tu comentario se ha publicado correctamente");
+             
+            
+        }catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Tu comentario no se ha podido publicar correctamente");
+        
+    
+        }
+        conn.close();
+    
+    }
+    
     
     
 }

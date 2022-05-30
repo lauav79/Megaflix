@@ -18,6 +18,7 @@ import javax.swing.border.Border;
  * @author admin
  */
 public class LoginJFrame extends javax.swing.JFrame {
+    
     public static LoginJFrame login1 = new LoginJFrame();
     int xMouse, yMouse, x, y;
 
@@ -30,7 +31,7 @@ public class LoginJFrame extends javax.swing.JFrame {
     public LoginJFrame() {
         initComponents();
     }
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -122,7 +123,7 @@ public class LoginJFrame extends javax.swing.JFrame {
         jPanel1.add(campoUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, 230, 30));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/Megaflix Imagenes Pelis Login.png"))); // NOI18N
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 70, 530, 430));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 70, 530, 430));
 
         cerrarPrograma.setBackground(new java.awt.Color(153, 0, 0));
         cerrarPrograma.setFont(new java.awt.Font("Roboto", 0, 24)); // NOI18N
@@ -195,20 +196,22 @@ public class LoginJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_campoContrasenaActionPerformed
 
     private void iniciarSesionBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_iniciarSesionBotonActionPerformed
-
+        
         String user = campoUsuario.getText();
         String pass = new String(campoContrasena.getPassword());
         funcionesBBDD.connect();
         funcionesBBDD.isConnected();
         iniciosesion(user, pass);
-        if(funcionesBBDD.acceso==true){        
-        Principal.prin1.setVisible(true);
-        dispose();
-        }else{
-             JOptionPane.showMessageDialog(null,"Usuario o contraseña incorrectos");
+        if (funcionesBBDD.acceso == true) {            
+            Contenido.recogerContenido();
+            System.out.println(Contenido.contenidoGeneral("Your Name").getDirector());
+            Principal.prin1.setVisible(true);
+            dispose();
+        } else {
+            JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrectos");
+            
         }
-
-
+        
 
     }//GEN-LAST:event_iniciarSesionBotonActionPerformed
 
@@ -278,7 +281,7 @@ public class LoginJFrame extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-
+        
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {

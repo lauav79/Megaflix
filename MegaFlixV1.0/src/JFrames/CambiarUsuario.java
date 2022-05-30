@@ -8,12 +8,15 @@ import Funciones.funcionesBBDD;
 import Persona.Usuario;
 import static Persona.Usuario.user1;
 import java.sql.SQLException;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author Ian
  */
 public class CambiarUsuario extends javax.swing.JFrame {
+
+    public static CambiarUsuario cUser1 = new CambiarUsuario();
 
     /**
      * Creates new form CambiarUsuario
@@ -126,14 +129,16 @@ public class CambiarUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_aceptarBotonMouseExited
 
     private void aceptarBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aceptarBotonActionPerformed
-        try{
+        try {
             funcionesBBDD.loadDriver();
             funcionesBBDD.connect();
             funcionesBBDD.isConnected();
             funcionesBBDD.cambioUsuario(user1.getAlias());
             funcionesBBDD.close();
+            LoginJFrame.login1.setVisible(true);
+            JOptionPane.showMessageDialog(null, "Hello World");
             dispose();
-        }catch(SQLException e){
+        } catch (SQLException e) {
 
         }
     }//GEN-LAST:event_aceptarBotonActionPerformed
@@ -151,7 +156,7 @@ public class CambiarUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_cancelarBotonActionPerformed
 
     private void nuevoUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_nuevoUsuarioMouseClicked
-        
+
     }//GEN-LAST:event_nuevoUsuarioMouseClicked
 
     private void nuevoUsuarioMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_nuevoUsuarioMouseExited

@@ -22,11 +22,11 @@ public class funcionesBBDD {
 
     // Configuración de la conexión a la base de datos
     private static final String DB_HOST = "localhost";
-    private static final String DB_PORT = "3307";
+    private static final String DB_PORT = "3306";
     private static final String DB_NAME = "megaflix";
     private static final String DB_URL = "jdbc:mysql://" + DB_HOST + ":" + DB_PORT + "/" + DB_NAME + "?serverTimezone=UTC";
     private static final String DB_USER = "root";
-    private static final String DB_PASS = "1231";
+    private static final String DB_PASS = "toor";
     private static final String DB_MSQ_CONN_OK = "CONEXIÓN CORRECTA";
     private static final String DB_MSQ_CONN_NO = "ERROR EN LA CONEXIÓN";
 
@@ -163,7 +163,7 @@ public class funcionesBBDD {
                 String bio = rs.getString(DB_USU_BIO);
                 String tUser = rs.getString(DB_USU_TIP);
                 System.out.println(ali+" "+pas);
-                if (ali.equals(user) && pas.equals(pass)) {
+                if (pas.equals(pass)) {
                     Usuario.user1.setAlias(ali);
                     Usuario.user1.setBiogra(bio);
                     Usuario.user1.setId(idu);
@@ -196,6 +196,7 @@ public class funcionesBBDD {
             String SQL = "UPDATE `megaflix`.`usuarios` SET `Alias` = '" + us + "' WHERE (`Id` = '" + id + "')";
             st = conn.createStatement();
             st.executeUpdate(SQL);
+            
         } catch (SQLException ex) {
             ex.printStackTrace();
         }

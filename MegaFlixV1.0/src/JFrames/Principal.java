@@ -7,6 +7,7 @@ package JFrames;
 import Contenido.Contenido;
 import Funciones.funcionesBBDD;
 import JFrames.*;
+import static JFrames.PaginaPeli.p1;
 import java.awt.Color;
 import javax.swing.ImageIcon;
 
@@ -15,16 +16,18 @@ import javax.swing.ImageIcon;
  * @author imba
  */
 public class Principal extends javax.swing.JFrame {
+
     public static Principal prin1 = new Principal();
-    static int xMouse,yMouse,x,y;
+    static int xMouse, yMouse, x, y;
 
     /**
      * Creates new form Principal
      */
     public Principal() {
         initComponents();
-        imagen1.setIcon(getI());Contenido.con1.getImagen();
-
+        imagen1.setIcon(new ImageIcon(Contenido.c1[0].getImagen()));
+        imagen2.setIcon(new ImageIcon(Contenido.c1[1].getImagen()));
+        imagen3.setIcon(new ImageIcon(Contenido.c1[2].getImagen()));
     }
 
     /**
@@ -80,6 +83,11 @@ public class Principal extends javax.swing.JFrame {
         jPanel2.add(ver2, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 390, 80, -1));
 
         imagen1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        imagen1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                imagen1MouseClicked(evt);
+            }
+        });
         jPanel2.add(imagen1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 140, 170, 240));
         jPanel2.add(imagen3, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 140, 170, 240));
         jPanel2.add(imagen2, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 140, 170, 240));
@@ -173,17 +181,17 @@ public class Principal extends javax.swing.JFrame {
                 imagenColorFondo2MousePressed(evt);
             }
         });
-        jPanel2.add(imagenColorFondo2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 850, 50));
+        jPanel2.add(imagenColorFondo2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1010, 50));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 852, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 641, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 538, Short.MAX_VALUE)
         );
 
         pack();
@@ -246,6 +254,12 @@ public class Principal extends javax.swing.JFrame {
         cerrarPrograma.setBackground(new Color(153, 0, 0));
         cerrarPrograma.setForeground(Color.white);
     }//GEN-LAST:event_cerrarProgramaMouseExited
+
+    private void imagen1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_imagen1MouseClicked
+        dispose();
+        p1.setVisible(true);
+
+    }//GEN-LAST:event_imagen1MouseClicked
 
     /**
      * @param args the command line arguments

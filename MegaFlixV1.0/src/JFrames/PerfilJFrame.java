@@ -29,10 +29,8 @@ public final class PerfilJFrame extends javax.swing.JFrame {
      */
     public PerfilJFrame() {
         initComponents();
-        funcionesBBDD.loadDriver();
-        funcionesBBDD.connect();
-        funcionesBBDD.isConnected();
         mostrarContenido();
+        
         //nombreUser.setText(Usuario.getAlias());
     }
 
@@ -127,6 +125,11 @@ public final class PerfilJFrame extends javax.swing.JFrame {
 
         cambiarAlias.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         cambiarAlias.setText("Cambiar Nombre Usuario");
+        cambiarAlias.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cambiarAliasActionPerformed(evt);
+            }
+        });
         jPanel4.add(cambiarAlias, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 380, 220, -1));
         jPanel4.add(nombreUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, 220, 20));
 
@@ -279,10 +282,14 @@ public final class PerfilJFrame extends javax.swing.JFrame {
         cerrarPrograma.setBackground(new Color(153, 0, 0));
         cerrarPrograma.setForeground(Color.white);
     }//GEN-LAST:event_cerrarProgramaMouseExited
+
+    private void cambiarAliasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cambiarAliasActionPerformed
+        CambiarUsuario.cUser1.setVisible(true);
+    }//GEN-LAST:event_cambiarAliasActionPerformed
     public void mostrarContenido()
     {
         ContenidoIntermedio c1 = new ContenidoIntermedio();
-        DefaultTableModel modelo = ContenidoIntermedio.mostrarContenido();
+        DefaultTableModel modelo = ContenidoIntermedio.mostrarContenidoPerfil();
         jTable1.setModel(modelo);
     }
 

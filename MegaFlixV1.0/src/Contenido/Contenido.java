@@ -4,6 +4,7 @@
  */
 package Contenido;
 
+import java.lang.reflect.Array;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -24,8 +25,8 @@ public class Contenido {
     private static final String DB_USER = "root";
     private static final String DB_PASS = "1231";
 
-    public static int id, temporadas;
-    public static String nombre, director, descripcion, duracion, tipoContenido, imagen;
+    public int id, temporadas;
+    public String nombre, director, descripcion, duracion, tipoContenido, imagen;
 
     public Contenido() {
 
@@ -49,7 +50,7 @@ public class Contenido {
         this.id = id;
     }
 
-    public static int getTemporadas() {
+    public int getTemporadas() {
         return temporadas;
     }
 
@@ -57,7 +58,7 @@ public class Contenido {
         this.temporadas = temporadas;
     }
 
-    public static String getNombre() {
+    public String getNombre() {
         return nombre;
     }
 
@@ -73,7 +74,7 @@ public class Contenido {
         this.director = director;
     }
 
-    public static String getDescripcion() {
+    public String getDescripcion() {
         return descripcion;
     }
 
@@ -89,7 +90,7 @@ public class Contenido {
         this.duracion = duracion;
     }
 
-    public static String getTipoContenido() {
+    public String getTipoContenido() {
         return tipoContenido;
     }
 
@@ -104,18 +105,18 @@ public class Contenido {
     public void setImagen(String imagen) {
         this.imagen = imagen;
     }
-    public static Contenido con1 = new Contenido();
-    public static Contenido con2 = new Contenido();
-    public static Contenido con3 = new Contenido();
+
+    public static Contenido[] c1 = new Contenido[3];
 
     public static Contenido recogerContenido() {
         try {
-            Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS);
-            String SQL = "SELECT * FROM `contenido` inner join usuariovaloracontenido on contenido.id= idContenido order by `Puntuacion` desc limit 3";
+            Connection conn = Funciones.funcionesBBDD.connect();
+            String SQL = "SELECT DISTINCT usuariovaloracontenido.idUsuario,contenido.id, Director,Nombre,Imagen,Descripcion,Temporadas,Duracion,Tipo  FROM `contenido` inner join usuariovaloracontenido on contenido.id= idContenido order by `Puntuacion` desc limit 3";
             Statement st = conn.createStatement();
             ResultSet rs = st.executeQuery(SQL);
-
+            int i = 0;
             while (rs.next()) {
+                Contenido con1 = new Contenido();
                 int id = rs.getInt("id");
                 String nom = rs.getString("Nombre");
                 String dir = rs.getString("Director");
@@ -133,33 +134,47 @@ public class Contenido {
                 con1.setTipoContenido(tCon);
                 con1.setTemporadas(tem);
                 con1.setImagen(img);
-                rs.next();
-                con2.setId(id);
-                con2.setNombre(nom);
-                con2.setDescripcion(des);
-                con2.setDirector(dir);
-                con2.setDescripcion(des);
-                con2.setDuracion(dur);
-                con2.setTipoContenido(tCon);
-                con2.setTemporadas(tem);
-                con2.setImagen(img);
-                rs.next();
-                con3.setId(id);
-                con3.setNombre(nom);
-                con3.setDescripcion(des);
-                con3.setDirector(dir);
-                con3.setDescripcion(des);
-                con3.setDuracion(dur);
-                con3.setTipoContenido(tCon);
-                con3.setTemporadas(tem);
-                con3.setImagen(img);
-
+                c1[i] = con1;
+                i++;
             }
-
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
         return null;
+    }
+
+    public static Contenido contenidoGeneral(String nombrePeli) {
+        Contenido cong = new Contenido();
+        try {
+            Connection conn = Funciones.funcionesBBDD.connect();
+            String SQL = "SELECT * FROM `contenido` WHERE `Nombre` LIKE \"" + nombrePeli + "\"";
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery(SQL);
+            int i = 0;
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String nom = rs.getString("Nombre");
+                String dir = rs.getString("Director");
+                String des = rs.getString("Descripcion");
+                int tem = rs.getInt("Temporadas");
+                String dur = rs.getString("Duracion");
+                String img = rs.getString("Imagen");
+                String tCon = rs.getString("Tipo");
+                cong.setId(id);
+                cong.setNombre(nom);
+                cong.setDescripcion(des);
+                cong.setDirector(dir);
+                cong.setDescripcion(des);
+                cong.setDuracion(dur);
+                cong.setTipoContenido(tCon);
+                cong.setTemporadas(tem);
+                cong.setImagen(img);
+            }
+            
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+return cong;
     }
 
 }

@@ -20,8 +20,6 @@ import javax.swing.table.DefaultTableModel;
  */
 public class ContenidoIntermedio {
 
-    private static Connection conn = null;
-    private static Statement st = null;
     int idUser, idContenido;
     double puntuacion;
     String comentario;
@@ -68,11 +66,13 @@ public class ContenidoIntermedio {
         this.comentario = comentario;
     }
 
-    public static DefaultTableModel mostrarContenido() {
+    public static DefaultTableModel mostrarContenidoPerfil() {
         String[] nombresColumnas = {"Nombre", "Puntuacion", "Comentario"};
         String[] registros = new String[3];
         DefaultTableModel modelo = new DefaultTableModel(null, nombresColumnas);
-        String sql = "select contenido.Nombre,Puntuacion,Comentario from usuariovaloracontenido inner join contenido on idContenido=contenido.id inner join usuarios on idUsuario=usuarios.Id where usuarios.Alias like \"admin\";";
+        String user = Usuario.user1.getAlias();
+        System.out.println(user);
+        String sql = "select contenido.Nombre,Puntuacion,Comentario from usuariovaloracontenido inner join contenido on idContenido=contenido.id inner join usuarios on idUsuario=usuarios.Id where usuarios.Alias like \"" + user + "\"";
         Connection cn = null;
         PreparedStatement pst = null;
         ResultSet rs = null;
@@ -86,7 +86,43 @@ public class ContenidoIntermedio {
                 registros[2] = rs.getString("Comentario");
                 modelo.addRow(registros);
             }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al conectar");
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (pst != null) {
+                    pst.close();
+                }
+                if (cn != null) {
+                    cn.close();
+                }
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, e);
+            }
+        }
+        return modelo;
+    }
 
+    public static DefaultTableModel mostrarComentariosContenido(String contenido) {
+        String[] nombresColumnas = {"Usuario","Puntuacion", "Comentario"};
+        String[] registros = new String[3];
+        DefaultTableModel modelo = new DefaultTableModel(null, nombresColumnas);
+        String sql = "select usuarios.Alias,Puntuacion,Comentario from usuariovaloracontenido inner join contenido on idContenido=contenido.id inner join usuarios on idUsuario=usuarios.Id ";
+        Connection cn = funcionesBBDD.connect();;
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+        try {
+            pst = cn.prepareStatement(sql);
+            rs = pst.executeQuery();
+            while (rs.next()) {
+                registros[0] = rs.getString("Alias");
+                registros[1] = rs.getString("Puntuacion");
+                registros[2] = rs.getString("Comentario");
+                modelo.addRow(registros);
+            }
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error al conectar");
         } finally {

@@ -5,11 +5,13 @@
 package JFrames;
 
 import Contenido.Contenido;
-import Funciones.funciones;
 import Funciones.funcionesBBDD;
-import static Funciones.funcionesBBDD.iniciosesion;
 import Persona.Usuario;
 import java.awt.Color;
+import java.sql.ResultSet;
+import java.sql.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.border.Border;
 
@@ -18,7 +20,41 @@ import javax.swing.border.Border;
  * @author admin
  */
 public class LoginJFrame extends javax.swing.JFrame {
-    
+
+    public static Usuario iniciosesion(String user, String pass) {
+        Connection conn = null;
+        Statement st = null;
+        Usuario user0 = new Usuario();
+        try {
+            conn = funcionesBBDD.connect();
+            String SQL = "SELECT * FROM usuarios WHERE Alias=\"" + user + "\"";
+            st = conn.createStatement();
+            ResultSet rs = st.executeQuery(SQL);
+            while (rs.next()) {
+                int idu = rs.getInt("id");
+                String ali = rs.getString("Alias");
+                String nom = rs.getString("Nombre");
+                String pas = rs.getString("passwd");
+                String bio = rs.getString("Bio");
+                String tUser = rs.getString("TipoUsuario");
+                System.out.println(ali + " " + pas);
+                if (pas.equals(pass)) {
+                    user0.setAlias(ali);
+                    user0.setBiogra(bio);
+                    user0.setId(idu);
+                    user0.setPassw(pas);
+                    user0.setTipoUser(tUser);
+                    userArray[0]=user0;
+                }else{
+                    System.out.println("No se ha podido iniciar sesion");
+                }
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return user0;
+    }
+
     public static LoginJFrame login1 = new LoginJFrame();
     int xMouse, yMouse, x, y;
 
@@ -31,7 +67,7 @@ public class LoginJFrame extends javax.swing.JFrame {
     public LoginJFrame() {
         initComponents();
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -196,23 +232,18 @@ public class LoginJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_campoContrasenaActionPerformed
 
     private void iniciarSesionBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_iniciarSesionBotonActionPerformed
-        
         String user = campoUsuario.getText();
         String pass = new String(campoContrasena.getPassword());
-        funcionesBBDD.connect();
-        funcionesBBDD.isConnected();
         iniciosesion(user, pass);
-        if (funcionesBBDD.acceso == true) {            
-            Contenido.recogerContenido();
-            System.out.println(Contenido.contenidoGeneral("Your Name").getDirector());
-            Principal.prin1.setVisible(true);
-            dispose();
-        } else {
-            JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrectos");
-            
-        }
-        
+            if (iniciosesion(user, pass).getPassw().equals(pass)){
+                Contenido.recogerContenido();
+                Principal.prin1.setVisible(true);
+                funcionesBBDD.close();
+                dispose();
+            } else {
+                JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrectos");
 
+            }
     }//GEN-LAST:event_iniciarSesionBotonActionPerformed
 
     private void campoUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoUsuarioActionPerformed
@@ -281,7 +312,7 @@ public class LoginJFrame extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        
+
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {

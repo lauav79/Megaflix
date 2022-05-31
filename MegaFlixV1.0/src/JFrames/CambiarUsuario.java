@@ -6,9 +6,10 @@ package JFrames;
 
 import Funciones.funcionesBBDD;
 import Persona.Usuario;
-import static Persona.Usuario.user1;
+import java.sql.Connection;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
+import java.sql.*;
 
 /**
  *
@@ -129,20 +130,28 @@ public class CambiarUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_aceptarBotonMouseExited
 
     private void aceptarBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aceptarBotonActionPerformed
-        try {
-            funcionesBBDD.loadDriver();
-            funcionesBBDD.connect();
-            funcionesBBDD.isConnected();
-            funcionesBBDD.cambioUsuario(user1.getAlias());
-            funcionesBBDD.close();
-            LoginJFrame.login1.setVisible(true);
-            JOptionPane.showMessageDialog(null, "Hello World");
-            dispose();
-        } catch (SQLException e) {
-
-        }
+        cambioUsuario(nuevoUsuario.getText());
+        funcionesBBDD.close();
+        JOptionPane.showMessageDialog(null, "A continuación se cerrara la sesión");
+        LoginJFrame.login1.setVisible(true);
+        dispose();
     }//GEN-LAST:event_aceptarBotonActionPerformed
 
+    public static void cambioUsuario(String n){
+        Connection conn=null;
+        Statement st= null;
+        try {
+            conn=funcionesBBDD.connect();
+            int id = Usuario.userArray[0].getId();
+            String us = n;
+            String SQL = "UPDATE `megaflix`.`usuarios` SET `Alias` = '" + us + "' WHERE (`Id` = '" + id + "')";
+            st = conn.createStatement();
+            st.executeUpdate(SQL);
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+    }
     private void cancelarBotonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cancelarBotonMouseEntered
         // TODO add your handling code here:
     }//GEN-LAST:event_cancelarBotonMouseEntered

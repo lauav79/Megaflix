@@ -70,7 +70,7 @@ public class ContenidoIntermedio {
         String[] nombresColumnas = {"Nombre", "Puntuacion", "Comentario"};
         String[] registros = new String[3];
         DefaultTableModel modelo = new DefaultTableModel(null, nombresColumnas);
-        String user = Usuario.user1.getAlias();
+        String user = Usuario.userArray[0].getAlias();
         System.out.println(user);
         String sql = "select contenido.Nombre,Puntuacion,Comentario from usuariovaloracontenido inner join contenido on idContenido=contenido.id inner join usuarios on idUsuario=usuarios.Id where usuarios.Alias like \"" + user + "\"";
         Connection cn = null;

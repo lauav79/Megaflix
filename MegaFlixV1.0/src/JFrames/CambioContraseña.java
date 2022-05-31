@@ -6,16 +6,18 @@ package JFrames;
 
 import Funciones.funcionesBBDD;
 import Persona.Usuario;
-import static Persona.Usuario.user1;
 import java.awt.Color;
-import java.sql.SQLException;
+import java.sql.*;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author imba
  */
 public class CambioContraseña extends javax.swing.JFrame {
-public static CambioContraseña c1= new CambioContraseña();
+
+    public static CambioContraseña c1 = new CambioContraseña();
+
     /**
      * Creates new form CambioContraseña
      */
@@ -136,16 +138,26 @@ public static CambioContraseña c1= new CambioContraseña();
     }//GEN-LAST:event_cancelarBotonActionPerformed
 
     private void aceptarBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aceptarBotonActionPerformed
-        funcionesBBDD.loadDriver();
-        funcionesBBDD.connect();
-        funcionesBBDD.isConnected();
-        funcionesBBDD.cambioContrasena(user1.getAlias(), nuevaContrasena.getPassword().toString());
-        System.out.println(user1.getAlias());
+        String pass = new String(nuevaContrasena.getPassword());
+        cambioContrasena(Usuario.userArray[0].getAlias(), pass);
+        JOptionPane.showMessageDialog(null, "A continuación se cerrara la sesión");
+        PerfilJFrame.perfil1.setVisible(false);
+        LoginJFrame.login1.setVisible(true);
         funcionesBBDD.close();
         dispose();
-
     }//GEN-LAST:event_aceptarBotonActionPerformed
-
+    public static void cambioContrasena(String user, String pass) {
+        Connection conn=null;
+        Statement st= null;
+        try {
+            conn=funcionesBBDD.connect();
+            String SQL = "UPDATE `megaflix`.`usuarios` SET `passwd` = '" + pass + "' WHERE (`Alias` = '" + user + "')";
+            st = conn.createStatement();
+            st.executeUpdate(SQL);
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
     private void nuevaContrasenaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_nuevaContrasenaMouseClicked
         if (String.valueOf(nuevaContrasena.getPassword()).equals("********")) {
             nuevaContrasena.setText("");

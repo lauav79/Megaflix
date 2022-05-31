@@ -10,14 +10,16 @@ import Funciones.funcionesBBDD;
 import static Funciones.funcionesBBDD.close;
 import java.awt.Color;
 import javax.swing.ImageIcon;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author imba
  */
 public class PaginaPeli extends javax.swing.JFrame {
-    int x,y,xMouse,yMouse;
-   public static PaginaPeli p1 = new PaginaPeli();
+
+    int x, y, xMouse, yMouse;
+    public static PaginaPeli p1 = new PaginaPeli();
     public Principal prin1 = new Principal();
     public LoginJFrame log1 = new LoginJFrame();
     public PerfilJFrame perf1 = new PerfilJFrame();
@@ -27,8 +29,15 @@ public class PaginaPeli extends javax.swing.JFrame {
      */
     public PaginaPeli() {
         initComponents();
+        mostrarContenido();
+    }
+
+    public void mostrarContenido() {
+        ContenidoIntermedio c1 = new ContenidoIntermedio();
+        DefaultTableModel modelo = ContenidoIntermedio.mostrarContenidoPerfil();
+        jTable1.setModel(modelo);
         Contenido.contenidoGeneral(Contenido.c1[0].getNombre());
-        jLabel1.setIcon(new ImageIcon (Contenido.c1[0].getImagen()));
+        jLabel1.setIcon(new ImageIcon(Contenido.c1[0].getImagen()));
         txtDescripcion.setText(Contenido.c1[0].getDescripcion());
         ContenidoIntermedio.mostrarComentariosContenido(Contenido.c1[0].getNombre());
     }
@@ -191,19 +200,19 @@ public class PaginaPeli extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(jTable1);
 
-        jPanel2.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 290, 490, 240));
+        jPanel2.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 270, 490, 240));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 852, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 861, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 585, Short.MAX_VALUE)
+                .addGap(0, 96, Short.MAX_VALUE))
         );
 
         pack();

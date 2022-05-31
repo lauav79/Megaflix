@@ -13,6 +13,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 
 
@@ -375,12 +376,13 @@ public class FuncionesBBDD {
             ex.printStackTrace();
             return 0;
         }
+        
     
     
     
     }
     
-    public static String getImagenCont(int id){
+    public static String getImagenCont(int id) throws SQLException{
         String sql=sql="SELECT Imagen FROM contenido WHERE id="+id;
         String img="";
         try {
@@ -395,6 +397,7 @@ public class FuncionesBBDD {
             e.printStackTrace();   
         
         }
+        conn.close();
         return img;
     }
     
@@ -427,6 +430,31 @@ public class FuncionesBBDD {
         }
         conn.close();
     
+    }
+    
+    public static DefaultTableModel mostrarComentariosContenido(String nombreContenido) throws SQLException {
+        String[] nombresColumnas = {"Usuario","Puntuacion", "Comentario"};
+        String[] registros = new String[3];
+        DefaultTableModel modelo = new DefaultTableModel(null, nombresColumnas);
+        String sql = "select usuarios.Alias,Puntuacion,Comentario \n" +
+                    "from usuariovaloracontenido inner join contenido on idContenido=contenido.id inner join usuarios on idUsuario=usuarios.Id \n" +
+                    "WHERE contenido.Nombre='"+nombreContenido+"'";
+        loadDriver();
+        connect();
+        try {
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+            while (rs.next()) {
+                registros[0] = rs.getString("Alias");
+                registros[1] = rs.getString("Puntuacion");
+                registros[2] = rs.getString("Comentario");
+                modelo.addRow(registros);
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error ");
+        } 
+        conn.close();
+        return modelo;
     }
     
     

@@ -48,7 +48,7 @@ public class PortadaJFrame extends javax.swing.JFrame {
         //Conectar base de datos
         Connection conec= funcionesBBDD.conectar();
         // Primera Consulta
-        String sql1="Select Imagen from usuariovaloracontenido join contenido on idContenido=contenido.Id where Puntuacion=(Select max(Puntuacion) from usuariovaloracontenido)";
+        String sql1="select Imagen, round(avg(Puntuacion),1) as media from contenido join usuariovaloracontenido on idContenido=contenido.Id group by contenido.Id order by media desc limit 1";
        try {
                 PreparedStatement pst = conec.prepareStatement(sql1);
                 ResultSet res = pst.executeQuery();
@@ -60,7 +60,7 @@ public class PortadaJFrame extends javax.swing.JFrame {
             System.out.println("No se ha encontrado la imagen");
         }
         //Segunda Consulta
-        String sql2=" Select Imagen from usuariovaloracontenido join contenido as c on idContenido=c.Id order by Puntuacion desc Limit 1,1";
+        String sql2="select Imagen, round(avg(Puntuacion),1) as media from contenido join usuariovaloracontenido on idContenido=contenido.Id group by contenido.Id order by media desc limit 1,1";
         try {
                 PreparedStatement ps2=conec.prepareStatement(sql2);
                 ResultSet res2= ps2.executeQuery();
@@ -71,7 +71,7 @@ public class PortadaJFrame extends javax.swing.JFrame {
             System.out.println("No se ha encontrado la imagen");
         }
          //Tercera Consulta
-        String sql3=" Select Imagen from usuariovaloracontenido join contenido as c on idContenido=c.Id order by Puntuacion desc Limit 2,1";
+        String sql3="select Imagen, round(avg(Puntuacion),1) as media from contenido join usuariovaloracontenido on idContenido=contenido.Id group by contenido.Id order by media desc limit 2,1";
         try {
                 PreparedStatement ps3=conec.prepareStatement(sql3);
                 ResultSet res3= ps3.executeQuery();

@@ -4,7 +4,7 @@
  */
 package Contenido;
 
-import Funciones.funcionesBBDD;
+import Funciones.funcionesBBDDvIan;
 import Persona.Usuario;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -70,14 +70,13 @@ public class ContenidoIntermedio {
         String[] nombresColumnas = {"Nombre", "Puntuacion", "Comentario"};
         String[] registros = new String[3];
         DefaultTableModel modelo = new DefaultTableModel(null, nombresColumnas);
-        String user = Usuario.userArray[0].getAlias();
-        System.out.println(user);
+        String user = Usuario.user1.getAlias();
         String sql = "select contenido.Nombre,Puntuacion,Comentario from usuariovaloracontenido inner join contenido on idContenido=contenido.id inner join usuarios on idUsuario=usuarios.Id where usuarios.Alias like \"" + user + "\"";
         Connection cn = null;
         PreparedStatement pst = null;
         ResultSet rs = null;
         try {
-            cn = funcionesBBDD.connect();
+            cn = funcionesBBDDvIan.connect();
             pst = cn.prepareStatement(sql);
             rs = pst.executeQuery();
             while (rs.next()) {
@@ -110,8 +109,8 @@ public class ContenidoIntermedio {
         String[] nombresColumnas = {"Usuario","Puntuacion", "Comentario"};
         String[] registros = new String[3];
         DefaultTableModel modelo = new DefaultTableModel(null, nombresColumnas);
-        String sql = "select usuarios.Alias,Puntuacion,Comentario from usuariovaloracontenido inner join contenido on idContenido=contenido.id inner join usuarios on idUsuario=usuarios.Id ";
-        Connection cn = funcionesBBDD.connect();;
+        String sql = "select usuarios.Alias,Puntuacion,Comentario from usuariovaloracontenido inner join contenido on idContenido=contenido.id inner join usuarios on idUsuario=usuarios.Id WHERE contenido.Nombre like\"" + contenido + "\"";
+        Connection cn = funcionesBBDDvIan.connect();;
         PreparedStatement pst = null;
         ResultSet rs = null;
         try {

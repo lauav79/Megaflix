@@ -4,11 +4,12 @@
  */
 package JFrames;
 
-import Contenido.Contenido;
-import Funciones.funcionesBBDD;
-import JFrames.*;
-import static JFrames.PaginaPeli.p1;
+import Contenido.ContenidovIan;
+import static Contenido.ContenidovIan.c1;
+import Funciones.funcionesBBDDvIan;
 import java.awt.Color;
+import java.util.ArrayList;
+import java.util.Iterator;
 import javax.swing.ImageIcon;
 
 /**
@@ -19,15 +20,14 @@ public class Principal extends javax.swing.JFrame {
 
     public static Principal prin1 = new Principal();
     static int xMouse, yMouse, x, y;
+    PaginaPeliV1 p2 = null;
 
-    /**
-     * Creates new form Principal
-     */
     public Principal() {
         initComponents();
-        imagen1.setIcon(new ImageIcon(Contenido.c1[0].getImagen()));
-        imagen2.setIcon(new ImageIcon(Contenido.c1[1].getImagen()));
-        imagen3.setIcon(new ImageIcon(Contenido.c1[2].getImagen()));
+        imagen1.setIcon(new ImageIcon(ContenidovIan.c1[0].getImagen()));
+        imagen2.setIcon(new ImageIcon(ContenidovIan.c1[1].getImagen()));
+        imagen3.setIcon(new ImageIcon(ContenidovIan.c1[2].getImagen()));
+
     }
 
     /**
@@ -89,7 +89,19 @@ public class Principal extends javax.swing.JFrame {
             }
         });
         jPanel2.add(imagen1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 140, 170, 240));
+
+        imagen3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                imagen3MouseClicked(evt);
+            }
+        });
         jPanel2.add(imagen3, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 140, 170, 240));
+
+        imagen2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                imagen2MouseClicked(evt);
+            }
+        });
         jPanel2.add(imagen2, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 140, 170, 240));
 
         nombreContenido.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
@@ -238,7 +250,7 @@ public class Principal extends javax.swing.JFrame {
     private void cerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cerrarSesionActionPerformed
         dispose();
         LoginJFrame.login1.setVisible(true);
-        funcionesBBDD.close();
+        funcionesBBDDvIan.close();
     }//GEN-LAST:event_cerrarSesionActionPerformed
 
     private void cerrarProgramaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cerrarProgramaMouseClicked
@@ -257,9 +269,22 @@ public class Principal extends javax.swing.JFrame {
 
     private void imagen1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_imagen1MouseClicked
         dispose();
-        p1.setVisible(true);
+        p2 = new PaginaPeliV1();
+        p2.setVisible(true);
+
 
     }//GEN-LAST:event_imagen1MouseClicked
+
+    private void imagen2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_imagen2MouseClicked
+        dispose();
+        p2.setVisible(true);
+    }//GEN-LAST:event_imagen2MouseClicked
+
+    private void imagen3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_imagen3MouseClicked
+        dispose();
+        p2.setVisible(true);
+
+    }//GEN-LAST:event_imagen3MouseClicked
 
     /**
      * @param args the command line arguments
@@ -278,13 +303,17 @@ public class Principal extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Principal.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Principal.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Principal.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Principal.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 

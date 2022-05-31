@@ -5,13 +5,9 @@
 package JFrames;
 
 import Contenido.ContenidoIntermedio;
-import Funciones.funciones;
-import Funciones.funcionesBBDD;
-import static Funciones.funcionesBBDD.connect;
+import Funciones.funcionesBBDDvIan;
 import javax.swing.ImageIcon;
-import Persona.Usuario;
 import java.awt.Color;
-import java.sql.SQLException;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -233,7 +229,7 @@ public final class PerfilJFrame extends javax.swing.JFrame {
     private void cerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cerrarSesionActionPerformed
         dispose();
         LoginJFrame.login1.setVisible(true);
-        funcionesBBDD.close();
+        funcionesBBDDvIan.close();
         
     }//GEN-LAST:event_cerrarSesionActionPerformed
 
@@ -302,9 +298,9 @@ public final class PerfilJFrame extends javax.swing.JFrame {
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
-        funcionesBBDD.loadDriver();
-        funcionesBBDD.connect();
-        funcionesBBDD.isConnected();
+        funcionesBBDDvIan.loadDriver();
+        funcionesBBDDvIan.connect();
+        funcionesBBDDvIan.isConnected();
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {

@@ -4,177 +4,129 @@
  */
 package Contenido;
 
-import java.lang.reflect.Array;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import javax.swing.ImageIcon;
-
 /**
  *
  * @author admin
  */
+
 public class Contenido {
-
-    private static final String DB_HOST = "localhost";
-    private static final String DB_PORT = "3307";
-    private static final String DB_NAME = "megaflix";
-    private static final String DB_URL = "jdbc:mysql://" + DB_HOST + ":" + DB_PORT + "/" + DB_NAME + "?serverTimezone=UTC";
-    private static final String DB_USER = "root";
-    private static final String DB_PASS = "1231";
-
-    public int id, temporadas;
-    public String nombre, director, descripcion, duracion, tipoContenido, imagen;
+    
+    String Nombre,Director,Tipo,Descripcion,Duracion,Imagen;
+    int Id, Temporadas;
+    //Constructor
+    public Contenido(String Nombre, String Director, String Tipo, String Descripcion, String Duracion, String Imagen, int Id, int Temporadas) {
+        this.Nombre = Nombre;
+        this.Director = Director;
+        this.Tipo = Tipo;
+        this.Descripcion = Descripcion;
+        this.Duracion = Duracion;
+        this.Imagen = Imagen;
+        this.Id = Id;
+        this.Temporadas = Temporadas;
+    }
+    //Segundo constructor
+    public Contenido(String Nombre, String Tipo, String Descripcion, String Imagen) {
+        this.Nombre = Nombre;
+        this.Tipo = Tipo;
+        this.Descripcion = Descripcion;
+        this.Imagen = Imagen;
+    }
 
     public Contenido() {
-
+        this.Nombre = "";
+        this.Director = "";
+        this.Tipo = "";
+        this.Descripcion = "";
+        this.Duracion = "";
+        this.Imagen = "";
+        this.Id = 0;
+        this.Temporadas = 0;
     }
 
-    public Contenido(int id, String nom, String dir, String des, int tem, String dur, String ima, String tipo) {
-        this.id = id;
-        this.nombre = nom;
-        this.director = dir;
-        this.descripcion = des;
-        this.duracion = dur;
-        this.tipoContenido = tipo;
-        this.imagen = ima;
-    }
+   
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public int getTemporadas() {
-        return temporadas;
-    }
-
-    public void setTemporadas(int temporadas) {
-        this.temporadas = temporadas;
-    }
-
+   
+   
+    //Getters y Setters
     public String getNombre() {
-        return nombre;
+        return Nombre;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setNombre(String Nombre) {
+        this.Nombre = Nombre;
     }
 
     public String getDirector() {
-        return director;
+        return Director;
     }
 
-    public void setDirector(String director) {
-        this.director = director;
+    public void setDirector(String Director) {
+        this.Director = Director;
+    }
+
+    public String getTipo() {
+        return Tipo;
+    }
+
+    public void setTipo(String Tipo) {
+        this.Tipo = Tipo;
     }
 
     public String getDescripcion() {
-        return descripcion;
+        return Descripcion;
     }
 
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
+    public void setDescripcion(String Descripcion) {
+        this.Descripcion = Descripcion;
     }
 
     public String getDuracion() {
-        return duracion;
+        return Duracion;
     }
 
-    public void setDuracion(String duracion) {
-        this.duracion = duracion;
-    }
-
-    public String getTipoContenido() {
-        return tipoContenido;
-    }
-
-    public void setTipoContenido(String tipoContenido) {
-        this.tipoContenido = tipoContenido;
+    public void setDuracion(String Duracion) {
+        this.Duracion = Duracion;
     }
 
     public String getImagen() {
-        return imagen;
+        return Imagen;
     }
 
-    public void setImagen(String imagen) {
-        this.imagen = imagen;
+    public void setImagen(String Imagen) {
+        this.Imagen = Imagen;
     }
 
-    public static Contenido[] c1 = new Contenido[3];
-
-    public static Contenido recogerContenido() {
-        try {
-            Connection conn = Funciones.funcionesBBDD.connect();
-            String SQL = "SELECT DISTINCT usuariovaloracontenido.idUsuario,contenido.id, Director,Nombre,Imagen,Descripcion,Temporadas,Duracion,Tipo  FROM `contenido` inner join usuariovaloracontenido on contenido.id= idContenido order by `Puntuacion` desc limit 3";
-            Statement st = conn.createStatement();
-            ResultSet rs = st.executeQuery(SQL);
-            int i = 0;
-            while (rs.next()) {
-                Contenido con1 = new Contenido();
-                int id = rs.getInt("id");
-                String nom = rs.getString("Nombre");
-                String dir = rs.getString("Director");
-                String des = rs.getString("Descripcion");
-                String dur = rs.getString("Duracion");
-                String tCon = rs.getString("Tipo");
-                int tem = rs.getInt("Temporadas");
-                String img = rs.getString("Imagen");
-                con1.setId(id);
-                con1.setNombre(nom);
-                con1.setDescripcion(des);
-                con1.setDirector(dir);
-                con1.setDescripcion(des);
-                con1.setDuracion(dur);
-                con1.setTipoContenido(tCon);
-                con1.setTemporadas(tem);
-                con1.setImagen(img);
-                c1[i] = con1;
-                i++;
-            }
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-        return null;
+    public int getId() {
+        return Id;
     }
 
-    public static Contenido contenidoGeneral(String nombrePeli) {
-        Contenido cong = new Contenido();
-        try {
-            Connection conn = Funciones.funcionesBBDD.connect();
-            String SQL = "SELECT * FROM `contenido` WHERE `Nombre` LIKE \"" + nombrePeli + "\"";
-            Statement st = conn.createStatement();
-            ResultSet rs = st.executeQuery(SQL);
-            int i = 0;
-            while (rs.next()) {
-                int id = rs.getInt("id");
-                String nom = rs.getString("Nombre");
-                String dir = rs.getString("Director");
-                String des = rs.getString("Descripcion");
-                int tem = rs.getInt("Temporadas");
-                String dur = rs.getString("Duracion");
-                String img = rs.getString("Imagen");
-                String tCon = rs.getString("Tipo");
-                cong.setId(id);
-                cong.setNombre(nom);
-                cong.setDescripcion(des);
-                cong.setDirector(dir);
-                cong.setDescripcion(des);
-                cong.setDuracion(dur);
-                cong.setTipoContenido(tCon);
-                cong.setTemporadas(tem);
-                cong.setImagen(img);
-            }
-            
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-return cong;
+    public void setId(int Id) {
+        this.Id = Id;
     }
 
+    public int getTemporadas() {
+        return Temporadas;
+    }
+
+    public void setTemporadas(int Temporadas) {
+        this.Temporadas = Temporadas;
+    }
+    
+    /**
+     * 
+     * 
+     * @return String de nombre e id del contenido
+     */
+    @Override
+    public String toString() {
+        //return "Contenido{" + "Nombre=" + Nombre + ", Id=" + Id + '}';
+        String contenidoIdNombre=""+Id+"-"+Nombre;
+        return contenidoIdNombre;
+    }
+    
+    
 }
+    
+    
+
+  

@@ -4,16 +4,13 @@
  */
 package JFrames;
 
-import Contenido.Contenido;
-import Funciones.funcionesBBDD;
+import Contenido.ContenidovIan;
+import Funciones.funcionesBBDDvIan;
 import Persona.Usuario;
 import java.awt.Color;
 import java.sql.ResultSet;
 import java.sql.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import javax.swing.border.Border;
 
 /**
  *
@@ -21,14 +18,14 @@ import javax.swing.border.Border;
  */
 public class LoginJFrame extends javax.swing.JFrame {
 
+    public static LoginJFrame login1 = new LoginJFrame();
+    int xMouse, yMouse, x, y;
+
     public static Usuario iniciosesion(String user, String pass) {
-        Connection conn = null;
-        Statement st = null;
-        Usuario user0 = new Usuario();
         try {
-            conn = funcionesBBDD.connect();
+            Connection conn = funcionesBBDDvIan.connect();
             String SQL = "SELECT * FROM usuarios WHERE Alias=\"" + user + "\"";
-            st = conn.createStatement();
+            Statement st = conn.createStatement();
             ResultSet rs = st.executeQuery(SQL);
             while (rs.next()) {
                 int idu = rs.getInt("id");
@@ -38,25 +35,17 @@ public class LoginJFrame extends javax.swing.JFrame {
                 String bio = rs.getString("Bio");
                 String tUser = rs.getString("TipoUsuario");
                 System.out.println(ali + " " + pas);
-                if (pas.equals(pass)) {
-                    user0.setAlias(ali);
-                    user0.setBiogra(bio);
-                    user0.setId(idu);
-                    user0.setPassw(pas);
-                    user0.setTipoUser(tUser);
-                    userArray[0]=user0;
-                }else{
-                    System.out.println("No se ha podido iniciar sesion");
-                }
+                Usuario.user1.setNombre(nom);
+                Usuario.user1.setAlias(ali);
+                Usuario.user1.setBiogra(bio);
+                Usuario.user1.setId(idu);
+                Usuario.user1.setPassw(pas);
+                Usuario.user1.setTipoUser(tUser);
             }
         } catch (SQLException ex) {
-            ex.printStackTrace();
         }
-        return user0;
+        return null;
     }
-
-    public static LoginJFrame login1 = new LoginJFrame();
-    int xMouse, yMouse, x, y;
 
     /**
      * Creates new form LoginJFrame funciones image = new funciones(); funciones
@@ -65,7 +54,9 @@ public class LoginJFrame extends javax.swing.JFrame {
      * setContentPane(image);
      */
     public LoginJFrame() {
+
         initComponents();
+        
     }
 
     @SuppressWarnings("unchecked")
@@ -233,17 +224,17 @@ public class LoginJFrame extends javax.swing.JFrame {
 
     private void iniciarSesionBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_iniciarSesionBotonActionPerformed
         String user = campoUsuario.getText();
-        String pass = new String(campoContrasena.getPassword());
-        iniciosesion(user, pass);
-            if (iniciosesion(user, pass).getPassw().equals(pass)){
-                Contenido.recogerContenido();
-                Principal.prin1.setVisible(true);
-                funcionesBBDD.close();
-                dispose();
-            } else {
-                JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrectos");
+        String pass2 = new String(campoContrasena.getPassword());
+        iniciosesion(user, pass2);
+        String contrasena = Usuario.user1.getPassw();
+        if (contrasena.equals(pass2)) {
+            ContenidovIan.recogerContenidoTop3();
+            Principal.prin1.setVisible(true);
+            dispose();
+        } else {
+            JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrectos");
 
-            }
+        }
     }//GEN-LAST:event_iniciarSesionBotonActionPerformed
 
     private void campoUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoUsuarioActionPerformed

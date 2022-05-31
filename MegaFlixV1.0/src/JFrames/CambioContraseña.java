@@ -4,7 +4,7 @@
  */
 package JFrames;
 
-import Funciones.funcionesBBDD;
+import Funciones.funcionesBBDDvIan;
 import Persona.Usuario;
 import java.awt.Color;
 import java.sql.*;
@@ -139,18 +139,18 @@ public class CambioContraseña extends javax.swing.JFrame {
 
     private void aceptarBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aceptarBotonActionPerformed
         String pass = new String(nuevaContrasena.getPassword());
-        cambioContrasena(Usuario.userArray[0].getAlias(), pass);
+        cambioContrasena(Usuario.user1.getAlias(), pass);
         JOptionPane.showMessageDialog(null, "A continuación se cerrara la sesión");
         PerfilJFrame.perfil1.setVisible(false);
         LoginJFrame.login1.setVisible(true);
-        funcionesBBDD.close();
+        funcionesBBDDvIan.close();
         dispose();
     }//GEN-LAST:event_aceptarBotonActionPerformed
     public static void cambioContrasena(String user, String pass) {
         Connection conn=null;
         Statement st= null;
         try {
-            conn=funcionesBBDD.connect();
+            conn=funcionesBBDDvIan.connect();
             String SQL = "UPDATE `megaflix`.`usuarios` SET `passwd` = '" + pass + "' WHERE (`Alias` = '" + user + "')";
             st = conn.createStatement();
             st.executeUpdate(SQL);

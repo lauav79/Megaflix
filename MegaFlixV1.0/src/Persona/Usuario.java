@@ -4,8 +4,6 @@
  */
 package Persona;
 
-import Persona.Persona;
-import java.lang.reflect.Array;
 
 /**
  *

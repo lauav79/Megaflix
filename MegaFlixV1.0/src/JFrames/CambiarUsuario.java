@@ -4,7 +4,7 @@
  */
 package JFrames;
 
-import Funciones.funcionesBBDD;
+import Funciones.funcionesBBDDvIan;
 import Persona.Usuario;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -131,7 +131,7 @@ public class CambiarUsuario extends javax.swing.JFrame {
 
     private void aceptarBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aceptarBotonActionPerformed
         cambioUsuario(nuevoUsuario.getText());
-        funcionesBBDD.close();
+        funcionesBBDDvIan.close();
         JOptionPane.showMessageDialog(null, "A continuación se cerrara la sesión");
         LoginJFrame.login1.setVisible(true);
         dispose();
@@ -141,8 +141,8 @@ public class CambiarUsuario extends javax.swing.JFrame {
         Connection conn=null;
         Statement st= null;
         try {
-            conn=funcionesBBDD.connect();
-            int id = Usuario.userArray[0].getId();
+            conn=funcionesBBDDvIan.connect();
+            int id = Usuario.user1.getId();
             String us = n;
             String SQL = "UPDATE `megaflix`.`usuarios` SET `Alias` = '" + us + "' WHERE (`Id` = '" + id + "')";
             st = conn.createStatement();

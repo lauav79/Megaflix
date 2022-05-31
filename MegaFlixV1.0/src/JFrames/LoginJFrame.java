@@ -149,7 +149,7 @@ public class LoginJFrame extends javax.swing.JFrame {
         });
         jPanel1.add(campoUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, 230, 30));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/Megaflix Imagenes Pelis Login.png"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Megaflix Imagenes Pelis Login.png"))); // NOI18N
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 70, 530, 430));
 
         cerrarPrograma.setBackground(new java.awt.Color(153, 0, 0));
@@ -173,7 +173,7 @@ public class LoginJFrame extends javax.swing.JFrame {
 
         imagenLogo.setBackground(new java.awt.Color(153, 0, 0));
         imagenLogo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        imagenLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/Logo Megaflix.png"))); // NOI18N
+        imagenLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Logo Megaflix.png"))); // NOI18N
         jPanel1.add(imagenLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 10, 330, 50));
 
         imagenColorFondo2.setBackground(new java.awt.Color(153, 0, 0));

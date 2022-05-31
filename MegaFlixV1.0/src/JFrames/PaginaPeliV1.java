@@ -18,6 +18,7 @@ import java.lang.System.Logger.Level;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.concurrent.CompletableFuture;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -28,8 +29,8 @@ import javax.swing.table.DefaultTableModel;
  */
 public class PaginaPeliV1 extends javax.swing.JFrame {
 
-    int x, y, xMouse, yMouse;
-
+    int x, y, xMouse, yMouse,idUser,idContenido;
+    
 
     
     ArrayList listaDatos=new ArrayList();
@@ -39,15 +40,14 @@ public class PaginaPeliV1 extends javax.swing.JFrame {
      * Creates new form PaginaPeli
      */
 
-    public PaginaPeliV1()throws ClassNotFoundException, ClassNotFoundException{
-        
-    } {
+    public PaginaPeliV1(int idContenido, int idUser)throws ClassNotFoundException, ClassNotFoundException{     
+    this.idContenido=idContenido;
+    this.idUser=idUser;
         try {
             initComponents();
             //GET EL ID
             int idCont = 15;
-            //id usuario
-            int idUser = 1;
+            //id usuario 
             Contenido nnContenido = new Contenido();
             Usuario nUsuario = new Usuario();
             
@@ -71,7 +71,7 @@ public class PaginaPeliV1 extends javax.swing.JFrame {
             String genero = "";
             
             //Saco los datos del contenido que se va a visualizar
-            String sql = "SELECT * FROM contenido WHERE id=" + idCont;
+            String sql = "SELECT * FROM contenido WHERE id=" + idContenido;
             listaDatos = funciones.FuncionesBBDD.getListas(sql, "Contenidos");
             Iterator itListaDatosPelis = listaDatos.iterator();
             while (itListaDatosPelis.hasNext()) {
@@ -136,14 +136,15 @@ public class PaginaPeliV1 extends javax.swing.JFrame {
             
             //jLaUser.setText(usuario);
             //imagen;
-            imagen = FuncionesBBDD.getImagenCont(idCont);
+            imagen = FuncionesBBDD.getImagenCont(idContenido);
             System.out.println(imagen);
             this.jLaImagen.setIcon(new ImageIcon(imagen));
+            this.setVisible(true);
         } catch (SQLException ex) {
             java.util.logging.Logger.getLogger(PaginaPeliV1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-
-    }
+}
+        
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -183,6 +184,7 @@ public class PaginaPeliV1 extends javax.swing.JFrame {
         jLabelTemp = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
 
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -229,7 +231,7 @@ public class PaginaPeliV1 extends javax.swing.JFrame {
                 jComboBox1ActionPerformed(evt);
             }
         });
-        jPanel2.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 10, -1, 30));
+        jPanel2.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 10, -1, 30));
 
         cerrarSesion.setBackground(new java.awt.Color(0, 0, 0));
         cerrarSesion.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
@@ -241,7 +243,7 @@ public class PaginaPeliV1 extends javax.swing.JFrame {
                 cerrarSesionActionPerformed(evt);
             }
         });
-        jPanel2.add(cerrarSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 0, 130, 50));
+        jPanel2.add(cerrarSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 0, 130, 50));
 
         cerrarPrograma.setBackground(new java.awt.Color(153, 0, 0));
         cerrarPrograma.setFont(new java.awt.Font("Roboto", 0, 24)); // NOI18N
@@ -260,7 +262,7 @@ public class PaginaPeliV1 extends javax.swing.JFrame {
                 cerrarProgramaMouseExited(evt);
             }
         });
-        jPanel2.add(cerrarPrograma, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 0, 50, 50));
+        jPanel2.add(cerrarPrograma, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 0, 50, 50));
 
         imagenColorFondo2.setBackground(new java.awt.Color(153, 0, 0));
         imagenColorFondo2.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
@@ -465,9 +467,7 @@ public class PaginaPeliV1 extends javax.swing.JFrame {
     private void ComentarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComentarActionPerformed
         // TODO add your handling code here:
         //AKI TENGO QUE LLAMAR A LOS OBJETOS PARA OBJETNER EL IDCONT Y IDUSER
-        int idCont=2;
         //id usuario
-        int idUser=1;
         String comentario=jTeFiComent.getText();
         double puntos=(double) jSpiPunt.getValue();
         String mError="No se ha podido realizar la inserción \n |";
@@ -476,7 +476,7 @@ public class PaginaPeliV1 extends javax.swing.JFrame {
         if(longComent>0){
             try {
                 //insertar comentario
-                FuncionesBBDD.añadirComentario(comentario,puntos,idUser,idCont);
+                FuncionesBBDD.añadirComentario(comentario,puntos,idUser,idContenido);
             } catch (SQLException ex) {
                 
             }
@@ -523,12 +523,9 @@ public class PaginaPeliV1 extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
-                try {
-                    new PaginaPeliV1().setVisible(true);
-                } catch (ClassNotFoundException ex) {
-                    java.util.logging.Logger.getLogger(PaginaPeliV1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-                }
+                 
             }
         });
     }

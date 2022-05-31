@@ -7,10 +7,15 @@ package JFrames;
 import Contenido.ContenidovIan;
 import static Contenido.ContenidovIan.c1;
 import Funciones.funcionesBBDDvIan;
+import Persona.Usuario;
+import funciones.FuncionesBBDD;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -46,6 +51,7 @@ public class Principal extends javax.swing.JFrame {
         imagen1 = new javax.swing.JLabel();
         imagen3 = new javax.swing.JLabel();
         imagen2 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
         nombreContenido = new javax.swing.JTextField();
         perfil = new javax.swing.JButton();
         paginaPrincipal = new javax.swing.JButton();
@@ -104,6 +110,14 @@ public class Principal extends javax.swing.JFrame {
         });
         jPanel2.add(imagen2, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 140, 170, 240));
 
+        jButton1.setText("jButton1");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 10, -1, 30));
+
         nombreContenido.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         nombreContenido.setBorder(null);
         nombreContenido.addActionListener(new java.awt.event.ActionListener() {
@@ -111,7 +125,7 @@ public class Principal extends javax.swing.JFrame {
                 nombreContenidoActionPerformed(evt);
             }
         });
-        jPanel2.add(nombreContenido, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 10, 280, 30));
+        jPanel2.add(nombreContenido, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 10, 250, 30));
 
         perfil.setBackground(new java.awt.Color(0, 0, 0));
         perfil.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
@@ -147,7 +161,7 @@ public class Principal extends javax.swing.JFrame {
                 jComboBox1ActionPerformed(evt);
             }
         });
-        jPanel2.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 10, -1, 30));
+        jPanel2.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 10, -1, 30));
 
         cerrarSesion.setBackground(new java.awt.Color(0, 0, 0));
         cerrarSesion.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
@@ -269,7 +283,13 @@ public class Principal extends javax.swing.JFrame {
 
     private void imagen1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_imagen1MouseClicked
         dispose();
-        p2 = new PaginaPeliV1();
+        try {
+            int idContenido = ContenidovIan.c1[0].getId();
+            int idUsuario = Usuario.user1.getId();
+            p2 = new PaginaPeliV1(idContenido, idUsuario);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        }
         p2.setVisible(true);
 
 
@@ -277,14 +297,47 @@ public class Principal extends javax.swing.JFrame {
 
     private void imagen2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_imagen2MouseClicked
         dispose();
+        try {
+            int idContenido = ContenidovIan.c1[1].getId();
+            int idUsuario = Usuario.user1.getId();
+            p2 = new PaginaPeliV1(idContenido, idUsuario);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        }
         p2.setVisible(true);
+
     }//GEN-LAST:event_imagen2MouseClicked
 
     private void imagen3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_imagen3MouseClicked
         dispose();
+        try {
+            int idContenido = ContenidovIan.c1[2].getId();
+            int idUsuario = Usuario.user1.getId();
+            p2 = new PaginaPeliV1(idContenido, idUsuario);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        }
         p2.setVisible(true);
 
     }//GEN-LAST:event_imagen3MouseClicked
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+
+        try {
+            int idContenido=FuncionesBBDD.getIdCont(nombreContenido.getText());
+            int idUsuario = Usuario.user1.getId();
+            if (idContenido!=0){
+            p2 = new PaginaPeliV1(idContenido, idUsuario);
+            dispose();
+            }else{
+                JOptionPane.showMessageDialog(null, "Ese contenido no existe, intentelo de nuevo");
+            }
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        p2.setVisible(true);
+
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -332,6 +385,7 @@ public class Principal extends javax.swing.JFrame {
     private static javax.swing.JLabel imagen2;
     private static javax.swing.JLabel imagen3;
     private javax.swing.JLabel imagenColorFondo2;
+    private javax.swing.JButton jButton1;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JTextField nombreContenido;

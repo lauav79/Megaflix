@@ -277,6 +277,7 @@ public final class PerfilJFrame extends javax.swing.JFrame {
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(PerfilJFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
+        dispose();
     }//GEN-LAST:event_gestionarContenidoBotonActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed

@@ -30,7 +30,7 @@ import javax.swing.table.DefaultTableModel;
 public class PaginaPeliV1 extends javax.swing.JFrame {
 
     int x, y, xMouse, yMouse,idUser,idContenido;
-    
+    String titulo="";
 
     
     ArrayList listaDatos=new ArrayList();
@@ -53,7 +53,7 @@ public class PaginaPeliV1 extends javax.swing.JFrame {
             
             //idUser
             //tabla de contenido
-            String titulo = "";
+            //String titulo = "";
             String descripcion = "";
             String director = "";
             String imagen;
@@ -224,7 +224,7 @@ public class PaginaPeliV1 extends javax.swing.JFrame {
                 cerrarSesionActionPerformed(evt);
             }
         });
-        jPanel2.add(cerrarSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 0, 130, 50));
+        jPanel2.add(cerrarSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 0, 130, 50));
 
         nombreContenido.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         nombreContenido.addActionListener(new java.awt.event.ActionListener() {
@@ -240,7 +240,7 @@ public class PaginaPeliV1 extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        jPanel2.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 10, -1, 30));
+        jPanel2.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 10, -1, 30));
 
         cerrarPrograma.setBackground(new java.awt.Color(153, 0, 0));
         cerrarPrograma.setFont(new java.awt.Font("Roboto", 0, 24)); // NOI18N
@@ -259,7 +259,7 @@ public class PaginaPeliV1 extends javax.swing.JFrame {
                 cerrarProgramaMouseExited(evt);
             }
         });
-        jPanel2.add(cerrarPrograma, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 0, 50, 50));
+        jPanel2.add(cerrarPrograma, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 0, 50, 50));
 
         imagenColorFondo2.setBackground(new java.awt.Color(153, 0, 0));
         imagenColorFondo2.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
@@ -294,6 +294,7 @@ public class PaginaPeliV1 extends javax.swing.JFrame {
         jPanel3.add(jLabelGenero, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 140, 170, -1));
 
         jLaImagen.setBackground(new java.awt.Color(0, 0, 0));
+        jLaImagen.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLaImagen.setOpaque(true);
         jPanel3.add(jLaImagen, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 160, 170, 220));
 
@@ -466,6 +467,9 @@ public class PaginaPeliV1 extends javax.swing.JFrame {
             try {
                 //insertar comentario
                 FuncionesBBDD.añadirComentario(comentario,puntos,idUser,idContenido);
+                //Volver a cambiar la tabla
+                DefaultTableModel modelo = FuncionesBBDD.mostrarComentariosContenido(titulo);
+                this.jTable1.setModel(modelo);
             } catch (SQLException ex) {
                 
             }

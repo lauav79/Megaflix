@@ -17,7 +17,7 @@ import javax.swing.table.DefaultTableModel;
 public final class PerfilJFrame extends javax.swing.JFrame {
 
     public static PerfilJFrame perfil1 = new PerfilJFrame();
-    public ImageIcon icon = new ImageIcon("/IMG/fotoPerfil.jpg");
+    
     int x, y, xMouse, yMouse;
 
     /**
@@ -130,8 +130,9 @@ public final class PerfilJFrame extends javax.swing.JFrame {
         jPanel4.add(nombreUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, 220, 20));
 
         jLabel1.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/fotoPerfil2.jpg"))); // NOI18N
-        jPanel4.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 110, 220, -1));
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/fotoPerfil.jpg"))); // NOI18N
+        jPanel4.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 110, 220, 200));
         jPanel4.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 830, 10));
 
         perfil.setBackground(new java.awt.Color(0, 0, 0));
@@ -285,7 +286,7 @@ public final class PerfilJFrame extends javax.swing.JFrame {
     public void mostrarContenido()
     {
         ContenidoIntermedio c1 = new ContenidoIntermedio();
-        DefaultTableModel modelo = ContenidoIntermedio.mostrarContenidoPerfil();
+        DefaultTableModel modelo = ContenidoIntermedio.mostrarTablaPerfil();
         jTable1.setModel(modelo);
     }
 

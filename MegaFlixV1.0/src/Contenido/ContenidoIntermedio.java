@@ -66,7 +66,7 @@ public class ContenidoIntermedio {
         this.comentario = comentario;
     }
 
-    public static DefaultTableModel mostrarContenidoPerfil() {
+    public static DefaultTableModel mostrarTablaPerfil() {
         String[] nombresColumnas = {"Nombre", "Puntuacion", "Comentario"};
         String[] registros = new String[3];
         DefaultTableModel modelo = new DefaultTableModel(null, nombresColumnas);

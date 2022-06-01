@@ -42,9 +42,6 @@ public class Principal extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel2 = new javax.swing.JPanel();
-        ver3 = new javax.swing.JButton();
-        ver1 = new javax.swing.JButton();
-        ver2 = new javax.swing.JButton();
         imagen1 = new javax.swing.JLabel();
         imagen3 = new javax.swing.JLabel();
         imagen2 = new javax.swing.JLabel();
@@ -52,10 +49,10 @@ public class Principal extends javax.swing.JFrame {
         nombreContenido = new javax.swing.JTextField();
         perfil = new javax.swing.JButton();
         paginaPrincipal = new javax.swing.JButton();
-        jComboBox1 = new javax.swing.JComboBox<>();
         cerrarSesion = new javax.swing.JButton();
         cerrarPrograma = new javax.swing.JLabel();
         imagenColorFondo2 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Pagina Principal");
@@ -66,46 +63,38 @@ public class Principal extends javax.swing.JFrame {
             }
         });
 
+        jPanel2.setBackground(new java.awt.Color(102, 102, 102));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        ver3.setText("Ver");
-        ver3.setBorder(null);
-        jPanel2.add(ver3, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 390, 70, -1));
-
-        ver1.setText("Ver");
-        ver1.setBorder(null);
-        jPanel2.add(ver1, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 390, 70, -1));
-
-        ver2.setText("Ver");
-        ver2.setBorder(null);
-        ver2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ver2ActionPerformed(evt);
-            }
-        });
-        jPanel2.add(ver2, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 390, 80, -1));
-
+        imagen1.setBackground(new java.awt.Color(0, 0, 0));
         imagen1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        imagen1.setOpaque(true);
         imagen1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 imagen1MouseClicked(evt);
             }
         });
-        jPanel2.add(imagen1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 140, 170, 240));
+        jPanel2.add(imagen1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 140, 170, 240));
 
+        imagen3.setBackground(new java.awt.Color(0, 0, 0));
+        imagen3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        imagen3.setOpaque(true);
         imagen3.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 imagen3MouseClicked(evt);
             }
         });
-        jPanel2.add(imagen3, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 140, 170, 240));
+        jPanel2.add(imagen3, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 140, 170, 240));
 
+        imagen2.setBackground(new java.awt.Color(0, 0, 0));
+        imagen2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        imagen2.setOpaque(true);
         imagen2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 imagen2MouseClicked(evt);
             }
         });
-        jPanel2.add(imagen2, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 140, 170, 240));
+        jPanel2.add(imagen2, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 140, 170, 240));
 
         jButton1.setText("Buscar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -149,16 +138,6 @@ public class Principal extends javax.swing.JFrame {
             }
         });
         jPanel2.add(paginaPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 130, 50));
-
-        jComboBox1.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Peliculas", "Series" }));
-        jComboBox1.setBorder(null);
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
-            }
-        });
-        jPanel2.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 10, -1, 30));
 
         cerrarSesion.setBackground(new java.awt.Color(0, 0, 0));
         cerrarSesion.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
@@ -206,6 +185,10 @@ public class Principal extends javax.swing.JFrame {
         });
         jPanel2.add(imagenColorFondo2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1010, 50));
 
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
+        jLabel1.setText("TOP 3 CONTENIDO RECOMEDADO");
+        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 70, 610, 40));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -223,10 +206,6 @@ public class Principal extends javax.swing.JFrame {
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
     }//GEN-LAST:event_formWindowActivated
-
-    private void ver2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ver2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ver2ActionPerformed
 
     private void imagenColorFondo2MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_imagenColorFondo2MouseDragged
         int x = evt.getXOnScreen();
@@ -254,13 +233,11 @@ public class Principal extends javax.swing.JFrame {
         Principal.prin1.setVisible(true);
     }//GEN-LAST:event_paginaPrincipalActionPerformed
 
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox1ActionPerformed
-
     private void cerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cerrarSesionActionPerformed
         dispose();
-        LoginJFrame.login1.setVisible(true);
+        LoginJFrame l1= new LoginJFrame();
+        l1.setVisible(true);
+        Usuario.vaciarUsuario();
         funcionesBBDDvIan.close();
     }//GEN-LAST:event_cerrarSesionActionPerformed
 
@@ -383,13 +360,10 @@ public class Principal extends javax.swing.JFrame {
     private static javax.swing.JLabel imagen3;
     private javax.swing.JLabel imagenColorFondo2;
     private javax.swing.JButton jButton1;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JTextField nombreContenido;
     private javax.swing.JButton paginaPrincipal;
     private javax.swing.JButton perfil;
-    private javax.swing.JButton ver1;
-    private javax.swing.JButton ver2;
-    private javax.swing.JButton ver3;
     // End of variables declaration//GEN-END:variables
 }

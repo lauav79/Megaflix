@@ -4,27 +4,36 @@
  */
 package Persona;
 
-
 /**
  *
  * @author admin
  */
 public class Usuario extends Persona {
+
     public static Usuario user1 = new Usuario();
     public int id;
-    public String nombre, alias, passw, biogra, tipoUser;
+    public String nombre, alias, passw, biogra, tipoUser, imagen;
 
     public Usuario() {
 
     }
 
-    public Usuario(int i, String n, String a, String p, String b, String t) {
+    public Usuario(int i, String n, String a, String p, String b, String t, String imagen) {
         this.id = i;
         this.nombre = n;
         this.alias = a;
         this.passw = p;
         this.biogra = b;
         this.tipoUser = t;
+        this.imagen = imagen;
+    }
+
+    public String getImagen() {
+        return imagen;
+    }
+
+    public void setImagen(String imagen) {
+        this.imagen = imagen;
     }
 
     public int getId() {
@@ -75,4 +84,13 @@ public class Usuario extends Persona {
         this.tipoUser = tipoUser;
     }
 
+    public static void vaciarUsuario() {
+        user1.setAlias(null);
+        user1.setBiogra(null);
+        user1.setId(0);
+        user1.setImagen(null);
+        user1.setNombre(null);
+        user1.setPassw(null);
+        user1.setTipoUser(null);
+    }
 }

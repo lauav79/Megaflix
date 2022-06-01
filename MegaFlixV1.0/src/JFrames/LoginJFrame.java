@@ -17,8 +17,6 @@ import javax.swing.JOptionPane;
  * @author admin
  */
 public class LoginJFrame extends javax.swing.JFrame {
-
-    public static LoginJFrame login1 = new LoginJFrame();
     int xMouse, yMouse, x, y;
 
     public static Usuario iniciosesion(String user, String pass) {
@@ -34,6 +32,7 @@ public class LoginJFrame extends javax.swing.JFrame {
                 String pas = rs.getString("passwd");
                 String bio = rs.getString("Bio");
                 String tUser = rs.getString("TipoUsuario");
+                String imagen=rs.getString("Imagen");
                 System.out.println(ali + " " + pas);
                 Usuario.user1.setNombre(nom);
                 Usuario.user1.setAlias(ali);
@@ -41,6 +40,7 @@ public class LoginJFrame extends javax.swing.JFrame {
                 Usuario.user1.setId(idu);
                 Usuario.user1.setPassw(pas);
                 Usuario.user1.setTipoUser(tUser);
+                Usuario.user1.setImagen(imagen);
             }
         } catch (SQLException ex) {
         }

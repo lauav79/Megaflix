@@ -6,10 +6,13 @@ package JFrames;
 
 import Contenido.ContenidoIntermedio;
 import Funciones.funcionesBBDDvIan;
+import Persona.Usuario;
 import funciones.FuncionesBBDD;
-import javax.swing.ImageIcon;
 import java.awt.Color;
-import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -17,7 +20,7 @@ import javax.swing.table.DefaultTableModel;
  * @author imba
  */
 public final class PerfilJFrame extends javax.swing.JFrame {
-
+    
     public static PerfilJFrame perfil1 = new PerfilJFrame();
     
     int x, y, xMouse, yMouse;
@@ -27,18 +30,12 @@ public final class PerfilJFrame extends javax.swing.JFrame {
      */
     public PerfilJFrame() {
         initComponents();
+        imagenPerfil.setIcon(new ImageIcon(Usuario.user1.getImagen()));
+        gestionarContenidoBoton.setVisible(false);
         mostrarContenido();
-        //CARGAR IMAGEN DE PERFIL
-        /*
-        imagen = FuncionesBBDD.getImagenCont(idContenido);
-            System.out.println(imagen);
-            this.jLaImagen.setIcon(new ImageIcon(imagen));
-            this.setVisible(true);
-        } catch (SQLException ex) {
-            java.util.logging.Logger.getLogger(PaginaPeliV1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        if (Usuario.user1.getTipoUser().equals("Admin")) {
+            gestionarContenidoBoton.setVisible(true);
         }
-        */
-        //nombreUser.setText(Usuario.getAlias());
     }
 
     /**
@@ -53,27 +50,30 @@ public final class PerfilJFrame extends javax.swing.JFrame {
         seleccionContenido = new javax.swing.ButtonGroup();
         jPanel4 = new javax.swing.JPanel();
         nombreContenido = new javax.swing.JTextField();
-        paginaPrincipal = new javax.swing.JButton();
-        cerrarSesion = new javax.swing.JButton();
-        jComboBox1 = new javax.swing.JComboBox<>();
         cambiarContrasena = new javax.swing.JButton();
         eliminarCuenta = new javax.swing.JButton();
         cambiarAlias = new javax.swing.JButton();
         nombreUser = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
+        imagenPerfil = new javax.swing.JLabel();
+        gestionarContenidoBoton = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
-        perfil = new javax.swing.JButton();
-        cerrarPrograma = new javax.swing.JLabel();
-        imagenColorFondo = new javax.swing.JLabel();
-        imagenColorFondo2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        jButton1 = new javax.swing.JButton();
+        nombreContenido1 = new javax.swing.JTextField();
+        perfil = new javax.swing.JButton();
+        paginaPrincipal = new javax.swing.JButton();
+        cerrarSesion = new javax.swing.JButton();
+        cerrarPrograma = new javax.swing.JLabel();
+        imagenColorFondo2 = new javax.swing.JLabel();
+        imagenColorFondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(0, 0, 0));
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setUndecorated(true);
 
+        jPanel4.setBackground(new java.awt.Color(102, 102, 102));
         jPanel4.setPreferredSize(new java.awt.Dimension(840, 500));
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -83,39 +83,7 @@ public final class PerfilJFrame extends javax.swing.JFrame {
                 nombreContenidoActionPerformed(evt);
             }
         });
-        jPanel4.add(nombreContenido, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 10, 280, 30));
-
-        paginaPrincipal.setBackground(new java.awt.Color(0, 0, 0));
-        paginaPrincipal.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        paginaPrincipal.setForeground(new java.awt.Color(255, 255, 255));
-        paginaPrincipal.setText("Pagina Principal");
-        paginaPrincipal.setBorderPainted(false);
-        paginaPrincipal.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                paginaPrincipalActionPerformed(evt);
-            }
-        });
-        jPanel4.add(paginaPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 60));
-
-        cerrarSesion.setBackground(new java.awt.Color(0, 0, 0));
-        cerrarSesion.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        cerrarSesion.setForeground(new java.awt.Color(255, 255, 255));
-        cerrarSesion.setText("Cerrar Sesión");
-        cerrarSesion.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cerrarSesionActionPerformed(evt);
-            }
-        });
-        jPanel4.add(cerrarSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 0, 130, 60));
-
-        jComboBox1.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "Peliculas", "Series" }));
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
-            }
-        });
-        jPanel4.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 10, -1, 30));
+        jPanel4.add(nombreContenido, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 10, 290, 30));
 
         cambiarContrasena.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         cambiarContrasena.setText("Cambiar Contraseña");
@@ -140,62 +108,18 @@ public final class PerfilJFrame extends javax.swing.JFrame {
         jPanel4.add(cambiarAlias, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 380, 220, -1));
         jPanel4.add(nombreUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, 220, 20));
 
-        jLabel1.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/fotoPerfil.jpg"))); // NOI18N
-        jPanel4.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 110, 220, 200));
-        jPanel4.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 830, 10));
+        imagenPerfil.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        imagenPerfil.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jPanel4.add(imagenPerfil, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 110, 220, 200));
 
-        perfil.setBackground(new java.awt.Color(0, 0, 0));
-        perfil.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        perfil.setForeground(new java.awt.Color(255, 255, 255));
-        perfil.setText("Perfil");
-        perfil.setBorderPainted(false);
-        perfil.addActionListener(new java.awt.event.ActionListener() {
+        gestionarContenidoBoton.setText("Gestionar Contenido");
+        gestionarContenidoBoton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                perfilActionPerformed(evt);
+                gestionarContenidoBotonActionPerformed(evt);
             }
         });
-        jPanel4.add(perfil, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 0, 110, 60));
-
-        cerrarPrograma.setBackground(new java.awt.Color(153, 0, 0));
-        cerrarPrograma.setFont(new java.awt.Font("Roboto", 0, 24)); // NOI18N
-        cerrarPrograma.setForeground(new java.awt.Color(255, 255, 255));
-        cerrarPrograma.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        cerrarPrograma.setText("X");
-        cerrarPrograma.setOpaque(true);
-        cerrarPrograma.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                cerrarProgramaMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                cerrarProgramaMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                cerrarProgramaMouseExited(evt);
-            }
-        });
-        jPanel4.add(cerrarPrograma, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 0, 60, 60));
-
-        imagenColorFondo.setBackground(new java.awt.Color(153, 0, 0));
-        imagenColorFondo.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        imagenColorFondo.setOpaque(true);
-        jPanel4.add(imagenColorFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 280, 520));
-
-        imagenColorFondo2.setBackground(new java.awt.Color(153, 0, 0));
-        imagenColorFondo2.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        imagenColorFondo2.setOpaque(true);
-        imagenColorFondo2.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
-            public void mouseDragged(java.awt.event.MouseEvent evt) {
-                imagenColorFondo2MouseDragged(evt);
-            }
-        });
-        imagenColorFondo2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                imagenColorFondo2MousePressed(evt);
-            }
-        });
-        jPanel4.add(imagenColorFondo2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 850, 60));
+        jPanel4.add(gestionarContenidoBoton, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 450, 190, 40));
+        jPanel4.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 830, 10));
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -219,34 +143,168 @@ public final class PerfilJFrame extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jTable1);
 
-        jPanel4.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 60, 570, 460));
+        jPanel4.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 50, 640, 490));
+
+        jButton1.setBackground(new java.awt.Color(0, 0, 0));
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
+        jButton1.setText("Buscar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel4.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 10, 70, 30));
+
+        nombreContenido1.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        nombreContenido1.setBorder(null);
+        nombreContenido1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nombreContenido1ActionPerformed(evt);
+            }
+        });
+        jPanel4.add(nombreContenido1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 10, 240, 30));
+
+        perfil.setBackground(new java.awt.Color(0, 0, 0));
+        perfil.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        perfil.setForeground(new java.awt.Color(255, 255, 255));
+        perfil.setText("Perfil");
+        perfil.setBorder(null);
+        perfil.setBorderPainted(false);
+        perfil.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                perfilActionPerformed(evt);
+            }
+        });
+        jPanel4.add(perfil, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 0, 110, 50));
+
+        paginaPrincipal.setBackground(new java.awt.Color(0, 0, 0));
+        paginaPrincipal.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        paginaPrincipal.setForeground(new java.awt.Color(255, 255, 255));
+        paginaPrincipal.setText("Pagina Principal");
+        paginaPrincipal.setBorder(null);
+        paginaPrincipal.setBorderPainted(false);
+        paginaPrincipal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                paginaPrincipalActionPerformed(evt);
+            }
+        });
+        jPanel4.add(paginaPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 130, 50));
+
+        cerrarSesion.setBackground(new java.awt.Color(0, 0, 0));
+        cerrarSesion.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        cerrarSesion.setForeground(new java.awt.Color(255, 255, 255));
+        cerrarSesion.setText("Cerrar Sesión");
+        cerrarSesion.setBorder(null);
+        cerrarSesion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cerrarSesionActionPerformed(evt);
+            }
+        });
+        jPanel4.add(cerrarSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 0, 130, 50));
+
+        cerrarPrograma.setBackground(new java.awt.Color(153, 0, 0));
+        cerrarPrograma.setFont(new java.awt.Font("Roboto", 0, 24)); // NOI18N
+        cerrarPrograma.setForeground(new java.awt.Color(255, 255, 255));
+        cerrarPrograma.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        cerrarPrograma.setText("X");
+        cerrarPrograma.setOpaque(true);
+        cerrarPrograma.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cerrarProgramaMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                cerrarProgramaMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                cerrarProgramaMouseExited(evt);
+            }
+        });
+        jPanel4.add(cerrarPrograma, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 0, 50, 50));
+
+        imagenColorFondo2.setBackground(new java.awt.Color(153, 0, 0));
+        imagenColorFondo2.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        imagenColorFondo2.setOpaque(true);
+        imagenColorFondo2.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                imagenColorFondo2MouseDragged(evt);
+            }
+        });
+        imagenColorFondo2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                imagenColorFondo2MousePressed(evt);
+            }
+        });
+        jPanel4.add(imagenColorFondo2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1010, 50));
+
+        imagenColorFondo.setBackground(new java.awt.Color(153, 0, 0));
+        imagenColorFondo.setOpaque(true);
+        jPanel4.add(imagenColorFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, -10, 280, 550));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, 0)
-                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, 850, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 905, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, 520, Short.MAX_VALUE)
+            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, 540, Short.MAX_VALUE)
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void cerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cerrarSesionActionPerformed
-        dispose();
-        LoginJFrame.login1.setVisible(true);
-        funcionesBBDDvIan.close();
+    private void nombreContenidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nombreContenidoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_nombreContenidoActionPerformed
+
+    private void cambiarContrasenaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cambiarContrasenaActionPerformed
+        CambioContraseña.c1.setVisible(true);
+    }//GEN-LAST:event_cambiarContrasenaActionPerformed
+
+    private void cambiarAliasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cambiarAliasActionPerformed
+        CambiarUsuario.cUser1.setVisible(true);
+    }//GEN-LAST:event_cambiarAliasActionPerformed
+
+    private void gestionarContenidoBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gestionarContenidoBotonActionPerformed
+        try {
+            GestorContenidoMain g1 = new GestorContenidoMain(Usuario.user1.getAlias());
+            g1.setVisible(true);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(PerfilJFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_gestionarContenidoBotonActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+
+        try {
+            int idContenido=FuncionesBBDD.getIdCont(nombreContenido.getText());
+            int idUsuario = Usuario.user1.getId();
+            if (idContenido!=0){
+            PaginaPeliV1 p2 = new PaginaPeliV1(idContenido, idUsuario);
+            p2.setVisible(true);
+            dispose();
+            }else{
+                JOptionPane.showMessageDialog(null, "Ese contenido no existe, intentelo de nuevo");
+            }
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
-    }//GEN-LAST:event_cerrarSesionActionPerformed
+
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void nombreContenido1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nombreContenido1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_nombreContenido1ActionPerformed
 
     private void perfilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_perfilActionPerformed
-        // TODO add your handling code here:
+        dispose();
+        PerfilJFrame.perfil1.setVisible(true);
     }//GEN-LAST:event_perfilActionPerformed
 
     private void paginaPrincipalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_paginaPrincipalActionPerformed
@@ -254,28 +312,13 @@ public final class PerfilJFrame extends javax.swing.JFrame {
         Principal.prin1.setVisible(true);
     }//GEN-LAST:event_paginaPrincipalActionPerformed
 
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox1ActionPerformed
-
-    private void nombreContenidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nombreContenidoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_nombreContenidoActionPerformed
-
-    private void imagenColorFondo2MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_imagenColorFondo2MouseDragged
-        int x = evt.getXOnScreen();
-        int y = evt.getYOnScreen();
-        this.setLocation(x - xMouse, y - yMouse);
-    }//GEN-LAST:event_imagenColorFondo2MouseDragged
-
-    private void imagenColorFondo2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_imagenColorFondo2MousePressed
-        xMouse = evt.getX();
-        yMouse = evt.getY();
-    }//GEN-LAST:event_imagenColorFondo2MousePressed
-
-    private void cambiarContrasenaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cambiarContrasenaActionPerformed
-        CambioContraseña.c1.setVisible(true);
-    }//GEN-LAST:event_cambiarContrasenaActionPerformed
+    private void cerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cerrarSesionActionPerformed
+        dispose();
+        LoginJFrame l1= new LoginJFrame();
+        l1.setVisible(true);
+        Usuario.vaciarUsuario();
+        funcionesBBDDvIan.close();
+    }//GEN-LAST:event_cerrarSesionActionPerformed
 
     private void cerrarProgramaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cerrarProgramaMouseClicked
         System.exit(0);// TODO add your handling code here:
@@ -291,15 +334,24 @@ public final class PerfilJFrame extends javax.swing.JFrame {
         cerrarPrograma.setForeground(Color.white);
     }//GEN-LAST:event_cerrarProgramaMouseExited
 
-    private void cambiarAliasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cambiarAliasActionPerformed
-        CambiarUsuario.cUser1.setVisible(true);
-    }//GEN-LAST:event_cambiarAliasActionPerformed
-    public void mostrarContenido()
-    {
+    private void imagenColorFondo2MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_imagenColorFondo2MouseDragged
+        int x = evt.getXOnScreen();
+        int y = evt.getYOnScreen();
+
+        this.setLocation(x - xMouse, y - yMouse);
+    }//GEN-LAST:event_imagenColorFondo2MouseDragged
+
+    private void imagenColorFondo2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_imagenColorFondo2MousePressed
+        xMouse = evt.getX();
+        yMouse = evt.getY();
+    }//GEN-LAST:event_imagenColorFondo2MousePressed
+    public void mostrarContenido() {
         ContenidoIntermedio c1 = new ContenidoIntermedio();
         DefaultTableModel modelo = ContenidoIntermedio.mostrarTablaPerfil();
         jTable1.setModel(modelo);
+        
     }
+
 
     /**
      * @param args the command line arguments
@@ -345,15 +397,17 @@ public final class PerfilJFrame extends javax.swing.JFrame {
     private javax.swing.JLabel cerrarPrograma;
     private javax.swing.JButton cerrarSesion;
     private javax.swing.JButton eliminarCuenta;
+    private javax.swing.JButton gestionarContenidoBoton;
     private javax.swing.JLabel imagenColorFondo;
     private javax.swing.JLabel imagenColorFondo2;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel imagenPerfil;
+    private javax.swing.JButton jButton1;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField nombreContenido;
+    private javax.swing.JTextField nombreContenido1;
     private javax.swing.JLabel nombreUser;
     private javax.swing.JButton paginaPrincipal;
     private javax.swing.JButton perfil;

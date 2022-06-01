@@ -133,8 +133,12 @@ public class CambiarUsuario extends javax.swing.JFrame {
         cambioUsuario(nuevoUsuario.getText());
         funcionesBBDDvIan.close();
         JOptionPane.showMessageDialog(null, "A continuación se cerrara la sesión");
-        LoginJFrame.login1.setVisible(true);
+        LoginJFrame l1= new LoginJFrame();
+        l1.setVisible(true);
+        funcionesBBDDvIan.close();
+        Usuario.vaciarUsuario();
         dispose();
+        
     }//GEN-LAST:event_aceptarBotonActionPerformed
 
     public static void cambioUsuario(String n){

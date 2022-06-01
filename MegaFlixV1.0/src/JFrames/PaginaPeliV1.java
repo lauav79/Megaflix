@@ -156,16 +156,15 @@ public class PaginaPeliV1 extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel2 = new javax.swing.JPanel();
-        nombreContenido = new javax.swing.JTextField();
         perfil = new javax.swing.JButton();
         paginaPrincipal = new javax.swing.JButton();
-        jComboBox1 = new javax.swing.JComboBox<>();
         cerrarSesion = new javax.swing.JButton();
+        nombreContenido = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
         cerrarPrograma = new javax.swing.JLabel();
         imagenColorFondo2 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabelTitulo = new javax.swing.JLabel();
-        jButtonAtras = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         textArDesc = new java.awt.TextArea();
         jLaDur = new javax.swing.JLabel();
@@ -182,20 +181,12 @@ public class PaginaPeliV1 extends javax.swing.JFrame {
         jLabelDur = new javax.swing.JLabel();
         jLaTemp = new javax.swing.JLabel();
         jLabelTemp = new javax.swing.JLabel();
+        imagenColorFondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
 
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        nombreContenido.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        nombreContenido.setBorder(null);
-        nombreContenido.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nombreContenidoActionPerformed(evt);
-            }
-        });
-        jPanel2.add(nombreContenido, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 10, 280, 30));
 
         perfil.setBackground(new java.awt.Color(0, 0, 0));
         perfil.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
@@ -223,16 +214,6 @@ public class PaginaPeliV1 extends javax.swing.JFrame {
         });
         jPanel2.add(paginaPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 130, 50));
 
-        jComboBox1.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Peliculas", "Series" }));
-        jComboBox1.setBorder(null);
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
-            }
-        });
-        jPanel2.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 10, -1, 30));
-
         cerrarSesion.setBackground(new java.awt.Color(0, 0, 0));
         cerrarSesion.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         cerrarSesion.setForeground(new java.awt.Color(255, 255, 255));
@@ -244,6 +225,22 @@ public class PaginaPeliV1 extends javax.swing.JFrame {
             }
         });
         jPanel2.add(cerrarSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 0, 130, 50));
+
+        nombreContenido.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        nombreContenido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nombreContenidoActionPerformed(evt);
+            }
+        });
+        jPanel2.add(nombreContenido, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 10, 290, 30));
+
+        jButton1.setText("Buscar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 10, -1, 30));
 
         cerrarPrograma.setBackground(new java.awt.Color(153, 0, 0));
         cerrarPrograma.setFont(new java.awt.Font("Roboto", 0, 24)); // NOI18N
@@ -282,16 +279,9 @@ public class PaginaPeliV1 extends javax.swing.JFrame {
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabelTitulo.setFont(new java.awt.Font("Georgia", 1, 18)); // NOI18N
+        jLabelTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelTitulo.setText("titulo");
-        jPanel3.add(jLabelTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 102, 270, 39));
-
-        jButtonAtras.setText("Atrás");
-        jButtonAtras.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonAtrasActionPerformed(evt);
-            }
-        });
-        jPanel3.add(jButtonAtras, new org.netbeans.lib.awtextra.AbsoluteConstraints(809, 11, -1, -1));
+        jPanel3.add(jLabelTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 280, 39));
 
         jLabel3.setText("Descripción:");
         jPanel3.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(389, 152, -1, -1));
@@ -301,8 +291,11 @@ public class PaginaPeliV1 extends javax.swing.JFrame {
         jPanel3.add(jLaDur, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 408, 84, 34));
 
         jLabelGenero.setText("Género");
-        jPanel3.add(jLabelGenero, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 140, -1, -1));
-        jPanel3.add(jLaImagen, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 160, 170, 220));
+        jPanel3.add(jLabelGenero, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 140, 170, -1));
+
+        jLaImagen.setBackground(new java.awt.Color(0, 0, 0));
+        jLaImagen.setOpaque(true);
+        jPanel3.add(jLaImagen, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 160, 170, 220));
 
         jPanel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
@@ -344,7 +337,7 @@ public class PaginaPeliV1 extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(21, Short.MAX_VALUE)
+                .addContainerGap(70, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel5)
                     .addComponent(jLabel1))
@@ -382,7 +375,7 @@ public class PaginaPeliV1 extends javax.swing.JFrame {
                 .addContainerGap(78, Short.MAX_VALUE))
         );
 
-        jPanel3.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(231, 378, -1, -1));
+        jPanel3.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 380, 700, -1));
 
         jLabelDur.setBorder(new javax.swing.border.MatteBorder(null));
         jPanel3.add(jLabelDur, new org.netbeans.lib.awtextra.AbsoluteConstraints(124, 408, 50, 34));
@@ -391,28 +384,30 @@ public class PaginaPeliV1 extends javax.swing.JFrame {
         jLabelTemp.setBorder(new javax.swing.border.MatteBorder(null));
         jPanel3.add(jLabelTemp, new org.netbeans.lib.awtextra.AbsoluteConstraints(124, 460, 50, 34));
 
-        jPanel2.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 900, -1));
+        imagenColorFondo.setBackground(new java.awt.Color(153, 0, 0));
+        imagenColorFondo.setOpaque(true);
+        jPanel3.add(imagenColorFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 280, 730));
+
+        jPanel2.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 980, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 902, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 981, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 730, Short.MAX_VALUE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void nombreContenidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nombreContenidoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_nombreContenidoActionPerformed
 
     private void perfilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_perfilActionPerformed
         dispose();
@@ -424,13 +419,11 @@ public class PaginaPeliV1 extends javax.swing.JFrame {
         Principal.prin1.setVisible(true);
     }//GEN-LAST:event_paginaPrincipalActionPerformed
 
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox1ActionPerformed
-
     private void cerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cerrarSesionActionPerformed
         dispose();
-        LoginJFrame.login1.setVisible(true);
+        LoginJFrame l1= new LoginJFrame();
+        l1.setVisible(true);
+        Usuario.vaciarUsuario();
         funcionesBBDDvIan.close();
     }//GEN-LAST:event_cerrarSesionActionPerformed
 
@@ -460,10 +453,6 @@ public class PaginaPeliV1 extends javax.swing.JFrame {
         yMouse = evt.getY();
     }//GEN-LAST:event_imagenColorFondo2MousePressed
 
-    private void jButtonAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAtrasActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonAtrasActionPerformed
-
     private void ComentarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComentarActionPerformed
         // TODO add your handling code here:
         //AKI TENGO QUE LLAMAR A LOS OBJETOS PARA OBJETNER EL IDCONT Y IDUSER
@@ -492,6 +481,28 @@ public class PaginaPeliV1 extends javax.swing.JFrame {
     private void jTeFiComentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTeFiComentActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTeFiComentActionPerformed
+
+    private void nombreContenidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nombreContenidoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_nombreContenidoActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+
+        try {
+            int idContenido=FuncionesBBDD.getIdCont(nombreContenido.getText());
+            int idUsuario = Usuario.user1.getId();
+            if (idContenido!=0){
+                PaginaPeliV1 p2 = new PaginaPeliV1(idContenido, idUsuario);
+                p2.setVisible(true);
+                dispose();
+            }else{
+                JOptionPane.showMessageDialog(null, "Ese contenido no existe, intentelo de nuevo");
+            }
+        } catch (ClassNotFoundException ex) {
+           
+        }
+
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -534,9 +545,9 @@ public class PaginaPeliV1 extends javax.swing.JFrame {
     private javax.swing.JButton Comentar;
     private javax.swing.JLabel cerrarPrograma;
     private javax.swing.JButton cerrarSesion;
+    private javax.swing.JLabel imagenColorFondo;
     private javax.swing.JLabel imagenColorFondo2;
-    private javax.swing.JButton jButtonAtras;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLaDur;
     private javax.swing.JLabel jLaImagen;
     private javax.swing.JLabel jLaTemp;

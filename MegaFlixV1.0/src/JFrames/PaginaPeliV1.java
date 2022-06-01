@@ -87,14 +87,14 @@ public class PaginaPeliV1 extends javax.swing.JFrame {
             
             //Contenido cont=new Contenido((String Nombre, String Director, String Tipo, String Descripcion, String Duracion, String Imagen, int Id, int Temporadas))
             //trato el string de descripcion.
-            int numCarac = 65;
+            int numCarac = 80;
             String descBien = "";
             int longDesc = descripcion.length() - 1;
             for (int i = 0; i <= longDesc; i++) {
                 char c = descripcion.charAt(i);
                 descBien += c;
                 if (i % numCarac == 0 && i > 0) {
-                    descBien += "-\n";
+                    descBien += "\n";
                 }
             }
             
@@ -301,8 +301,8 @@ public class PaginaPeliV1 extends javax.swing.JFrame {
         jPanel3.add(jLaDur, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 408, 84, 34));
 
         jLabelGenero.setText("Género");
-        jPanel3.add(jLabelGenero, new org.netbeans.lib.awtextra.AbsoluteConstraints(57, 152, -1, -1));
-        jPanel3.add(jLaImagen, new org.netbeans.lib.awtextra.AbsoluteConstraints(57, 184, 141, 188));
+        jPanel3.add(jLabelGenero, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 140, -1, -1));
+        jPanel3.add(jLaImagen, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 160, 170, 220));
 
         jPanel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
@@ -357,9 +357,9 @@ public class PaginaPeliV1 extends javax.swing.JFrame {
                     .addComponent(jSpiPunt, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(61, 61, 61))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(82, 82, 82)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(jScrollPane1)
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

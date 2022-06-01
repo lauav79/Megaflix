@@ -70,7 +70,7 @@ public class Principal extends javax.swing.JFrame {
 
         ver3.setText("Ver");
         ver3.setBorder(null);
-        jPanel2.add(ver3, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 390, 70, -1));
+        jPanel2.add(ver3, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 390, 70, -1));
 
         ver1.setText("Ver");
         ver1.setBorder(null);
@@ -105,7 +105,7 @@ public class Principal extends javax.swing.JFrame {
                 imagen2MouseClicked(evt);
             }
         });
-        jPanel2.add(imagen2, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 140, 170, 240));
+        jPanel2.add(imagen2, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 140, 170, 240));
 
         jButton1.setText("Buscar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {

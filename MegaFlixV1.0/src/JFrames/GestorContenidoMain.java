@@ -696,6 +696,12 @@ public class GestorContenidoMain extends javax.swing.JFrame {
                 FuncionesBBDD.añadirContenido(nombre,descripcion,director,temporadas,duracion,tipo);
                 //falta insertar la imagen
                 System.out.println("Se ha insertado el contenido");
+                //vacio los campos:
+                jTextFiNombre.setText("");
+                jTextFiDesc.setText("");
+                jTextFiDir.setText("");
+                jSpinnerTemp.setValue(0.0);
+                jTextFiDur.setText("");
                 
                 
             } catch (ClassNotFoundException ex) {

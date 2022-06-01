@@ -129,17 +129,21 @@ public class FuncionesBBDD {
             // Preparamos un statement para hacer la inserción del registro.
             PreparedStatement stmt = conn.prepareStatement("INSERT INTO contenido VALUES (?,?,?,?,?,?,?,?)");
             //aunque en la bbdd es int, para poder setearlo a null(porque es autoncremental) ha de ser String
+            //le quito los espacios al nombre para guardar la imagen
+            String nombreSinEsp=nombre.replace(" ", "");
+            String rutaImg="./src/imagenes/"+nombreSinEsp+".jpg";
+            
             stmt.setString(1, null);
             stmt.setString(2, nombre);
             stmt.setString(3, director);
             stmt.setString(4, descripcion);
             stmt.setInt(5, temporadas);
             stmt.setString(6, duracion);
-            stmt.setString(7, null);
+            stmt.setString(7, rutaImg);
             stmt.setString(8, tipo);
             
             stmt.executeUpdate();
-            JOptionPane.showMessageDialog(null, "El contenido se ha insertado correctamente");
+            JOptionPane.showMessageDialog(null, "El contenido se ha insertado correctamente, no olvides añadir a mano la imagen en la ruta ./src/imagenes/");
              
             
         }catch (SQLException e) {

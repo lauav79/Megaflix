@@ -6,8 +6,10 @@ package JFrames;
 
 import Contenido.ContenidoIntermedio;
 import Funciones.funcionesBBDDvIan;
+import funciones.FuncionesBBDD;
 import javax.swing.ImageIcon;
 import java.awt.Color;
+import java.sql.SQLException;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -26,7 +28,16 @@ public final class PerfilJFrame extends javax.swing.JFrame {
     public PerfilJFrame() {
         initComponents();
         mostrarContenido();
-        
+        //CARGAR IMAGEN DE PERFIL
+        /*
+        imagen = FuncionesBBDD.getImagenCont(idContenido);
+            System.out.println(imagen);
+            this.jLaImagen.setIcon(new ImageIcon(imagen));
+            this.setVisible(true);
+        } catch (SQLException ex) {
+            java.util.logging.Logger.getLogger(PaginaPeliV1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        */
         //nombreUser.setText(Usuario.getAlias());
     }
 

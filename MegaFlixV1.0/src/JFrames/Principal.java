@@ -5,21 +5,19 @@
 package JFrames;
 
 import Contenido.ContenidovIan;
-import Funciones.funcionesBBDDvIan;
 import Persona.Usuario;
 import funciones.FuncionesBBDD;
+import static funciones.FuncionesBBDD.*;
 import java.awt.Color;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
-import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 
 /**
@@ -35,7 +33,7 @@ public class Principal extends javax.swing.JFrame {
     private ArrayList getContenidos() {
         ArrayList<String> stars = new ArrayList<String>();
         try {
-            Connection conn = Funciones.funcionesBBDDvIan.connect();
+            Connection conn = connect2();
             String SQL = "SELECT Nombre FROM `contenido`";
             Statement st = conn.createStatement();
             ResultSet rs = st.executeQuery(SQL);
@@ -75,7 +73,7 @@ public class Principal extends javax.swing.JFrame {
         ContenidovIan.recogerContenidoTop3();
 
         initComponents();
-        jScrollPane1.setVisible(false);
+        busquedaContenido.setVisible(false);
         listaContenidos.setVisible(false);
         imagen1.setIcon(new ImageIcon(ContenidovIan.c1[0].getImagen()));
         imagen2.setIcon(new ImageIcon(ContenidovIan.c1[1].getImagen()));
@@ -95,7 +93,7 @@ public class Principal extends javax.swing.JFrame {
         imagen1 = new javax.swing.JLabel();
         imagen3 = new javax.swing.JLabel();
         imagen2 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        busquedaContenido = new javax.swing.JScrollPane();
         listaContenidos = new javax.swing.JList<>();
         nombreContenido = new javax.swing.JTextField();
         perfil = new javax.swing.JButton();
@@ -147,7 +145,6 @@ public class Principal extends javax.swing.JFrame {
         });
         jPanel2.add(imagen2, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 140, 170, 240));
 
-        listaContenidos.setBorder(null);
         listaContenidos.setVisible(false);
         listaContenidos.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         listaContenidos.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -158,9 +155,9 @@ public class Principal extends javax.swing.JFrame {
                 listaContenidosMouseExited(evt);
             }
         });
-        jScrollPane1.setViewportView(listaContenidos);
+        busquedaContenido.setViewportView(listaContenidos);
 
-        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 40, 360, 100));
+        jPanel2.add(busquedaContenido, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 40, 360, 100));
 
         nombreContenido.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         nombreContenido.setBorder(null);
@@ -307,7 +304,7 @@ public class Principal extends javax.swing.JFrame {
         LoginJFrame l1 = new LoginJFrame();
         l1.setVisible(true);
         Usuario.vaciarUsuario();
-        funcionesBBDDvIan.close();
+        close();
     }//GEN-LAST:event_cerrarSesionActionPerformed
 
     private void cerrarProgramaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cerrarProgramaMouseClicked
@@ -376,7 +373,7 @@ public class Principal extends javax.swing.JFrame {
 
     private void nombreContenidoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_nombreContenidoMouseClicked
         listaContenidos.setVisible(true);
-        jScrollPane1.setVisible(true);
+        busquedaContenido.setVisible(true);
 
 
     }//GEN-LAST:event_nombreContenidoMouseClicked
@@ -395,7 +392,7 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_listaContenidosMouseClicked
 
     private void listaContenidosMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listaContenidosMouseExited
-        jScrollPane1.setVisible(false);
+        busquedaContenido.setVisible(false);
     }//GEN-LAST:event_listaContenidosMouseExited
 
     /**
@@ -442,6 +439,7 @@ public class Principal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JScrollPane busquedaContenido;
     private javax.swing.JLabel cerrarPrograma;
     private javax.swing.JButton cerrarSesion;
     private static javax.swing.JLabel imagen1;
@@ -450,7 +448,6 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JLabel imagenColorFondo2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JList<String> listaContenidos;
     private javax.swing.JTextField nombreContenido;
     private javax.swing.JButton paginaPrincipal;

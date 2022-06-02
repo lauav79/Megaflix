@@ -4,58 +4,22 @@
  */
 package JFrames;
 
-import Contenido.ContenidovIan;
-import Funciones.funcionesBBDDvIan;
 import Persona.Usuario;
+import static funciones.FuncionesBBDD.iniciosesion;
 import java.awt.Color;
-import java.sql.ResultSet;
-import java.sql.*;
 import javax.swing.JOptionPane;
+
 /**
  *
  * @author Imba
  */
 public class LoginJFrame extends javax.swing.JFrame {
+    
+    //Declaramos las variables que serviran para localizar el raton tanto dentro de la
+    //aplicación como donde esta situado de la pantalla
     int xMouse, yMouse, x, y;
-
-    public static Usuario iniciosesion(String user, String pass) {
-        try {
-            Connection conn = funcionesBBDDvIan.connect();
-            String SQL = "SELECT * FROM usuarios WHERE Alias=\"" + user + "\"";
-            Statement st = conn.createStatement();
-            ResultSet rs = st.executeQuery(SQL);
-            while (rs.next()) {
-                int idu = rs.getInt("id");
-                String ali = rs.getString("Alias");
-                String nom = rs.getString("Nombre");
-                String pas = rs.getString("passwd");
-                String bio = rs.getString("Bio");
-                String tUser = rs.getString("TipoUsuario");
-                String imagen=rs.getString("Imagen");
-                System.out.println(ali + " " + pas);
-                Usuario.user1.setNombre(nom);
-                Usuario.user1.setAlias(ali);
-                Usuario.user1.setBiogra(bio);
-                Usuario.user1.setId(idu);
-                Usuario.user1.setPassw(pas);
-                Usuario.user1.setTipoUser(tUser);
-                Usuario.user1.setImagen(imagen);
-            }
-        } catch (SQLException ex) {
-        }
-        return null;
-    }
-
-    /**
-     * Creates new form LoginJFrame funciones image = new funciones(); funciones
-     * image = new funciones(); image.setImage("/IMG/FondoLogin.jpg");
-     * setContentPane(image); image.setImage("/IMG/FondoLogin.jpg");
-     * setContentPane(image);
-     */
     public LoginJFrame() {
-
         initComponents();
-        
     }
 
     @SuppressWarnings("unchecked")
@@ -220,14 +184,15 @@ public class LoginJFrame extends javax.swing.JFrame {
     private void campoContrasenaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoContrasenaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_campoContrasenaActionPerformed
-
+//En este boton llamamos a la funcion inicio de sesion en la que verificaremos si
+//el usuario y la contraseña introducidos por el usuario son validos
     private void iniciarSesionBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_iniciarSesionBotonActionPerformed
         String user = campoUsuario.getText();
         String pass2 = new String(campoContrasena.getPassword());
         iniciosesion(user, pass2);
         String contrasena = Usuario.user1.getPassw();
         if (contrasena.equals(pass2)) {
-            Principal p1=new Principal();
+            Principal p1 = new Principal();
             p1.setVisible(true);
             dispose();
         } else {
@@ -265,6 +230,7 @@ public class LoginJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_imagenColorFondo2MousePressed
 
     private void campoContrasenaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_campoContrasenaMouseClicked
+        //Factores esteticos
         if (String.valueOf(campoContrasena.getPassword()).equals("********")) {
             campoContrasena.setText("");
             campoContrasena.setForeground(Color.black);
@@ -272,6 +238,7 @@ public class LoginJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_campoContrasenaMouseClicked
 
     private void campoContrasenaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_campoContrasenaMouseExited
+        //Factores esteticos
         if (String.valueOf(campoContrasena.getPassword()).isEmpty()) {
             campoContrasena.setText("********");
             campoContrasena.setForeground(Color.gray);
@@ -279,6 +246,7 @@ public class LoginJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_campoContrasenaMouseExited
 
     private void campoUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_campoUsuarioMouseClicked
+        //Factores esteticos
         if (campoUsuario.getText().equals("Inserte su nombre de usuario")) {
             campoUsuario.setText("");
             campoUsuario.setForeground(Color.black);
@@ -286,6 +254,7 @@ public class LoginJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_campoUsuarioMouseClicked
 
     private void campoUsuarioMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_campoUsuarioMouseExited
+        //Factores esteticos
         if (campoUsuario.getText().equals("")) {
             campoUsuario.setText("Inserte su nombre de usuario");
             campoUsuario.setForeground(Color.gray);
@@ -293,6 +262,7 @@ public class LoginJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_campoUsuarioMouseExited
 
     private void imagenColorFondo2MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_imagenColorFondo2MouseDragged
+        //Factores esteticos
         int x = evt.getXOnScreen();
         int y = evt.getYOnScreen();
         this.setLocation(x - xMouse, y - yMouse);

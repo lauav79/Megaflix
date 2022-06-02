@@ -109,7 +109,7 @@
             </Constraint>
           </Constraints>
         </Component>
-        <Container class="javax.swing.JScrollPane" name="jScrollPane1">
+        <Container class="javax.swing.JScrollPane" name="busquedaContenido">
           <AuxValues>
             <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
           </AuxValues>
@@ -123,9 +123,7 @@
           <SubComponents>
             <Component class="javax.swing.JList" name="listaContenidos">
               <Properties>
-                <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor" postCode="listaContenidos.setVisible(false);">
-                  <Border info="null"/>
-                </Property>
+                <Property name="border" postCode="listaContenidos.setVisible(false);"/>
                 <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.editors2.ListModelEditor">
                   <StringArray count="0"/>
                 </Property>

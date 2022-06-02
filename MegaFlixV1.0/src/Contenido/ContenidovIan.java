@@ -4,6 +4,7 @@
  */
 package Contenido;
 
+import static funciones.FuncionesBBDD.connect2;
 import java.lang.reflect.Array;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -110,7 +111,7 @@ public class ContenidovIan {
 
     public static ContenidovIan[] recogerContenidoTop3() {
         try {
-            Connection conn = Funciones.funcionesBBDDvIan.connect();
+            Connection conn = connect2();
             String SQL = "SELECT DISTINCT usuariovaloracontenido.idUsuario,contenido.id,AVG(Puntuacion)as media, Director,Nombre,Imagen,Descripcion,Temporadas,Duracion,Tipo  FROM `contenido` inner join usuariovaloracontenido on contenido.id= idContenido group by contenido.id  order by `media` desc limit 3";
             Statement st = conn.createStatement();
             ResultSet rs = st.executeQuery(SQL);
@@ -146,7 +147,7 @@ public class ContenidovIan {
     public static ContenidovIan contenidoGeneral(String nombreCont) {
         ContenidovIan cong = new ContenidovIan();
         try {
-            Connection conn = Funciones.funcionesBBDDvIan.connect();
+            Connection conn = connect2();
             String SQL = "SELECT * FROM `contenido` WHERE `Nombre` LIKE \"" + nombreCont + "\"";
             Statement st = conn.createStatement();
             ResultSet rs = st.executeQuery(SQL);

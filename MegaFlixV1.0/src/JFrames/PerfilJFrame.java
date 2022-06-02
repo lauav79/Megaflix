@@ -5,9 +5,9 @@
 package JFrames;
 
 import Contenido.ContenidoIntermedio;
-import Funciones.funcionesBBDDvIan;
 import Persona.Usuario;
 import funciones.FuncionesBBDD;
+import static funciones.FuncionesBBDD.*;
 import java.awt.Color;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -34,7 +34,7 @@ public final class PerfilJFrame extends javax.swing.JFrame {
     private ArrayList getContenidos() {
         ArrayList<String> stars = new ArrayList<String>();
         try {
-            Connection conn = Funciones.funcionesBBDDvIan.connect();
+            Connection conn = connect2();
             String SQL = "SELECT Nombre FROM `contenido`";
             Statement st = conn.createStatement();
             ResultSet rs = st.executeQuery(SQL);
@@ -76,7 +76,9 @@ public final class PerfilJFrame extends javax.swing.JFrame {
      */
     public PerfilJFrame() {
         initComponents();
+        busquedaContenido.setVisible(false);
         imagenPerfil.setIcon(new ImageIcon(Usuario.user1.getImagen()));
+        nUser.setText(Usuario.user1.getAlias());
         gestionarContenidoBoton.setVisible(false);
         mostrarContenido();
         if (Usuario.user1.getTipoUser().equals("Admin")) {
@@ -95,23 +97,22 @@ public final class PerfilJFrame extends javax.swing.JFrame {
 
         seleccionContenido = new javax.swing.ButtonGroup();
         jPanel4 = new javax.swing.JPanel();
-        nombreContenido = new javax.swing.JTextField();
         cambiarContrasena = new javax.swing.JButton();
         eliminarCuenta = new javax.swing.JButton();
         cambiarAlias = new javax.swing.JButton();
         nombreUser = new javax.swing.JLabel();
         imagenPerfil = new javax.swing.JLabel();
         gestionarContenidoBoton = new javax.swing.JButton();
-        jScrollPane2 = new javax.swing.JScrollPane();
+        busquedaContenido = new javax.swing.JScrollPane();
         listaContenidos = new javax.swing.JList<>();
         jSeparator1 = new javax.swing.JSeparator();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
-        nombreContenido1 = new javax.swing.JTextField();
         perfil = new javax.swing.JButton();
         paginaPrincipal = new javax.swing.JButton();
         cerrarSesion = new javax.swing.JButton();
+        nombreContenido = new javax.swing.JTextField();
+        nUser = new javax.swing.JLabel();
         cerrarPrograma = new javax.swing.JLabel();
         imagenColorFondo2 = new javax.swing.JLabel();
         imagenColorFondo = new javax.swing.JLabel();
@@ -124,14 +125,6 @@ public final class PerfilJFrame extends javax.swing.JFrame {
         jPanel4.setBackground(new java.awt.Color(102, 102, 102));
         jPanel4.setPreferredSize(new java.awt.Dimension(840, 500));
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        nombreContenido.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        nombreContenido.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nombreContenidoActionPerformed(evt);
-            }
-        });
-        jPanel4.add(nombreContenido, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 10, 290, 30));
 
         cambiarContrasena.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         cambiarContrasena.setText("Cambiar Contraseña");
@@ -168,7 +161,6 @@ public final class PerfilJFrame extends javax.swing.JFrame {
         });
         jPanel4.add(gestionarContenidoBoton, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 450, 190, 40));
 
-        listaContenidos.setBorder(null);
         listaContenidos.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         listaContenidos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -178,9 +170,9 @@ public final class PerfilJFrame extends javax.swing.JFrame {
                 listaContenidosMouseExited(evt);
             }
         });
-        jScrollPane2.setViewportView(listaContenidos);
+        busquedaContenido.setViewportView(listaContenidos);
 
-        jPanel4.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 40, 290, 100));
+        jPanel4.add(busquedaContenido, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 40, 360, 100));
         jPanel4.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 830, 10));
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
@@ -206,25 +198,6 @@ public final class PerfilJFrame extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jTable1);
 
         jPanel4.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 50, 640, 490));
-
-        jButton1.setBackground(new java.awt.Color(0, 0, 0));
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("Buscar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-        jPanel4.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 10, 70, 30));
-
-        nombreContenido1.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        nombreContenido1.setBorder(null);
-        nombreContenido1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nombreContenido1ActionPerformed(evt);
-            }
-        });
-        jPanel4.add(nombreContenido1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 10, 240, 30));
 
         perfil.setBackground(new java.awt.Color(0, 0, 0));
         perfil.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
@@ -263,6 +236,29 @@ public final class PerfilJFrame extends javax.swing.JFrame {
             }
         });
         jPanel4.add(cerrarSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 0, 130, 50));
+
+        nombreContenido.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        nombreContenido.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        nombreContenido.setBorder(null);
+        nombreContenido.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                nombreContenidoMouseClicked(evt);
+            }
+        });
+        nombreContenido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nombreContenidoActionPerformed(evt);
+            }
+        });
+        nombreContenido.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                nombreContenidoKeyReleased(evt);
+            }
+        });
+        jPanel4.add(nombreContenido, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 10, 360, 30));
+
+        nUser.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jPanel4.add(nUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 300, 220, 40));
 
         cerrarPrograma.setBackground(new java.awt.Color(153, 0, 0));
         cerrarPrograma.setFont(new java.awt.Font("Roboto", 0, 24)); // NOI18N
@@ -320,10 +316,6 @@ public final class PerfilJFrame extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void nombreContenidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nombreContenidoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_nombreContenidoActionPerformed
-
     private void cambiarContrasenaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cambiarContrasenaActionPerformed
         CambioContraseña c1= new CambioContraseña();
         c1.setVisible(true);
@@ -343,29 +335,6 @@ public final class PerfilJFrame extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_gestionarContenidoBotonActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-
-        try {
-            int idContenido = FuncionesBBDD.getIdCont(nombreContenido.getText());
-            int idUsuario = Usuario.user1.getId();
-            if (idContenido != 0) {
-                PaginaPeliV1 p2 = new PaginaPeliV1(idContenido, idUsuario);
-                p2.setVisible(true);
-                dispose();
-            } else {
-                JOptionPane.showMessageDialog(null, "Ese contenido no existe, intentelo de nuevo");
-            }
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void nombreContenido1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nombreContenido1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_nombreContenido1ActionPerformed
-
     private void perfilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_perfilActionPerformed
         dispose();
         PerfilJFrame.perfil1.setVisible(true);
@@ -382,7 +351,7 @@ public final class PerfilJFrame extends javax.swing.JFrame {
         LoginJFrame l1 = new LoginJFrame();
         l1.setVisible(true);
         Usuario.vaciarUsuario();
-        funcionesBBDDvIan.close();
+        close();
     }//GEN-LAST:event_cerrarSesionActionPerformed
 
     private void cerrarProgramaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cerrarProgramaMouseClicked
@@ -411,6 +380,20 @@ public final class PerfilJFrame extends javax.swing.JFrame {
         yMouse = evt.getY();
     }//GEN-LAST:event_imagenColorFondo2MousePressed
 
+    private void nombreContenidoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_nombreContenidoMouseClicked
+        listaContenidos.setVisible(true);
+        busquedaContenido.setVisible(true);
+
+    }//GEN-LAST:event_nombreContenidoMouseClicked
+
+    private void nombreContenidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nombreContenidoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_nombreContenidoActionPerformed
+
+    private void nombreContenidoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nombreContenidoKeyReleased
+        contenidoFiltrado(nombreContenido.getText());
+    }//GEN-LAST:event_nombreContenidoKeyReleased
+
     private void listaContenidosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listaContenidosMouseClicked
         //JOptionPane.showMessageDialog(rootPane,listaContenidos.getSelectedValue(),"Nombre Elegido",JOptionPane.INFORMATION_MESSAGE);
         String Peli = new String(listaContenidos.getSelectedValue());
@@ -425,7 +408,7 @@ public final class PerfilJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_listaContenidosMouseClicked
 
     private void listaContenidosMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listaContenidosMouseExited
-        jScrollPane2.setVisible(false);
+        busquedaContenido.setVisible(false);
     }//GEN-LAST:event_listaContenidosMouseExited
     public void mostrarContenido() {
         ContenidoIntermedio c1 = new ContenidoIntermedio();
@@ -443,9 +426,7 @@ public final class PerfilJFrame extends javax.swing.JFrame {
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
-        funcionesBBDDvIan.loadDriver();
-        funcionesBBDDvIan.connect();
-        funcionesBBDDvIan.isConnected();
+
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -473,6 +454,7 @@ public final class PerfilJFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JScrollPane busquedaContenido;
     private javax.swing.JButton cambiarAlias;
     private javax.swing.JButton cambiarContrasena;
     private javax.swing.JLabel cerrarPrograma;
@@ -482,15 +464,13 @@ public final class PerfilJFrame extends javax.swing.JFrame {
     private javax.swing.JLabel imagenColorFondo;
     private javax.swing.JLabel imagenColorFondo2;
     private javax.swing.JLabel imagenPerfil;
-    private javax.swing.JButton jButton1;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTable jTable1;
     private javax.swing.JList<String> listaContenidos;
+    private javax.swing.JLabel nUser;
     private javax.swing.JTextField nombreContenido;
-    private javax.swing.JTextField nombreContenido1;
     private javax.swing.JLabel nombreUser;
     private javax.swing.JButton paginaPrincipal;
     private javax.swing.JButton perfil;

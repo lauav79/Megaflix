@@ -4,8 +4,8 @@
  */
 package Contenido;
 
-import Funciones.funcionesBBDDvIan;
 import Persona.Usuario;
+import static funciones.FuncionesBBDD.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -76,7 +76,7 @@ public class ContenidoIntermedio {
         PreparedStatement pst = null;
         ResultSet rs = null;
         try {
-            cn = funcionesBBDDvIan.connect();
+            cn = connect2();
             pst = cn.prepareStatement(sql);
             rs = pst.executeQuery();
             while (rs.next()) {
@@ -110,7 +110,7 @@ public class ContenidoIntermedio {
         String[] registros = new String[3];
         DefaultTableModel modelo = new DefaultTableModel(null, nombresColumnas);
         String sql = "select usuarios.Alias,Puntuacion,Comentario from usuariovaloracontenido inner join contenido on idContenido=contenido.id inner join usuarios on idUsuario=usuarios.Id WHERE contenido.Nombre like\"" + contenido + "\"";
-        Connection cn = funcionesBBDDvIan.connect();;
+        Connection cn = connect2();
         PreparedStatement pst = null;
         ResultSet rs = null;
         try {

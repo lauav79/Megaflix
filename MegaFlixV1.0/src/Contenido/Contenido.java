@@ -43,10 +43,6 @@ public class Contenido {
         this.Temporadas = 0;
     }
 
-   
-
-   
-   
     //Getters y Setters
     public String getNombre() {
         return Nombre;

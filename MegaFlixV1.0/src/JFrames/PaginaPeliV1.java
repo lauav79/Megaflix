@@ -5,23 +5,17 @@
 package JFrames;
 
 import Contenido.Contenido;
-import Contenido.ContenidovIan;
-import Contenido.ContenidoIntermedio;
-import Funciones.funcionesBBDDvIan;
-import static Funciones.funcionesBBDDvIan.close;
 import Genero.GeneroContenido;
 import Persona.Usuario;
 import funciones.FuncionesBBDD;
+import static funciones.FuncionesBBDD.*;
 import java.awt.Color;
-import java.lang.System.Logger;
-import java.lang.System.Logger.Level;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.concurrent.CompletableFuture;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -43,8 +37,9 @@ DefaultListModel defaultListmodel = new DefaultListModel();
 
     private ArrayList getContenidos() {
         ArrayList<String> stars = new ArrayList<String>();
+        Connection conn = null;
         try {
-            Connection conn = Funciones.funcionesBBDDvIan.connect();
+            conn = connect2();
             String SQL = "SELECT Nombre FROM `contenido`";
             Statement st = conn.createStatement();
             ResultSet rs = st.executeQuery(SQL);
@@ -87,15 +82,9 @@ DefaultListModel defaultListmodel = new DefaultListModel();
         this.idUser = idUser;
         try {
             initComponents();
+            busquedaContenido.setVisible(false);
             //GET EL ID
-            int idCont = 15;
             //id usuario 
-            Contenido nnContenido = new Contenido();
-            Usuario nUsuario = new Usuario();
-
-            //idUser
-            //tabla de contenido
-            //String titulo = "";
             String descripcion = "";
             String director = "";
             String imagen;
@@ -104,10 +93,7 @@ DefaultListModel defaultListmodel = new DefaultListModel();
             String tipo = "";
 
             //tabla de comentarios
-            double valoracion = 0;
-            //String valoracionStr=String.valueOf(valoracion);
-            String comentario;
-            String usuario;
+
 
             //tabla generocontenido
             String genero = "";
@@ -141,7 +127,7 @@ DefaultListModel defaultListmodel = new DefaultListModel();
             }
 
             //saco el género a partir de la tabla generocontenido
-            sql = "SELECT * FROM genero NATURAL JOIN generocontenido WHERE idContenido=" + idCont;
+            sql = "SELECT * FROM genero NATURAL JOIN generocontenido WHERE idContenido=" + idContenido;
             listaDatos = FuncionesBBDD.getListas(sql, "GenerosContenido");
             Iterator itListaDatosGenero = listaDatos.iterator();
             while (itListaDatosGenero.hasNext()) {
@@ -152,7 +138,7 @@ DefaultListModel defaultListmodel = new DefaultListModel();
             System.out.println("Genero" + genero);
 
             //comentarios
-            sql = "SELECT * FROM usuariovaloracontenido WHERE idContenido=" + idCont;
+            sql = "SELECT * FROM usuariovaloracontenido WHERE idContenido=" + idContenido;
             FuncionesBBDD.getListas(sql, "Comentarios");
 
             //cargo los comentarios
@@ -200,9 +186,9 @@ DefaultListModel defaultListmodel = new DefaultListModel();
         perfil = new javax.swing.JButton();
         paginaPrincipal = new javax.swing.JButton();
         cerrarSesion = new javax.swing.JButton();
-        nombreContenido = new javax.swing.JTextField();
-        jScrollPane2 = new javax.swing.JScrollPane();
+        busquedaContenido = new javax.swing.JScrollPane();
         listaContenidos = new javax.swing.JList<>();
+        nombreContenido = new javax.swing.JTextField();
         cerrarPrograma = new javax.swing.JLabel();
         imagenColorFondo2 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
@@ -268,6 +254,19 @@ DefaultListModel defaultListmodel = new DefaultListModel();
         });
         jPanel2.add(cerrarSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 0, 130, 50));
 
+        listaContenidos.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        listaContenidos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                listaContenidosMouseClicked(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                listaContenidosMouseExited(evt);
+            }
+        });
+        busquedaContenido.setViewportView(listaContenidos);
+
+        jPanel2.add(busquedaContenido, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 40, 360, 100));
+
         nombreContenido.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         nombreContenido.setBorder(null);
         nombreContenido.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -286,20 +285,6 @@ DefaultListModel defaultListmodel = new DefaultListModel();
             }
         });
         jPanel2.add(nombreContenido, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 10, 360, 30));
-
-        listaContenidos.setBorder(null);
-        listaContenidos.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        listaContenidos.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                listaContenidosMouseClicked(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                listaContenidosMouseExited(evt);
-            }
-        });
-        jScrollPane2.setViewportView(listaContenidos);
-
-        jPanel2.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 40, 360, 100));
 
         cerrarPrograma.setBackground(new java.awt.Color(153, 0, 0));
         cerrarPrograma.setFont(new java.awt.Font("Roboto", 0, 24)); // NOI18N
@@ -485,7 +470,7 @@ DefaultListModel defaultListmodel = new DefaultListModel();
         LoginJFrame l1 = new LoginJFrame();
         l1.setVisible(true);
         Usuario.vaciarUsuario();
-        funcionesBBDDvIan.close();
+        close();
     }//GEN-LAST:event_cerrarSesionActionPerformed
 
     private void cerrarProgramaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cerrarProgramaMouseClicked
@@ -548,7 +533,7 @@ DefaultListModel defaultListmodel = new DefaultListModel();
 
     private void nombreContenidoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_nombreContenidoMouseClicked
         listaContenidos.setVisible(true);
-        jScrollPane1.setVisible(true);
+        busquedaContenido.setVisible(true);
 
     }//GEN-LAST:event_nombreContenidoMouseClicked
 
@@ -569,12 +554,11 @@ DefaultListModel defaultListmodel = new DefaultListModel();
             PaginaPeliV1 p1 = new PaginaPeliV1(idPeli, Usuario.user1.getId());
             dispose();
         } catch (ClassNotFoundException ex) {
-           
         }
     }//GEN-LAST:event_listaContenidosMouseClicked
 
     private void listaContenidosMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listaContenidosMouseExited
-        jScrollPane2.setVisible(false);
+        busquedaContenido.setVisible(false);
     }//GEN-LAST:event_listaContenidosMouseExited
 
     /**
@@ -616,6 +600,7 @@ DefaultListModel defaultListmodel = new DefaultListModel();
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Comentar;
+    private javax.swing.JScrollPane busquedaContenido;
     private javax.swing.JLabel cerrarPrograma;
     private javax.swing.JButton cerrarSesion;
     private javax.swing.JLabel imagenColorFondo;
@@ -634,7 +619,6 @@ DefaultListModel defaultListmodel = new DefaultListModel();
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSpinner jSpiPunt;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTeFiComent;

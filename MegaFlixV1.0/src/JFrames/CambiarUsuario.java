@@ -3,9 +3,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package JFrames;
-
-import Funciones.funcionesBBDDvIan;
 import Persona.Usuario;
+import static funciones.FuncionesBBDD.*;
 import java.awt.Color;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -164,11 +163,11 @@ public class CambiarUsuario extends javax.swing.JFrame {
 
     private void aceptarBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aceptarBotonActionPerformed
         cambioUsuario(nuevoUsuario.getText());
-        funcionesBBDDvIan.close();
+        close();
         JOptionPane.showMessageDialog(null, "A continuación se cerrara la sesión");
         LoginJFrame l1 = new LoginJFrame();
         l1.setVisible(true);
-        funcionesBBDDvIan.close();
+        close();
         Usuario.vaciarUsuario();
         dispose();
 
@@ -178,7 +177,7 @@ public class CambiarUsuario extends javax.swing.JFrame {
         Connection conn = null;
         Statement st = null;
         try {
-            conn = funcionesBBDDvIan.connect();
+            conn = connect2();
             int id = Usuario.user1.getId();
             String us = n;
             String SQL = "UPDATE `megaflix`.`usuarios` SET `Alias` = '" + us + "' WHERE (`Id` = '" + id + "')";

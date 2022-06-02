@@ -5,10 +5,10 @@
 package JFrames;
 
 import Contenido.Contenido;
-import Funciones.funcionesBBDDvIan;
 import Genero.Genero;
 import Persona.Usuario;
 import funciones.FuncionesBBDD;
+import static funciones.FuncionesBBDD.*;
 import java.awt.Color;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -20,7 +20,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.ListSelectionModel;
 
 /**
@@ -39,7 +38,7 @@ public class GestorContenidoMain extends javax.swing.JFrame {
     private ArrayList getContenidos() {
         ArrayList<String> stars = new ArrayList<String>();
         try {
-            Connection conn = Funciones.funcionesBBDDvIan.connect();
+            Connection conn = connect2();
             String SQL = "SELECT Nombre FROM `contenido`";
             Statement st = conn.createStatement();
             ResultSet rs = st.executeQuery(SQL);
@@ -82,7 +81,7 @@ public class GestorContenidoMain extends javax.swing.JFrame {
      */
     public GestorContenidoMain(String nUser) throws ClassNotFoundException {
         initComponents();
-        jScrollPane1.setVisible(false);
+        busquedaContenido.setVisible(false);
         //llenar listas
         listaPeliculas = new ArrayList();
         listaSeries = new ArrayList();
@@ -158,8 +157,6 @@ public class GestorContenidoMain extends javax.swing.JFrame {
         buttonGroup6 = new javax.swing.ButtonGroup();
         jPanel9 = new javax.swing.JPanel();
         nombreContenido = new javax.swing.JTextField();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        listaContenidos = new javax.swing.JList<>();
         jTabbedPane2 = new javax.swing.JTabbedPane();
         jPanel4 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -194,6 +191,8 @@ public class GestorContenidoMain extends javax.swing.JFrame {
         jPanel8 = new javax.swing.JPanel();
         jBuEliminarGen = new javax.swing.JButton();
         jCoBoGenEliminar = new javax.swing.JComboBox<>();
+        busquedaContenido = new javax.swing.JScrollPane();
+        listaContenidos = new javax.swing.JList<>();
         perfil = new javax.swing.JButton();
         paginaPrincipal = new javax.swing.JButton();
         cerrarSesion = new javax.swing.JButton();
@@ -236,20 +235,6 @@ public class GestorContenidoMain extends javax.swing.JFrame {
             }
         });
         jPanel9.add(nombreContenido, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 10, 360, 30));
-
-        listaContenidos.setBorder(null);
-        listaContenidos.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        listaContenidos.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                listaContenidosMouseClicked(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                listaContenidosMouseExited(evt);
-            }
-        });
-        jScrollPane1.setViewportView(listaContenidos);
-
-        jPanel9.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 40, 360, 100));
 
         jLabel1.setText("Nombre:");
 
@@ -585,6 +570,19 @@ public class GestorContenidoMain extends javax.swing.JFrame {
 
         jPanel9.add(jTabbedPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, -1, -1));
 
+        listaContenidos.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        listaContenidos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                listaContenidosMouseClicked(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                listaContenidosMouseExited(evt);
+            }
+        });
+        busquedaContenido.setViewportView(listaContenidos);
+
+        jPanel9.add(busquedaContenido, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 40, 360, 100));
+
         perfil.setBackground(new java.awt.Color(0, 0, 0));
         perfil.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         perfil.setForeground(new java.awt.Color(255, 255, 255));
@@ -715,7 +713,7 @@ public class GestorContenidoMain extends javax.swing.JFrame {
         LoginJFrame l1 = new LoginJFrame();
         l1.setVisible(true);
         Usuario.vaciarUsuario();
-        funcionesBBDDvIan.close();
+        close();
     }//GEN-LAST:event_cerrarSesionActionPerformed
 
     private void cerrarProgramaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cerrarProgramaMouseClicked
@@ -961,7 +959,7 @@ public class GestorContenidoMain extends javax.swing.JFrame {
 
     private void nombreContenidoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_nombreContenidoMouseClicked
         listaContenidos.setVisible(true);
-        jScrollPane1.setVisible(true);
+        busquedaContenido.setVisible(true);
 
     }//GEN-LAST:event_nombreContenidoMouseClicked
 
@@ -987,7 +985,7 @@ public class GestorContenidoMain extends javax.swing.JFrame {
     }//GEN-LAST:event_listaContenidosMouseClicked
 
     private void listaContenidosMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listaContenidosMouseExited
-        jScrollPane1.setVisible(false);
+        busquedaContenido.setVisible(false);
     }//GEN-LAST:event_listaContenidosMouseExited
 
     /**
@@ -1027,6 +1025,7 @@ public class GestorContenidoMain extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JScrollPane busquedaContenido;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.ButtonGroup buttonGroup3;
@@ -1065,7 +1064,6 @@ public class GestorContenidoMain extends javax.swing.JFrame {
     private javax.swing.JRadioButton jRaPeliEliminar;
     private javax.swing.JRadioButton jRaSerieAñadir;
     private javax.swing.JRadioButton jRaSeriesEliminar;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSpinner jSpinnerTemp;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTabbedPane jTabbedPane2;

@@ -4,9 +4,8 @@
  */
 package JFrames;
 
-import Funciones.funcionesBBDDvIan;
-import static JFrames.Principal.xMouse;
 import Persona.Usuario;
+import static funciones.FuncionesBBDD.*;
 import java.awt.Color;
 import java.sql.*;
 import javax.swing.JOptionPane;
@@ -176,22 +175,19 @@ public class CambioContraseña extends javax.swing.JFrame {
         PerfilJFrame.perfil1.setVisible(false);
         LoginJFrame l1 = new LoginJFrame();
         l1.setVisible(true);
-        funcionesBBDDvIan.close();
+        close();
         Usuario.vaciarUsuario();
         dispose();
 
 
     }//GEN-LAST:event_aceptarBotonActionPerformed
     public static void cambioContrasena(String user, String pass) {
-        Connection conn = null;
-        Statement st = null;
         try {
-            conn = funcionesBBDDvIan.connect();
+            Connection conn = connect2();
             String SQL = "UPDATE `megaflix`.`usuarios` SET `passwd` = '" + pass + "' WHERE (`Alias` = '" + user + "')";
-            st = conn.createStatement();
+            Statement st = conn.createStatement();
             st.executeUpdate(SQL);
         } catch (SQLException ex) {
-            ex.printStackTrace();
         }
     }
     private void nuevaContrasenaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_nuevaContrasenaMouseClicked

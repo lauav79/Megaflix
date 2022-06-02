@@ -7,6 +7,13 @@ package JFrames;
 import Persona.Usuario;
 import static funciones.FuncionesBBDD.iniciosesion;
 import java.awt.Color;
+import java.io.File;
+import java.io.IOException;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.JOptionPane;
 
 /**
@@ -20,6 +27,7 @@ public class LoginJFrame extends javax.swing.JFrame {
     int xMouse, yMouse, x, y;
     public LoginJFrame() {
         initComponents();
+        reproducirSonido();
     }
 
     @SuppressWarnings("unchecked")
@@ -297,6 +305,19 @@ public class LoginJFrame extends javax.swing.JFrame {
                 new LoginJFrame().setVisible(true);
             }
         });
+    }
+    
+    //Crear sonido de fondo
+    public void reproducirSonido(){
+         try {
+        
+        AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("cancionFondo.wav"));
+        Clip clip = AudioSystem.getClip();
+        clip.open(audioInputStream);
+        clip.start();
+       } catch(UnsupportedAudioFileException | IOException | LineUnavailableException ex) {
+         System.out.println("Error al reproducir el sonido.");
+       }
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPasswordField campoContrasena;

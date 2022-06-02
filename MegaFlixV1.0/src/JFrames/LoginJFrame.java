@@ -121,7 +121,7 @@ public class LoginJFrame extends javax.swing.JFrame {
         jPanel1.add(campoUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, 230, 30));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Megaflix Imagenes Pelis Login.png"))); // NOI18N
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 70, 530, 430));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 70, 530, 430));
 
         cerrarPrograma.setBackground(new java.awt.Color(153, 0, 0));
         cerrarPrograma.setFont(new java.awt.Font("Roboto", 0, 24)); // NOI18N
@@ -199,7 +199,7 @@ public class LoginJFrame extends javax.swing.JFrame {
         String pass2 = new String(campoContrasena.getPassword());
         iniciosesion(user, pass2);
         String contrasena = Usuario.user1.getPassw();
-        if (contrasena.equals(pass2)) {
+        if (Usuario.user1.getAlias()!=null && Usuario.user1.getPassw()!=null && contrasena.equals(pass2)) {
             Principal p1 = new Principal();
             p1.setVisible(true);
             dispose();

@@ -4,6 +4,7 @@
  */
 package JFrames;
 
+import Funciones.FuncionesFich;
 import Persona.Usuario;
 import static funciones.FuncionesBBDD.iniciosesion;
 import java.awt.Color;
@@ -15,6 +16,8 @@ import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.JOptionPane;
+import funciones.*;
+import static funciones.FuncionesBBDD.reproducirSonido;
 
 /**
  *
@@ -203,6 +206,8 @@ public class LoginJFrame extends javax.swing.JFrame {
             Principal p1 = new Principal();
             p1.setVisible(true);
             dispose();
+            //añadimos el log de login
+            FuncionesFich.añadirLogLoginOk(user);
         } else {
             JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrectos");
 
@@ -308,17 +313,7 @@ public class LoginJFrame extends javax.swing.JFrame {
     }
     
     //Crear sonido de fondo
-    public void reproducirSonido(){
-         try {
-        
-        AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("cancionFondo.wav"));
-        Clip clip = AudioSystem.getClip();
-        clip.open(audioInputStream);
-        clip.start();
-       } catch(UnsupportedAudioFileException | IOException | LineUnavailableException ex) {
-         System.out.println("Error al reproducir el sonido.");
-       }
-    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPasswordField campoContrasena;
     private javax.swing.JTextField campoUsuario;

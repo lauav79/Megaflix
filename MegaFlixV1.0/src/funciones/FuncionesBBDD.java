@@ -5,6 +5,8 @@ import Genero.Genero;
 import Genero.GeneroContenido;
 import Persona.Usuario;
 import Valoraciones.Valoracion;
+import java.io.File;
+import java.io.IOException;
 import java.sql.DriverManager;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -12,10 +14,16 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
+
 
 public class FuncionesBBDD {
     //prueba
@@ -106,6 +114,8 @@ public class FuncionesBBDD {
             System.out.print("Cerrando la conexión...");
             conn.close();
             System.out.println("OK!");
+            reproducirSonido();
+            
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
@@ -468,6 +478,18 @@ DefaultListModel defaultListmodel = new DefaultListModel();
             ex.printStackTrace();
         }
         return conn;
+    }
+    
+    public static void reproducirSonido(){
+         try {
+        
+        AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("cancionFondo.wav"));
+        Clip clip = AudioSystem.getClip();
+        clip.open(audioInputStream);
+        clip.start();
+       } catch(UnsupportedAudioFileException | IOException | LineUnavailableException ex) {
+         System.out.println("Error al reproducir el sonido.");
+       }
     }
    
 }

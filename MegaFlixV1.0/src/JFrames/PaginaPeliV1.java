@@ -456,7 +456,8 @@ DefaultListModel defaultListmodel = new DefaultListModel();
 
     private void perfilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_perfilActionPerformed
         dispose();
-        PerfilJFrame.perfil1.setVisible(true);
+        PerfilJFrame p1 =new PerfilJFrame();
+        p1.setVisible(true);
     }//GEN-LAST:event_perfilActionPerformed
 
     private void paginaPrincipalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_paginaPrincipalActionPerformed

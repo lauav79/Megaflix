@@ -84,7 +84,7 @@ public class CambiarUsuario extends javax.swing.JFrame {
         jPanel1.add(cancelarBoton, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 170, 93, -1));
 
         nuevoUsuario.setForeground(new java.awt.Color(204, 204, 204));
-        nuevoUsuario.setText("Introduce la nueva contraseña");
+        nuevoUsuario.setText("Introduce un nuevo nombre");
         nuevoUsuario.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 nuevoUsuarioMouseClicked(evt);

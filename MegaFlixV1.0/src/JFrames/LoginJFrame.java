@@ -10,13 +10,9 @@ import static funciones.FuncionesBBDD.iniciosesion;
 import java.awt.Color;
 import java.io.File;
 import java.io.IOException;
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.JOptionPane;
 import funciones.*;
+import static funciones.FuncionesBBDD.pararSonido;
 import static funciones.FuncionesBBDD.reproducirSonido;
 
 /**
@@ -207,7 +203,7 @@ public class LoginJFrame extends javax.swing.JFrame {
             p1.setVisible(true);
             dispose();
             //añadimos el log de login
-            FuncionesFich.añadirLogLoginOk(user);
+            Funciones.FuncionesFich.añadirLogLoginOk(user);
         } else {
             JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrectos");
 

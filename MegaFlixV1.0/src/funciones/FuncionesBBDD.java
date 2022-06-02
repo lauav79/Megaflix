@@ -6,7 +6,9 @@ import Genero.GeneroContenido;
 import Persona.Usuario;
 import Valoraciones.Valoracion;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.sql.DriverManager;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -27,7 +29,8 @@ import javax.swing.table.DefaultTableModel;
 
 public class FuncionesBBDD {
     //prueba
-
+    static Clip clip;
+    static Long nowFrame;
     //conectar
     // Conexión a la base de datos
     private static Connection conn = null;
@@ -109,13 +112,13 @@ public class FuncionesBBDD {
     /**
      * Cierra la conexión con la base de datos
      */
-    public static void close() {
+    public static void close(){
         try {
             System.out.print("Cerrando la conexión...");
             conn.close();
             System.out.println("OK!");
-            reproducirSonido();
-            
+            pararSonido();
+          
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
@@ -484,12 +487,18 @@ DefaultListModel defaultListmodel = new DefaultListModel();
          try {
         
         AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("cancionFondo.wav"));
-        Clip clip = AudioSystem.getClip();
+        clip = AudioSystem.getClip();
+        clip.setMicrosecondPosition(0);
         clip.open(audioInputStream);
         clip.start();
        } catch(UnsupportedAudioFileException | IOException | LineUnavailableException ex) {
          System.out.println("Error al reproducir el sonido.");
        }
     }
-   
+    //Para el sonido para que al cerrar sesion no se reproduzcan dos simultáneamente
+    public static void pararSonido(){ 
+     clip.stop();
+     clip.close();
+    }
+
 }

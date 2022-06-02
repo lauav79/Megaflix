@@ -73,6 +73,7 @@ public class Principal extends javax.swing.JFrame {
         ContenidovIan.recogerContenidoTop3();
 
         initComponents();
+        
         busquedaContenido.setVisible(false);
         listaContenidos.setVisible(false);
         imagen1.setIcon(new ImageIcon(ContenidovIan.c1[0].getImagen()));

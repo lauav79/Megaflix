@@ -6,6 +6,7 @@ package JFrames;
 
 import Funciones.funcionesBBDDvIan;
 import Persona.Usuario;
+import java.awt.Color;
 import java.sql.Connection;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
@@ -17,6 +18,7 @@ import java.sql.*;
  */
 public class CambiarUsuario extends javax.swing.JFrame {
 
+    int x, y, xMouse, yMouse;
     public static CambiarUsuario cUser1 = new CambiarUsuario();
 
     /**
@@ -39,8 +41,9 @@ public class CambiarUsuario extends javax.swing.JFrame {
         aceptarBoton = new javax.swing.JButton();
         cancelarBoton = new javax.swing.JButton();
         nuevoUsuario = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
         TxcambiarUser = new javax.swing.JLabel();
+        cerrarPrograma = new javax.swing.JLabel();
+        imagenColorFondo2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -98,14 +101,44 @@ public class CambiarUsuario extends javax.swing.JFrame {
         });
         jPanel1.add(nuevoUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 130, 260, -1));
 
-        jLabel1.setBackground(new java.awt.Color(153, 0, 0));
-        jLabel1.setOpaque(true);
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 410, 70));
-
         TxcambiarUser.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         TxcambiarUser.setForeground(new java.awt.Color(255, 255, 255));
         TxcambiarUser.setText("Cambiar Nombre de usuario:");
         jPanel1.add(TxcambiarUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 100, -1, -1));
+
+        cerrarPrograma.setBackground(new java.awt.Color(153, 0, 0));
+        cerrarPrograma.setFont(new java.awt.Font("Roboto", 0, 24)); // NOI18N
+        cerrarPrograma.setForeground(new java.awt.Color(255, 255, 255));
+        cerrarPrograma.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        cerrarPrograma.setText("X");
+        cerrarPrograma.setOpaque(true);
+        cerrarPrograma.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cerrarProgramaMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                cerrarProgramaMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                cerrarProgramaMouseExited(evt);
+            }
+        });
+        jPanel1.add(cerrarPrograma, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 0, 50, 50));
+
+        imagenColorFondo2.setBackground(new java.awt.Color(153, 0, 0));
+        imagenColorFondo2.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        imagenColorFondo2.setOpaque(true);
+        imagenColorFondo2.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                imagenColorFondo2MouseDragged(evt);
+            }
+        });
+        imagenColorFondo2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                imagenColorFondo2MousePressed(evt);
+            }
+        });
+        jPanel1.add(imagenColorFondo2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 360, 50));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -133,19 +166,19 @@ public class CambiarUsuario extends javax.swing.JFrame {
         cambioUsuario(nuevoUsuario.getText());
         funcionesBBDDvIan.close();
         JOptionPane.showMessageDialog(null, "A continuación se cerrara la sesión");
-        LoginJFrame l1= new LoginJFrame();
+        LoginJFrame l1 = new LoginJFrame();
         l1.setVisible(true);
         funcionesBBDDvIan.close();
         Usuario.vaciarUsuario();
         dispose();
-        
+
     }//GEN-LAST:event_aceptarBotonActionPerformed
 
-    public static void cambioUsuario(String n){
-        Connection conn=null;
-        Statement st= null;
+    public static void cambioUsuario(String n) {
+        Connection conn = null;
+        Statement st = null;
         try {
-            conn=funcionesBBDDvIan.connect();
+            conn = funcionesBBDDvIan.connect();
             int id = Usuario.user1.getId();
             String us = n;
             String SQL = "UPDATE `megaflix`.`usuarios` SET `Alias` = '" + us + "' WHERE (`Id` = '" + id + "')";
@@ -179,6 +212,32 @@ public class CambiarUsuario extends javax.swing.JFrame {
     private void nuevoUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nuevoUsuarioActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_nuevoUsuarioActionPerformed
+
+    private void imagenColorFondo2MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_imagenColorFondo2MouseDragged
+        int x = evt.getXOnScreen();
+        int y = evt.getYOnScreen();
+
+        this.setLocation(x - xMouse, y - yMouse);
+    }//GEN-LAST:event_imagenColorFondo2MouseDragged
+
+    private void imagenColorFondo2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_imagenColorFondo2MousePressed
+        xMouse = evt.getX();
+        yMouse = evt.getY();
+    }//GEN-LAST:event_imagenColorFondo2MousePressed
+
+    private void cerrarProgramaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cerrarProgramaMouseClicked
+        dispose();// TODO add your handling code here:
+    }//GEN-LAST:event_cerrarProgramaMouseClicked
+
+    private void cerrarProgramaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cerrarProgramaMouseEntered
+        cerrarPrograma.setBackground(new Color(230, 0, 0));
+        cerrarPrograma.setForeground(Color.black);
+    }//GEN-LAST:event_cerrarProgramaMouseEntered
+
+    private void cerrarProgramaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cerrarProgramaMouseExited
+        cerrarPrograma.setBackground(new Color(153, 0, 0));
+        cerrarPrograma.setForeground(Color.white);
+    }//GEN-LAST:event_cerrarProgramaMouseExited
 
     /**
      * @param args the command line arguments
@@ -219,7 +278,8 @@ public class CambiarUsuario extends javax.swing.JFrame {
     private javax.swing.JLabel TxcambiarUser;
     private javax.swing.JButton aceptarBoton;
     private javax.swing.JButton cancelarBoton;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel cerrarPrograma;
+    private javax.swing.JLabel imagenColorFondo2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField nuevoUsuario;
     // End of variables declaration//GEN-END:variables

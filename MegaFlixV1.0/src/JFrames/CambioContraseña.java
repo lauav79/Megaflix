@@ -5,6 +5,7 @@
 package JFrames;
 
 import Funciones.funcionesBBDDvIan;
+import static JFrames.Principal.xMouse;
 import Persona.Usuario;
 import java.awt.Color;
 import java.sql.*;
@@ -16,7 +17,7 @@ import javax.swing.JOptionPane;
  */
 public class CambioContraseña extends javax.swing.JFrame {
 
-    public static CambioContraseña c1 = new CambioContraseña();
+    int x, y, xMouse, yMouse;
 
     /**
      * Creates new form CambioContraseña
@@ -37,9 +38,10 @@ public class CambioContraseña extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         aceptarBoton = new javax.swing.JButton();
         cancelarBoton = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         nuevaContrasena = new javax.swing.JPasswordField();
+        cerrarPrograma = new javax.swing.JLabel();
+        imagenColorFondo2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -82,10 +84,6 @@ public class CambioContraseña extends javax.swing.JFrame {
         });
         jPanel1.add(cancelarBoton, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 170, 93, -1));
 
-        jLabel1.setBackground(new java.awt.Color(153, 0, 0));
-        jLabel1.setOpaque(true);
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 410, 70));
-
         jLabel2.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Cambiar Contraseña:");
@@ -102,6 +100,40 @@ public class CambioContraseña extends javax.swing.JFrame {
             }
         });
         jPanel1.add(nuevaContrasena, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 130, 250, -1));
+
+        cerrarPrograma.setBackground(new java.awt.Color(153, 0, 0));
+        cerrarPrograma.setFont(new java.awt.Font("Roboto", 0, 24)); // NOI18N
+        cerrarPrograma.setForeground(new java.awt.Color(255, 255, 255));
+        cerrarPrograma.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        cerrarPrograma.setText("X");
+        cerrarPrograma.setOpaque(true);
+        cerrarPrograma.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cerrarProgramaMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                cerrarProgramaMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                cerrarProgramaMouseExited(evt);
+            }
+        });
+        jPanel1.add(cerrarPrograma, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 0, 50, 50));
+
+        imagenColorFondo2.setBackground(new java.awt.Color(153, 0, 0));
+        imagenColorFondo2.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        imagenColorFondo2.setOpaque(true);
+        imagenColorFondo2.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                imagenColorFondo2MouseDragged(evt);
+            }
+        });
+        imagenColorFondo2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                imagenColorFondo2MousePressed(evt);
+            }
+        });
+        jPanel1.add(imagenColorFondo2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 360, 50));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -142,19 +174,19 @@ public class CambioContraseña extends javax.swing.JFrame {
         cambioContrasena(Usuario.user1.getAlias(), pass);
         JOptionPane.showMessageDialog(null, "A continuación se cerrara la sesión");
         PerfilJFrame.perfil1.setVisible(false);
-        LoginJFrame l1= new LoginJFrame();
+        LoginJFrame l1 = new LoginJFrame();
         l1.setVisible(true);
         funcionesBBDDvIan.close();
         Usuario.vaciarUsuario();
         dispose();
-        
+
 
     }//GEN-LAST:event_aceptarBotonActionPerformed
     public static void cambioContrasena(String user, String pass) {
-        Connection conn=null;
-        Statement st= null;
+        Connection conn = null;
+        Statement st = null;
         try {
-            conn=funcionesBBDDvIan.connect();
+            conn = funcionesBBDDvIan.connect();
             String SQL = "UPDATE `megaflix`.`usuarios` SET `passwd` = '" + pass + "' WHERE (`Alias` = '" + user + "')";
             st = conn.createStatement();
             st.executeUpdate(SQL);
@@ -175,6 +207,32 @@ public class CambioContraseña extends javax.swing.JFrame {
             nuevaContrasena.setForeground(Color.gray);
         }
     }//GEN-LAST:event_nuevaContrasenaMouseExited
+
+    private void imagenColorFondo2MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_imagenColorFondo2MouseDragged
+        int x = evt.getXOnScreen();
+        int y = evt.getYOnScreen();
+
+        this.setLocation(x - xMouse, y - yMouse);
+    }//GEN-LAST:event_imagenColorFondo2MouseDragged
+
+    private void imagenColorFondo2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_imagenColorFondo2MousePressed
+        xMouse = evt.getX();
+        yMouse = evt.getY();
+    }//GEN-LAST:event_imagenColorFondo2MousePressed
+
+    private void cerrarProgramaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cerrarProgramaMouseClicked
+        dispose();// TODO add your handling code here:
+    }//GEN-LAST:event_cerrarProgramaMouseClicked
+
+    private void cerrarProgramaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cerrarProgramaMouseEntered
+        cerrarPrograma.setBackground(new Color(230, 0, 0));
+        cerrarPrograma.setForeground(Color.black);
+    }//GEN-LAST:event_cerrarProgramaMouseEntered
+
+    private void cerrarProgramaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cerrarProgramaMouseExited
+        cerrarPrograma.setBackground(new Color(153, 0, 0));
+        cerrarPrograma.setForeground(Color.white);
+    }//GEN-LAST:event_cerrarProgramaMouseExited
 
     /**
      * @param args the command line arguments
@@ -214,7 +272,8 @@ public class CambioContraseña extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton aceptarBoton;
     private javax.swing.JButton cancelarBoton;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel cerrarPrograma;
+    private javax.swing.JLabel imagenColorFondo2;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPasswordField nuevaContrasena;

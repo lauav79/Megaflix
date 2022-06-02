@@ -9,10 +9,17 @@ import Funciones.funcionesBBDDvIan;
 import Persona.Usuario;
 import funciones.FuncionesBBDD;
 import java.awt.Color;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -22,7 +29,46 @@ import javax.swing.table.DefaultTableModel;
 public final class PerfilJFrame extends javax.swing.JFrame {
 
     public static PerfilJFrame perfil1 = new PerfilJFrame();
+ DefaultListModel defaultListmodel = new DefaultListModel();
 
+    private ArrayList getContenidos() {
+        ArrayList<String> stars = new ArrayList<String>();
+        try {
+            Connection conn = Funciones.funcionesBBDDvIan.connect();
+            String SQL = "SELECT Nombre FROM `contenido`";
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery(SQL);
+            while (rs.next()) {
+                String nom = rs.getString("Nombre");
+                stars.add(nom);
+            }
+        } catch (SQLException ex) {
+        }
+
+        return stars;
+    }
+
+    private void asignarDatos() {
+        getContenidos().stream().forEach((star) -> {
+            defaultListmodel.addElement(star);
+        });
+        listaContenidos.setModel(defaultListmodel);
+        listaContenidos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+    }
+
+    private void contenidoFiltrado(String searchTerm) {
+        DefaultListModel filtrado = new DefaultListModel<>();
+        ArrayList stars = getContenidos();
+        stars.stream().forEach((star) -> {
+            String starName = star.toString().toLowerCase();
+            if (starName.contains(searchTerm.toLowerCase())) {
+                filtrado.addElement(star);
+            }
+        });
+        defaultListmodel = filtrado;
+        listaContenidos.setModel(defaultListmodel);
+
+    }
     int x, y, xMouse, yMouse;
 
     /**
@@ -56,6 +102,8 @@ public final class PerfilJFrame extends javax.swing.JFrame {
         nombreUser = new javax.swing.JLabel();
         imagenPerfil = new javax.swing.JLabel();
         gestionarContenidoBoton = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        listaContenidos = new javax.swing.JList<>();
         jSeparator1 = new javax.swing.JSeparator();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
@@ -119,6 +167,20 @@ public final class PerfilJFrame extends javax.swing.JFrame {
             }
         });
         jPanel4.add(gestionarContenidoBoton, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 450, 190, 40));
+
+        listaContenidos.setBorder(null);
+        listaContenidos.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        listaContenidos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                listaContenidosMouseClicked(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                listaContenidosMouseExited(evt);
+            }
+        });
+        jScrollPane2.setViewportView(listaContenidos);
+
+        jPanel4.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 40, 290, 100));
         jPanel4.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 830, 10));
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
@@ -263,7 +325,8 @@ public final class PerfilJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_nombreContenidoActionPerformed
 
     private void cambiarContrasenaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cambiarContrasenaActionPerformed
-        CambioContraseña.c1.setVisible(true);
+        CambioContraseña c1= new CambioContraseña();
+        c1.setVisible(true);
     }//GEN-LAST:event_cambiarContrasenaActionPerformed
 
     private void cambiarAliasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cambiarAliasActionPerformed
@@ -347,6 +410,23 @@ public final class PerfilJFrame extends javax.swing.JFrame {
         xMouse = evt.getX();
         yMouse = evt.getY();
     }//GEN-LAST:event_imagenColorFondo2MousePressed
+
+    private void listaContenidosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listaContenidosMouseClicked
+        //JOptionPane.showMessageDialog(rootPane,listaContenidos.getSelectedValue(),"Nombre Elegido",JOptionPane.INFORMATION_MESSAGE);
+        String Peli = new String(listaContenidos.getSelectedValue());
+        System.out.println(Peli);
+        int idPeli = FuncionesBBDD.getIdCont(Peli);
+        try {
+            PaginaPeliV1 p1 = new PaginaPeliV1(idPeli, Usuario.user1.getId());
+            dispose();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_listaContenidosMouseClicked
+
+    private void listaContenidosMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listaContenidosMouseExited
+        jScrollPane2.setVisible(false);
+    }//GEN-LAST:event_listaContenidosMouseExited
     public void mostrarContenido() {
         ContenidoIntermedio c1 = new ContenidoIntermedio();
         DefaultTableModel modelo = ContenidoIntermedio.mostrarTablaPerfil();
@@ -405,8 +485,10 @@ public final class PerfilJFrame extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTable jTable1;
+    private javax.swing.JList<String> listaContenidos;
     private javax.swing.JTextField nombreContenido;
     private javax.swing.JTextField nombreContenido1;
     private javax.swing.JLabel nombreUser;

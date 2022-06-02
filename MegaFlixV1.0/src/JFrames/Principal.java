@@ -9,10 +9,18 @@ import Funciones.funcionesBBDDvIan;
 import Persona.Usuario;
 import funciones.FuncionesBBDD;
 import java.awt.Color;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import javax.swing.ListSelectionModel;
 
 /**
  *
@@ -22,14 +30,56 @@ public class Principal extends javax.swing.JFrame {
 
     static int xMouse, yMouse, x, y;
     PaginaPeliV1 p2 = null;
+    DefaultListModel defaultListmodel = new DefaultListModel();
+
+    private ArrayList getContenidos() {
+        ArrayList<String> stars = new ArrayList<String>();
+        try {
+            Connection conn = Funciones.funcionesBBDDvIan.connect();
+            String SQL = "SELECT Nombre FROM `contenido`";
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery(SQL);
+            while (rs.next()) {
+                String nom = rs.getString("Nombre");
+                stars.add(nom);
+            }
+        } catch (SQLException ex) {
+        }
+
+        return stars;
+    }
+
+    private void asignarDatos() {
+        getContenidos().stream().forEach((star) -> {
+            defaultListmodel.addElement(star);
+        });
+        listaContenidos.setModel(defaultListmodel);
+        listaContenidos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+    }
+
+    private void contenidoFiltrado(String searchTerm) {
+        DefaultListModel filtrado = new DefaultListModel<>();
+        ArrayList stars = getContenidos();
+        stars.stream().forEach((star) -> {
+            String starName = star.toString().toLowerCase();
+            if (starName.contains(searchTerm.toLowerCase())) {
+                filtrado.addElement(star);
+            }
+        });
+        defaultListmodel = filtrado;
+        listaContenidos.setModel(defaultListmodel);
+
+    }
 
     public Principal() {
         ContenidovIan.recogerContenidoTop3();
+
         initComponents();
+        jScrollPane1.setVisible(false);
+        listaContenidos.setVisible(false);
         imagen1.setIcon(new ImageIcon(ContenidovIan.c1[0].getImagen()));
         imagen2.setIcon(new ImageIcon(ContenidovIan.c1[1].getImagen()));
         imagen3.setIcon(new ImageIcon(ContenidovIan.c1[2].getImagen()));
-
     }
 
     /**
@@ -45,7 +95,8 @@ public class Principal extends javax.swing.JFrame {
         imagen1 = new javax.swing.JLabel();
         imagen3 = new javax.swing.JLabel();
         imagen2 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        listaContenidos = new javax.swing.JList<>();
         nombreContenido = new javax.swing.JTextField();
         perfil = new javax.swing.JButton();
         paginaPrincipal = new javax.swing.JButton();
@@ -96,22 +147,39 @@ public class Principal extends javax.swing.JFrame {
         });
         jPanel2.add(imagen2, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 140, 170, 240));
 
-        jButton1.setText("Buscar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+        listaContenidos.setBorder(null);
+        listaContenidos.setVisible(false);
+        listaContenidos.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        listaContenidos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                listaContenidosMouseClicked(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                listaContenidosMouseExited(evt);
             }
         });
-        jPanel2.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 10, -1, 30));
+        jScrollPane1.setViewportView(listaContenidos);
+
+        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 40, 360, 100));
 
         nombreContenido.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         nombreContenido.setBorder(null);
+        nombreContenido.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                nombreContenidoMouseClicked(evt);
+            }
+        });
         nombreContenido.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 nombreContenidoActionPerformed(evt);
             }
         });
-        jPanel2.add(nombreContenido, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 10, 240, 30));
+        nombreContenido.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                nombreContenidoKeyReleased(evt);
+            }
+        });
+        jPanel2.add(nombreContenido, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 10, 360, 30));
 
         perfil.setBackground(new java.awt.Color(0, 0, 0));
         perfil.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
@@ -230,13 +298,13 @@ public class Principal extends javax.swing.JFrame {
 
     private void paginaPrincipalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_paginaPrincipalActionPerformed
         dispose(); // TODO add your handling code here:
-        Principal p1= new Principal();
+        Principal p1 = new Principal();
         p1.setVisible(true);
     }//GEN-LAST:event_paginaPrincipalActionPerformed
 
     private void cerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cerrarSesionActionPerformed
         dispose();
-        LoginJFrame l1= new LoginJFrame();
+        LoginJFrame l1 = new LoginJFrame();
         l1.setVisible(true);
         Usuario.vaciarUsuario();
         funcionesBBDDvIan.close();
@@ -262,8 +330,10 @@ public class Principal extends javax.swing.JFrame {
             int idContenido = ContenidovIan.c1[0].getId();
             int idUsuario = Usuario.user1.getId();
             p2 = new PaginaPeliV1(idContenido, idUsuario);
+
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Principal.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
         p2.setVisible(true);
 
@@ -276,8 +346,10 @@ public class Principal extends javax.swing.JFrame {
             int idContenido = ContenidovIan.c1[1].getId();
             int idUsuario = Usuario.user1.getId();
             p2 = new PaginaPeliV1(idContenido, idUsuario);
+
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Principal.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
         p2.setVisible(true);
 
@@ -289,30 +361,42 @@ public class Principal extends javax.swing.JFrame {
             int idContenido = ContenidovIan.c1[2].getId();
             int idUsuario = Usuario.user1.getId();
             p2 = new PaginaPeliV1(idContenido, idUsuario);
+
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Principal.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
         p2.setVisible(true);
 
     }//GEN-LAST:event_imagen3MouseClicked
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void nombreContenidoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nombreContenidoKeyReleased
+        contenidoFiltrado(nombreContenido.getText());
+    }//GEN-LAST:event_nombreContenidoKeyReleased
 
+    private void nombreContenidoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_nombreContenidoMouseClicked
+        listaContenidos.setVisible(true);
+        jScrollPane1.setVisible(true);
+
+
+    }//GEN-LAST:event_nombreContenidoMouseClicked
+
+    private void listaContenidosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listaContenidosMouseClicked
+        //JOptionPane.showMessageDialog(rootPane,listaContenidos.getSelectedValue(),"Nombre Elegido",JOptionPane.INFORMATION_MESSAGE);
+        String Peli = new String(listaContenidos.getSelectedValue());
+        System.out.println(Peli);
+        int idPeli = FuncionesBBDD.getIdCont(Peli);
         try {
-            int idContenido=FuncionesBBDD.getIdCont(nombreContenido.getText());
-            int idUsuario = Usuario.user1.getId();
-            if (idContenido!=0){
-            p2 = new PaginaPeliV1(idContenido, idUsuario);
+            PaginaPeliV1 p1 = new PaginaPeliV1(idPeli, Usuario.user1.getId());
             dispose();
-            }else{
-                JOptionPane.showMessageDialog(null, "Ese contenido no existe, intentelo de nuevo");
-            }
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
         }
-        p2.setVisible(true);
+    }//GEN-LAST:event_listaContenidosMouseClicked
 
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void listaContenidosMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listaContenidosMouseExited
+        jScrollPane1.setVisible(false);
+    }//GEN-LAST:event_listaContenidosMouseExited
 
     /**
      * @param args the command line arguments
@@ -328,17 +412,21 @@ public class Principal extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
         } catch (ClassNotFoundException ex) {
             java.util.logging.Logger.getLogger(Principal.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (InstantiationException ex) {
             java.util.logging.Logger.getLogger(Principal.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (IllegalAccessException ex) {
             java.util.logging.Logger.getLogger(Principal.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(Principal.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
@@ -360,9 +448,10 @@ public class Principal extends javax.swing.JFrame {
     private static javax.swing.JLabel imagen2;
     private static javax.swing.JLabel imagen3;
     private javax.swing.JLabel imagenColorFondo2;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JList<String> listaContenidos;
     private javax.swing.JTextField nombreContenido;
     private javax.swing.JButton paginaPrincipal;
     private javax.swing.JButton perfil;

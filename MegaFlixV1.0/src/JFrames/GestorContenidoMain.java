@@ -10,13 +10,18 @@ import Genero.Genero;
 import Persona.Usuario;
 import funciones.FuncionesBBDD;
 import java.awt.Color;
+import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.ListSelectionModel;
 
 /**
  *
@@ -29,6 +34,46 @@ public class GestorContenidoMain extends javax.swing.JFrame {
     ArrayList listaSeries;
     ArrayList listaGeneros;
     ArrayList listaGenCon;
+    DefaultListModel defaultListmodel = new DefaultListModel();
+
+    private ArrayList getContenidos() {
+        ArrayList<String> stars = new ArrayList<String>();
+        try {
+            Connection conn = Funciones.funcionesBBDDvIan.connect();
+            String SQL = "SELECT Nombre FROM `contenido`";
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery(SQL);
+            while (rs.next()) {
+                String nom = rs.getString("Nombre");
+                stars.add(nom);
+            }
+        } catch (SQLException ex) {
+        }
+
+        return stars;
+    }
+
+    private void asignarDatos() {
+        getContenidos().stream().forEach((star) -> {
+            defaultListmodel.addElement(star);
+        });
+        listaContenidos.setModel(defaultListmodel);
+        listaContenidos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+    }
+
+    private void contenidoFiltrado(String searchTerm) {
+        DefaultListModel filtrado = new DefaultListModel<>();
+        ArrayList stars = getContenidos();
+        stars.stream().forEach((star) -> {
+            String starName = star.toString().toLowerCase();
+            if (starName.contains(searchTerm.toLowerCase())) {
+                filtrado.addElement(star);
+            }
+        });
+        defaultListmodel = filtrado;
+        listaContenidos.setModel(defaultListmodel);
+
+    }
 
     /**
      * Creates new form GestorContenidoMain
@@ -37,7 +82,7 @@ public class GestorContenidoMain extends javax.swing.JFrame {
      */
     public GestorContenidoMain(String nUser) throws ClassNotFoundException {
         initComponents();
-
+        jScrollPane1.setVisible(false);
         //llenar listas
         listaPeliculas = new ArrayList();
         listaSeries = new ArrayList();
@@ -112,6 +157,9 @@ public class GestorContenidoMain extends javax.swing.JFrame {
         buttonGroup5 = new javax.swing.ButtonGroup();
         buttonGroup6 = new javax.swing.ButtonGroup();
         jPanel9 = new javax.swing.JPanel();
+        nombreContenido = new javax.swing.JTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        listaContenidos = new javax.swing.JList<>();
         jTabbedPane2 = new javax.swing.JTabbedPane();
         jPanel4 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -146,8 +194,6 @@ public class GestorContenidoMain extends javax.swing.JFrame {
         jPanel8 = new javax.swing.JPanel();
         jBuEliminarGen = new javax.swing.JButton();
         jCoBoGenEliminar = new javax.swing.JComboBox<>();
-        jButton5 = new javax.swing.JButton();
-        nombreContenido = new javax.swing.JTextField();
         perfil = new javax.swing.JButton();
         paginaPrincipal = new javax.swing.JButton();
         cerrarSesion = new javax.swing.JButton();
@@ -171,6 +217,39 @@ public class GestorContenidoMain extends javax.swing.JFrame {
         setUndecorated(true);
 
         jPanel9.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        nombreContenido.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        nombreContenido.setBorder(null);
+        nombreContenido.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                nombreContenidoMouseClicked(evt);
+            }
+        });
+        nombreContenido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nombreContenidoActionPerformed(evt);
+            }
+        });
+        nombreContenido.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                nombreContenidoKeyReleased(evt);
+            }
+        });
+        jPanel9.add(nombreContenido, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 10, 360, 30));
+
+        listaContenidos.setBorder(null);
+        listaContenidos.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        listaContenidos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                listaContenidosMouseClicked(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                listaContenidosMouseExited(evt);
+            }
+        });
+        jScrollPane1.setViewportView(listaContenidos);
+
+        jPanel9.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 40, 360, 100));
 
         jLabel1.setText("Nombre:");
 
@@ -506,23 +585,6 @@ public class GestorContenidoMain extends javax.swing.JFrame {
 
         jPanel9.add(jTabbedPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, -1, -1));
 
-        jButton5.setText("Buscar");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
-            }
-        });
-        jPanel9.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 10, -1, 30));
-
-        nombreContenido.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        nombreContenido.setBorder(null);
-        nombreContenido.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nombreContenidoActionPerformed(evt);
-            }
-        });
-        jPanel9.add(nombreContenido, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 10, 240, 30));
-
         perfil.setBackground(new java.awt.Color(0, 0, 0));
         perfil.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         perfil.setForeground(new java.awt.Color(255, 255, 255));
@@ -637,28 +699,6 @@ public class GestorContenidoMain extends javax.swing.JFrame {
             jCoBoContenido.addItem("Selecciona películas o series");
         }
     }
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-
-        try {
-            int idContenido = FuncionesBBDD.getIdCont(nombreContenido.getText());
-            int idUsuario = Usuario.user1.getId();
-            if (idContenido != 0) {
-                PaginaPeliV1 p2 = new PaginaPeliV1(idContenido, idUsuario);
-                p2.setVisible(true);
-                dispose();
-            } else {
-                JOptionPane.showMessageDialog(null, "Ese contenido no existe, intentelo de nuevo");
-            }
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-    }//GEN-LAST:event_jButton5ActionPerformed
-
-    private void nombreContenidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nombreContenidoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_nombreContenidoActionPerformed
-
     private void perfilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_perfilActionPerformed
         dispose();
         PerfilJFrame.perfil1.setVisible(true);
@@ -919,6 +959,37 @@ public class GestorContenidoMain extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jRaPeliAñadirActionPerformed
 
+    private void nombreContenidoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_nombreContenidoMouseClicked
+        listaContenidos.setVisible(true);
+        jScrollPane1.setVisible(true);
+
+    }//GEN-LAST:event_nombreContenidoMouseClicked
+
+    private void nombreContenidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nombreContenidoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_nombreContenidoActionPerformed
+
+    private void nombreContenidoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nombreContenidoKeyReleased
+        contenidoFiltrado(nombreContenido.getText());
+    }//GEN-LAST:event_nombreContenidoKeyReleased
+
+    private void listaContenidosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listaContenidosMouseClicked
+        //JOptionPane.showMessageDialog(rootPane,listaContenidos.getSelectedValue(),"Nombre Elegido",JOptionPane.INFORMATION_MESSAGE);
+        String Peli = new String(listaContenidos.getSelectedValue());
+        System.out.println(Peli);
+        int idPeli = FuncionesBBDD.getIdCont(Peli);
+        try {
+            PaginaPeliV1 p1 = new PaginaPeliV1(idPeli, Usuario.user1.getId());
+            dispose();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_listaContenidosMouseClicked
+
+    private void listaContenidosMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listaContenidosMouseExited
+        jScrollPane1.setVisible(false);
+    }//GEN-LAST:event_listaContenidosMouseExited
+
     /**
      * @param args the command line arguments
      */
@@ -969,7 +1040,6 @@ public class GestorContenidoMain extends javax.swing.JFrame {
     private javax.swing.JButton jBuBorrar;
     private javax.swing.JButton jBuEliminarGen;
     private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
     private javax.swing.JComboBox<String> jCoBoContenido;
     private javax.swing.JComboBox<String> jCoBoGenEliminar;
     private javax.swing.JComboBox<String> jCoBoGenero;
@@ -995,6 +1065,7 @@ public class GestorContenidoMain extends javax.swing.JFrame {
     private javax.swing.JRadioButton jRaPeliEliminar;
     private javax.swing.JRadioButton jRaSerieAñadir;
     private javax.swing.JRadioButton jRaSeriesEliminar;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSpinner jSpinnerTemp;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTabbedPane jTabbedPane2;
@@ -1003,6 +1074,7 @@ public class GestorContenidoMain extends javax.swing.JFrame {
     private javax.swing.JTextField jTextFiDir;
     private javax.swing.JTextField jTextFiDur;
     private javax.swing.JTextField jTextFiNombre;
+    private javax.swing.JList<String> listaContenidos;
     private javax.swing.JButton mostrarContenido;
     private javax.swing.JTextField nombreContenido;
     private javax.swing.JButton paginaPrincipal;

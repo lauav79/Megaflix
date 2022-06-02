@@ -227,7 +227,6 @@ public class LoginJFrame extends javax.swing.JFrame {
         iniciosesion(user, pass2);
         String contrasena = Usuario.user1.getPassw();
         if (contrasena.equals(pass2)) {
-            
             Principal p1=new Principal();
             p1.setVisible(true);
             dispose();

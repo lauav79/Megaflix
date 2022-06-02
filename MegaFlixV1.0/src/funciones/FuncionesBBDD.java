@@ -69,9 +69,7 @@ public class FuncionesBBDD {
      */
     public static boolean connect() {
         try {
-            System.out.print("Conectando a la base de datos...");
             conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS);
-            System.out.println("OK!");
             return true;
         } catch (SQLException ex) {
             ex.printStackTrace();

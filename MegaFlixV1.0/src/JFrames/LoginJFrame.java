@@ -11,10 +11,9 @@ import java.awt.Color;
 import java.sql.ResultSet;
 import java.sql.*;
 import javax.swing.JOptionPane;
-
 /**
  *
- * @author admin
+ * @author Imba
  */
 public class LoginJFrame extends javax.swing.JFrame {
     int xMouse, yMouse, x, y;
@@ -228,8 +227,9 @@ public class LoginJFrame extends javax.swing.JFrame {
         iniciosesion(user, pass2);
         String contrasena = Usuario.user1.getPassw();
         if (contrasena.equals(pass2)) {
-            ContenidovIan.recogerContenidoTop3();
-            Principal.prin1.setVisible(true);
+            
+            Principal p1=new Principal();
+            p1.setVisible(true);
             dispose();
         } else {
             JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrectos");

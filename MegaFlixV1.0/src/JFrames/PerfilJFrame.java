@@ -20,9 +20,9 @@ import javax.swing.table.DefaultTableModel;
  * @author imba
  */
 public final class PerfilJFrame extends javax.swing.JFrame {
-    
+
     public static PerfilJFrame perfil1 = new PerfilJFrame();
-    
+
     int x, y, xMouse, yMouse;
 
     /**
@@ -283,19 +283,19 @@ public final class PerfilJFrame extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 
         try {
-            int idContenido=FuncionesBBDD.getIdCont(nombreContenido.getText());
+            int idContenido = FuncionesBBDD.getIdCont(nombreContenido.getText());
             int idUsuario = Usuario.user1.getId();
-            if (idContenido!=0){
-            PaginaPeliV1 p2 = new PaginaPeliV1(idContenido, idUsuario);
-            p2.setVisible(true);
-            dispose();
-            }else{
+            if (idContenido != 0) {
+                PaginaPeliV1 p2 = new PaginaPeliV1(idContenido, idUsuario);
+                p2.setVisible(true);
+                dispose();
+            } else {
                 JOptionPane.showMessageDialog(null, "Ese contenido no existe, intentelo de nuevo");
             }
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -310,12 +310,13 @@ public final class PerfilJFrame extends javax.swing.JFrame {
 
     private void paginaPrincipalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_paginaPrincipalActionPerformed
         dispose(); // TODO add your handling code here:
-        Principal.prin1.setVisible(true);
+        Principal p1 = new Principal();
+        p1.setVisible(true);
     }//GEN-LAST:event_paginaPrincipalActionPerformed
 
     private void cerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cerrarSesionActionPerformed
         dispose();
-        LoginJFrame l1= new LoginJFrame();
+        LoginJFrame l1 = new LoginJFrame();
         l1.setVisible(true);
         Usuario.vaciarUsuario();
         funcionesBBDDvIan.close();
@@ -350,9 +351,8 @@ public final class PerfilJFrame extends javax.swing.JFrame {
         ContenidoIntermedio c1 = new ContenidoIntermedio();
         DefaultTableModel modelo = ContenidoIntermedio.mostrarTablaPerfil();
         jTable1.setModel(modelo);
-        
-    }
 
+    }
 
     /**
      * @param args the command line arguments

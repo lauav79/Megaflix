@@ -54,9 +54,7 @@ public class funcionesBBDDvIan {
      */
     public static Connection connect() {
         try {
-            System.out.print("Conectando a la base de datos...");
             conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS);
-            System.out.println("OK!");
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
@@ -96,10 +94,4 @@ public class funcionesBBDDvIan {
             ex.printStackTrace();
         }
     }
-
-
-
-
-
-
 }

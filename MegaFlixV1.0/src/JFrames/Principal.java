@@ -20,11 +20,11 @@ import javax.swing.JOptionPane;
  */
 public class Principal extends javax.swing.JFrame {
 
-    public static Principal prin1 = new Principal();
     static int xMouse, yMouse, x, y;
     PaginaPeliV1 p2 = null;
 
     public Principal() {
+        ContenidovIan.recogerContenidoTop3();
         initComponents();
         imagen1.setIcon(new ImageIcon(ContenidovIan.c1[0].getImagen()));
         imagen2.setIcon(new ImageIcon(ContenidovIan.c1[1].getImagen()));
@@ -230,7 +230,8 @@ public class Principal extends javax.swing.JFrame {
 
     private void paginaPrincipalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_paginaPrincipalActionPerformed
         dispose(); // TODO add your handling code here:
-        Principal.prin1.setVisible(true);
+        Principal p1= new Principal();
+        p1.setVisible(true);
     }//GEN-LAST:event_paginaPrincipalActionPerformed
 
     private void cerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cerrarSesionActionPerformed

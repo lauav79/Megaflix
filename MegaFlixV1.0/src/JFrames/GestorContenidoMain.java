@@ -168,6 +168,7 @@ public class GestorContenidoMain extends javax.swing.JFrame {
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
 
         jPanel9.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -665,12 +666,13 @@ public class GestorContenidoMain extends javax.swing.JFrame {
 
     private void paginaPrincipalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_paginaPrincipalActionPerformed
         dispose(); // TODO add your handling code here:
-        Principal.prin1.setVisible(true);
+        Principal p1 = new Principal();
+        p1.setVisible(true);
     }//GEN-LAST:event_paginaPrincipalActionPerformed
 
     private void cerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cerrarSesionActionPerformed
         dispose();
-        LoginJFrame l1= new LoginJFrame();
+        LoginJFrame l1 = new LoginJFrame();
         l1.setVisible(true);
         Usuario.vaciarUsuario();
         funcionesBBDDvIan.close();

@@ -29,20 +29,18 @@ import javax.swing.table.DefaultTableModel;
  */
 public class PaginaPeliV1 extends javax.swing.JFrame {
 
-    int x, y, xMouse, yMouse,idUser,idContenido;
-    String titulo="";
+    int x, y, xMouse, yMouse, idUser, idContenido;
+    String titulo = "";
 
-    
-    ArrayList listaDatos=new ArrayList();
-    ArrayList listaComentarios=new ArrayList();
-    
+    ArrayList listaDatos = new ArrayList();
+    ArrayList listaComentarios = new ArrayList();
+
     /**
      * Creates new form PaginaPeli
      */
-
-    public PaginaPeliV1(int idContenido, int idUser)throws ClassNotFoundException, ClassNotFoundException{     
-    this.idContenido=idContenido;
-    this.idUser=idUser;
+    public PaginaPeliV1(int idContenido, int idUser) throws ClassNotFoundException, ClassNotFoundException {
+        this.idContenido = idContenido;
+        this.idUser = idUser;
         try {
             initComponents();
             //GET EL ID
@@ -50,7 +48,7 @@ public class PaginaPeliV1 extends javax.swing.JFrame {
             //id usuario 
             Contenido nnContenido = new Contenido();
             Usuario nUsuario = new Usuario();
-            
+
             //idUser
             //tabla de contenido
             //String titulo = "";
@@ -60,16 +58,16 @@ public class PaginaPeliV1 extends javax.swing.JFrame {
             String duracion = "";
             int temporadas = 0;
             String tipo = "";
-            
+
             //tabla de comentarios
             double valoracion = 0;
             //String valoracionStr=String.valueOf(valoracion);
             String comentario;
             String usuario;
-            
+
             //tabla generocontenido
             String genero = "";
-            
+
             //Saco los datos del contenido que se va a visualizar
             String sql = "SELECT * FROM contenido WHERE id=" + idContenido;
             listaDatos = funciones.FuncionesBBDD.getListas(sql, "Contenidos");
@@ -82,9 +80,9 @@ public class PaginaPeliV1 extends javax.swing.JFrame {
                 duracion = nContenido.getDuracion();
                 temporadas = nContenido.getTemporadas();
                 tipo = nContenido.getTipo();
-                
+
             }
-            
+
             //Contenido cont=new Contenido((String Nombre, String Director, String Tipo, String Descripcion, String Duracion, String Imagen, int Id, int Temporadas))
             //trato el string de descripcion.
             int numCarac = 80;
@@ -97,7 +95,7 @@ public class PaginaPeliV1 extends javax.swing.JFrame {
                     descBien += "\n";
                 }
             }
-            
+
             //saco el género a partir de la tabla generocontenido
             sql = "SELECT * FROM genero NATURAL JOIN generocontenido WHERE idContenido=" + idCont;
             listaDatos = FuncionesBBDD.getListas(sql, "GenerosContenido");
@@ -108,32 +106,32 @@ public class PaginaPeliV1 extends javax.swing.JFrame {
                 System.out.println("Genero" + genero);
             }
             System.out.println("Genero" + genero);
-            
+
             //comentarios
             sql = "SELECT * FROM usuariovaloracontenido WHERE idContenido=" + idCont;
             FuncionesBBDD.getListas(sql, "Comentarios");
-            
+
             //cargo los comentarios
             DefaultTableModel modelo = FuncionesBBDD.mostrarComentariosContenido(titulo);
             this.jTable1.setModel(modelo);
             //si es pelicula muestro solo duracion
             if ("Peliculas".equals(tipo)) {
-                
+
                 this.jLaDur.setText("Duración:");
                 this.jLabelDur.setText(duracion);
-                
+
                 //si es serie muestro solo las temporadas
             } else if ("Series".equals(tipo)) {
                 //cambiar label
                 this.jLaTemp.setText("Temporadas:");
                 this.jLabelTemp.setText(Integer.toString(temporadas));
-                
+
             }
             this.jLabelTitulo.setText(titulo);
             this.jLabelGenero.setText(genero);
             //textArcoment.setText(comentario);
             this.textArDesc.setText(descBien);
-            
+
             //jLaUser.setText(usuario);
             //imagen;
             imagen = FuncionesBBDD.getImagenCont(idContenido);
@@ -143,8 +141,7 @@ public class PaginaPeliV1 extends javax.swing.JFrame {
         } catch (SQLException ex) {
             java.util.logging.Logger.getLogger(PaginaPeliV1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-}
-        
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -417,12 +414,13 @@ public class PaginaPeliV1 extends javax.swing.JFrame {
 
     private void paginaPrincipalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_paginaPrincipalActionPerformed
         dispose(); // TODO add your handling code here:
-        Principal.prin1.setVisible(true);
+        Principal p1 = new Principal();
+        p1.setVisible(true);
     }//GEN-LAST:event_paginaPrincipalActionPerformed
 
     private void cerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cerrarSesionActionPerformed
         dispose();
-        LoginJFrame l1= new LoginJFrame();
+        LoginJFrame l1 = new LoginJFrame();
         l1.setVisible(true);
         Usuario.vaciarUsuario();
         funcionesBBDDvIan.close();
@@ -458,23 +456,23 @@ public class PaginaPeliV1 extends javax.swing.JFrame {
         // TODO add your handling code here:
         //AKI TENGO QUE LLAMAR A LOS OBJETOS PARA OBJETNER EL IDCONT Y IDUSER
         //id usuario
-        String comentario=jTeFiComent.getText();
-        double puntos=(double) jSpiPunt.getValue();
-        String mError="No se ha podido realizar la inserción \n |";
+        String comentario = jTeFiComent.getText();
+        double puntos = (double) jSpiPunt.getValue();
+        String mError = "No se ha podido realizar la inserción \n |";
         //compruebo que el comentario no está vacío
-        int longComent=comentario.length();
-        if(longComent>0){
+        int longComent = comentario.length();
+        if (longComent > 0) {
             try {
                 //insertar comentario
-                FuncionesBBDD.añadirComentario(comentario,puntos,idUser,idContenido);
+                FuncionesBBDD.añadirComentario(comentario, puntos, idUser, idContenido);
                 //Volver a cambiar la tabla
                 DefaultTableModel modelo = FuncionesBBDD.mostrarComentariosContenido(titulo);
                 this.jTable1.setModel(modelo);
             } catch (SQLException ex) {
-                
+
             }
 
-        }else{
+        } else {
             JOptionPane.showMessageDialog(null, mError, "Error de inserción, comentario vacio", JOptionPane.WARNING_MESSAGE);
         }
         //DefaultTableModel modelo= FuncionesBBDD.mostrarComentariosContenido(titulo);
@@ -493,17 +491,17 @@ public class PaginaPeliV1 extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 
         try {
-            int idContenido=FuncionesBBDD.getIdCont(nombreContenido.getText());
+            int idContenido = FuncionesBBDD.getIdCont(nombreContenido.getText());
             int idUsuario = Usuario.user1.getId();
-            if (idContenido!=0){
+            if (idContenido != 0) {
                 PaginaPeliV1 p2 = new PaginaPeliV1(idContenido, idUsuario);
                 p2.setVisible(true);
                 dispose();
-            }else{
+            } else {
                 JOptionPane.showMessageDialog(null, "Ese contenido no existe, intentelo de nuevo");
             }
         } catch (ClassNotFoundException ex) {
-           
+
         }
 
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -540,7 +538,7 @@ public class PaginaPeliV1 extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                 
+
             }
         });
     }

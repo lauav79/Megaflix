@@ -75,6 +75,7 @@ public final class PerfilUsuario extends javax.swing.JFrame {
         mostrarContenido();
         if (Usuario.user1.getTipoUser().equals("Admin")) {
             gestionarContenidoBoton.setVisible(true);
+            eliminarCuenta.setVisible(false);
         }
     }
 

@@ -321,6 +321,27 @@ public class FuncionesBBDD {
         return listaDevolver;
 
     }
+    /**
+     * 
+     * @return arraylist de nombres del contenido
+     */
+    public static ArrayList getNombreContenidos() {
+        ArrayList<String> nombresCont = new ArrayList<String>();
+        Connection conn = null;
+        try {
+            conn = connect2();
+            String SQL = "SELECT Nombre FROM `contenido`";
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery(SQL);
+            while (rs.next()) {
+                String nombreCont = rs.getString("Nombre");
+                nombresCont.add(nombreCont);
+            }
+        } catch (SQLException ex) {
+        }
+
+        return nombresCont;
+    }
 
     /**
      *

@@ -20,7 +20,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class ContenidoIntermedio {
 
-    int idUser, idContenido;
+    int id, idUser, idContenido;
     double puntuacion;
     String comentario;
 

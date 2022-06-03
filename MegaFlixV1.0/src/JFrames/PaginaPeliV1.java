@@ -34,30 +34,14 @@ public class PaginaPeliV1 extends javax.swing.JFrame {
 
     ArrayList listaDatos = new ArrayList();
     ArrayList listaComentarios = new ArrayList();
-DefaultListModel defaultListmodel = new DefaultListModel();
+    DefaultListModel defaultListmodel = new DefaultListModel();
 
-    private ArrayList getContenidos() {
-        ArrayList<String> stars = new ArrayList<String>();
-        Connection conn = null;
-        try {
-            conn = connect2();
-            String SQL = "SELECT Nombre FROM `contenido`";
-            Statement st = conn.createStatement();
-            ResultSet rs = st.executeQuery(SQL);
-            while (rs.next()) {
-                String nom = rs.getString("Nombre");
-                stars.add(nom);
-            }
-        } catch (SQLException ex) {
-        }
-
-        return stars;
-    }
+    
 
     @SuppressWarnings("unchecked")
     private void contenidoFiltrado(String searchTerm) {
         DefaultListModel filtrado = new DefaultListModel<>();
-        ArrayList stars = getContenidos();
+        ArrayList stars = FuncionesBBDD.getNombreContenidos();
         stars.stream().forEach((star) -> {
             String starName = star.toString().toLowerCase();
             if (starName.contains(searchTerm.toLowerCase())) {

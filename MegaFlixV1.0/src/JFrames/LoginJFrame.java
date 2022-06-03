@@ -198,7 +198,7 @@ public class LoginJFrame extends javax.swing.JFrame {
             p1.setVisible(true);
             dispose();
             //añadimos el log de login
-            //Funciones.FuncionesFich.añadirLogLoginOk(user);
+            Funciones.FuncionesFich.añadirLogLoginOk(user);
         } else {
             JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrectos");
 

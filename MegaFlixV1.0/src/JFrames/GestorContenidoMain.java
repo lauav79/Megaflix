@@ -5,7 +5,7 @@
 package JFrames;
 
 
-import Contenido.ContenidovIan;
+import Contenido.Contenido;
 import Genero.Genero;
 import Persona.Usuario;
 import funciones.FuncionesBBDD;
@@ -95,7 +95,7 @@ public class GestorContenidoMain extends javax.swing.JFrame {
         listaPeliculas = FuncionesBBDD.getListas(sql, "Contenidos");
         Iterator itListaPelis = listaPeliculas.iterator();
         while (itListaPelis.hasNext()) {
-            ContenidovIan nContenido = (ContenidovIan) itListaPelis.next();
+            Contenido nContenido = (Contenido) itListaPelis.next();
             jCoBoContenido.addItem(nContenido.toString());
 
         }
@@ -109,7 +109,7 @@ public class GestorContenidoMain extends javax.swing.JFrame {
         listaSeries = FuncionesBBDD.getListas(sql, "Contenidos");
         Iterator itListaSeries = listaSeries.iterator();
         while (itListaSeries.hasNext()) {
-            ContenidovIan nContenido = (ContenidovIan) itListaSeries.next();
+            Contenido nContenido = (Contenido) itListaSeries.next();
             jCoBoContenido.addItem(nContenido.toString());
 
         }

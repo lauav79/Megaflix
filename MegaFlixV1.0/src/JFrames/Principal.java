@@ -4,7 +4,7 @@
  */
 package JFrames;
 
-import Contenido.ContenidovIan;
+import Contenido.Contenido;
 import Persona.Usuario;
 import funciones.FuncionesBBDD;
 import static funciones.FuncionesBBDD.*;
@@ -63,15 +63,15 @@ public class Principal extends javax.swing.JFrame {
     }
 
     public Principal() {
-        ContenidovIan.recogerContenidoTop3();
+        Contenido.recogerContenidoTop3();
 
         initComponents();
         
         busquedaContenido.setVisible(false);
         listaContenidos.setVisible(false);
-        imagen1.setIcon(new ImageIcon(ContenidovIan.c1[0].getImagen()));
-        imagen2.setIcon(new ImageIcon(ContenidovIan.c1[1].getImagen()));
-        imagen3.setIcon(new ImageIcon(ContenidovIan.c1[2].getImagen()));
+        imagen1.setIcon(new ImageIcon(Contenido.c1[0].getImagen()));
+        imagen2.setIcon(new ImageIcon(Contenido.c1[1].getImagen()));
+        imagen3.setIcon(new ImageIcon(Contenido.c1[2].getImagen()));
     }
 
     /**
@@ -320,7 +320,7 @@ public class Principal extends javax.swing.JFrame {
     private void imagen1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_imagen1MouseClicked
         dispose();
         try {
-            int idContenido = ContenidovIan.c1[0].getId();
+            int idContenido = Contenido.c1[0].getId();
             int idUsuario = Usuario.user1.getId();
             p2 = new PaginaPeliV1(idContenido, idUsuario);
 
@@ -336,7 +336,7 @@ public class Principal extends javax.swing.JFrame {
     private void imagen2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_imagen2MouseClicked
         dispose();
         try {
-            int idContenido = ContenidovIan.c1[1].getId();
+            int idContenido = Contenido.c1[1].getId();
             int idUsuario = Usuario.user1.getId();
             p2 = new PaginaPeliV1(idContenido, idUsuario);
 
@@ -351,7 +351,7 @@ public class Principal extends javax.swing.JFrame {
     private void imagen3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_imagen3MouseClicked
         dispose();
         try {
-            int idContenido = ContenidovIan.c1[2].getId();
+            int idContenido = Contenido.c1[2].getId();
             int idUsuario = Usuario.user1.getId();
             p2 = new PaginaPeliV1(idContenido, idUsuario);
 

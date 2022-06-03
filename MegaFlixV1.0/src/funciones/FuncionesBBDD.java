@@ -1,6 +1,6 @@
 package funciones;
 
-import Contenido.ContenidovIan;
+import Contenido.Contenido;
 import Genero.Genero;
 import Genero.GeneroContenido;
 import Persona.Usuario;
@@ -248,7 +248,7 @@ public class FuncionesBBDD {
         ArrayList listaDevolver = new ArrayList();
         Genero nGenero = null;
         Valoracion nValoracion = null;
-        ContenidovIan nContenido = null;
+        Contenido nContenido = null;
         GeneroContenido nGenCon = null;
 
         try {
@@ -287,7 +287,7 @@ public class FuncionesBBDD {
             } else if ("Contenidos".equals(lista)) {
                 while (rs.next()) {
                     //int id, String nom, String dir, String des, int tem, String dur, String ima, String tipo
-                    nContenido = new ContenidovIan(0, "nombre", "dir", "des", 0, "dur","img", "tipo");
+                    nContenido = new Contenido(0, "nombre", "dir", "des", 0, "dur","img", "tipo");
                     nContenido.setId(rs.getInt("id"));
                     nContenido.setNombre(rs.getString("Nombre"));
                     nContenido.setDirector(rs.getString("Director"));

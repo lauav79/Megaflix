@@ -17,7 +17,7 @@ import javax.swing.ImageIcon;
  *
  * @author admin
  */
-public class ContenidovIan {
+public class Contenido {
 
     private static final String DB_HOST = "localhost";
     private static final String DB_PORT = "3307";
@@ -29,11 +29,11 @@ public class ContenidovIan {
     public int id, temporadas;
     public String nombre, director, descripcion, duracion, tipoContenido, imagen;
 
-    public ContenidovIan() {
+    public Contenido() {
 
     }
 
-    public ContenidovIan(int id, String nom, String dir, String des, int tem, String dur, String ima, String tipo) {
+    public Contenido(int id, String nom, String dir, String des, int tem, String dur, String ima, String tipo) {
         this.id = id;
         this.nombre = nom;
         this.director = dir;
@@ -107,9 +107,9 @@ public class ContenidovIan {
         this.imagen = imagen;
     }
 
-    public static ContenidovIan[] c1 = new ContenidovIan[3];
+    public static Contenido[] c1 = new Contenido[3];
 
-    public static ContenidovIan[] recogerContenidoTop3() {
+    public static Contenido[] recogerContenidoTop3() {
         try {
             Connection conn = connect2();
             String SQL = "SELECT DISTINCT usuariovaloracontenido.idUsuario,contenido.id,AVG(Puntuacion)as media, Director,Nombre,Imagen,Descripcion,Temporadas,Duracion,Tipo  FROM `contenido` inner join usuariovaloracontenido on contenido.id= idContenido group by contenido.id  order by `media` desc limit 3";
@@ -117,7 +117,7 @@ public class ContenidovIan {
             ResultSet rs = st.executeQuery(SQL);
             int i = 0;
             while (rs.next()) {
-                ContenidovIan con1 = new ContenidovIan();
+                Contenido con1 = new Contenido();
                 int id = rs.getInt("id");
                 String nom = rs.getString("Nombre");
                 String dir = rs.getString("Director");
@@ -144,8 +144,8 @@ public class ContenidovIan {
         return null;
     }
 
-    public static ContenidovIan contenidoGeneral(String nombreCont) {
-        ContenidovIan cong = new ContenidovIan();
+    public static Contenido contenidoGeneral(String nombreCont) {
+        Contenido cong = new Contenido();
         try {
             Connection conn = connect2();
             String SQL = "SELECT * FROM `contenido` WHERE `Nombre` LIKE \"" + nombreCont + "\"";

@@ -73,3 +73,5 @@ El usuario lauav ha ingresado correctamente en la app en fecha:03/06/2022 13:36:
 El usuario lauav ha ingresado correctamente en la app en fecha:03/06/2022 13:37:58
 El usuario lauav ha ingresado correctamente en la app en fecha:03/06/2022 13:40:09
 El usuario lauav ha ingresado correctamente en la app en fecha:03/06/2022 13:41:05
+El usuario lauav ha ingresado correctamente en la app en fecha:03/06/2022 13:44:20
+El usuario admin ha ingresado correctamente en la app en fecha:03/06/2022 13:44:35

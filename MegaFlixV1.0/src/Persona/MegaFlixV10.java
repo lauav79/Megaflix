@@ -19,8 +19,6 @@ public class MegaFlixV10 {
     public static void main(String[] args) {
         LoginJFrame ventana1 = new LoginJFrame();
         ventana1.setVisible(true);
-        PerfilJFrame ventana2 = new PerfilJFrame();
-        ventana2.setVisible(false);
     }
     
 }

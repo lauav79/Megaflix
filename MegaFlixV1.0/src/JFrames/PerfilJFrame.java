@@ -47,14 +47,7 @@ public final class PerfilJFrame extends javax.swing.JFrame {
         return stars;
     }
 
-    private void asignarDatos() {
-        getContenidos().stream().forEach((star) -> {
-            defaultListmodel.addElement(star);
-        });
-        listaContenidos.setModel(defaultListmodel);
-        listaContenidos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-    }
-
+ @SuppressWarnings("unchecked")
     private void contenidoFiltrado(String searchTerm) {
         DefaultListModel filtrado = new DefaultListModel<>();
         ArrayList stars = getContenidos();

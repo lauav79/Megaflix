@@ -54,6 +54,7 @@ public class GestorContenidoMain extends javax.swing.JFrame {
 
 
 
+    @SuppressWarnings("unchecked")
     private void contenidoFiltrado(String searchTerm) {
         DefaultListModel filtrado = new DefaultListModel<>();
         ArrayList stars = getContenidos();

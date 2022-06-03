@@ -53,6 +53,7 @@ DefaultListModel defaultListmodel = new DefaultListModel();
         return stars;
     }
 
+    @SuppressWarnings("unchecked")
     private void contenidoFiltrado(String searchTerm) {
         DefaultListModel filtrado = new DefaultListModel<>();
         ArrayList stars = getContenidos();

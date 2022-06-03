@@ -47,6 +47,7 @@ public class Principal extends javax.swing.JFrame {
         return stars;
     }
 
+    @SuppressWarnings("unchecked")
     private void contenidoFiltrado(String searchTerm) {
         DefaultListModel filtrado = new DefaultListModel<>();
         ArrayList stars = getContenidos();

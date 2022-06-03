@@ -52,13 +52,7 @@ public class GestorContenidoMain extends javax.swing.JFrame {
         return stars;
     }
 
-    private void asignarDatos() {
-        getContenidos().stream().forEach((star) -> {
-            defaultListmodel.addElement(star);
-        });
-        listaContenidos.setModel(defaultListmodel);
-        listaContenidos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-    }
+
 
     private void contenidoFiltrado(String searchTerm) {
         DefaultListModel filtrado = new DefaultListModel<>();
@@ -157,6 +151,8 @@ public class GestorContenidoMain extends javax.swing.JFrame {
         buttonGroup6 = new javax.swing.ButtonGroup();
         jPanel9 = new javax.swing.JPanel();
         nombreContenido = new javax.swing.JTextField();
+        busquedaContenido = new javax.swing.JScrollPane();
+        listaContenidos = new javax.swing.JList<>();
         jTabbedPane2 = new javax.swing.JTabbedPane();
         jPanel4 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -191,8 +187,6 @@ public class GestorContenidoMain extends javax.swing.JFrame {
         jPanel8 = new javax.swing.JPanel();
         jBuEliminarGen = new javax.swing.JButton();
         jCoBoGenEliminar = new javax.swing.JComboBox<>();
-        busquedaContenido = new javax.swing.JScrollPane();
-        listaContenidos = new javax.swing.JList<>();
         perfil = new javax.swing.JButton();
         paginaPrincipal = new javax.swing.JButton();
         cerrarSesion = new javax.swing.JButton();
@@ -235,6 +229,19 @@ public class GestorContenidoMain extends javax.swing.JFrame {
             }
         });
         jPanel9.add(nombreContenido, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 10, 360, 30));
+
+        listaContenidos.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        listaContenidos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                listaContenidosMouseClicked(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                listaContenidosMouseExited(evt);
+            }
+        });
+        busquedaContenido.setViewportView(listaContenidos);
+
+        jPanel9.add(busquedaContenido, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 40, 360, 100));
 
         jLabel1.setText("Nombre:");
 
@@ -569,19 +576,6 @@ public class GestorContenidoMain extends javax.swing.JFrame {
         jTabbedPane2.addTab("Géneros", jPanel5);
 
         jPanel9.add(jTabbedPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, -1, -1));
-
-        listaContenidos.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        listaContenidos.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                listaContenidosMouseClicked(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                listaContenidosMouseExited(evt);
-            }
-        });
-        busquedaContenido.setViewportView(listaContenidos);
-
-        jPanel9.add(busquedaContenido, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 40, 360, 100));
 
         perfil.setBackground(new java.awt.Color(0, 0, 0));
         perfil.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N

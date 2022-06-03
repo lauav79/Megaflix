@@ -47,14 +47,6 @@ public class Principal extends javax.swing.JFrame {
         return stars;
     }
 
-    private void asignarDatos() {
-        getContenidos().stream().forEach((star) -> {
-            defaultListmodel.addElement(star);
-        });
-        listaContenidos.setModel(defaultListmodel);
-        listaContenidos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-    }
-
     private void contenidoFiltrado(String searchTerm) {
         DefaultListModel filtrado = new DefaultListModel<>();
         ArrayList stars = getContenidos();

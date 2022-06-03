@@ -37,3 +37,6 @@ El usuario carmenSa ha ingresado correctamente en la app en fecha:03/06/2022 00:
 El usuario carmenSa ha ingresado correctamente en la app en fecha:03/06/2022 00:29:39
 El usuario carmenSa ha ingresado correctamente en la app en fecha:03/06/2022 00:31:43
 El usuario carmenSa ha ingresado correctamente en la app en fecha:03/06/2022 00:34:24
+El usuario admin ha ingresado correctamente en la app en fecha:03/06/2022 08:15:33
+El usuario admin ha ingresado correctamente en la app en fecha:03/06/2022 08:25:45
+El usuario admin ha ingresado correctamente en la app en fecha:03/06/2022 08:26:53

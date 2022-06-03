@@ -6,9 +6,7 @@ import Genero.GeneroContenido;
 import Persona.Usuario;
 import Valoraciones.Valoracion;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.sql.DriverManager;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -23,7 +21,6 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
-import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 
 
@@ -61,14 +58,12 @@ public class FuncionesBBDD {
     public static boolean loadDriver() {
         try {
             System.out.print("Cargando Driver...");
-            Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
+            Class.forName("com.mysql.cj.jdbc.Driver");
             System.out.println("OK!");
             return true;
         } catch (ClassNotFoundException ex) {
-            ex.printStackTrace();
             return false;
         } catch (Exception ex) {
-            ex.printStackTrace();
             return false;
         }
     }
@@ -246,6 +241,7 @@ public class FuncionesBBDD {
     }
 
     //Con esta funcion se devuelven la lista de generos, contenidos 
+    @SuppressWarnings("unchecked")
     public static ArrayList getListas(String sql, String lista) throws ClassNotFoundException {
         //ArrayList listaGeneros= new ArrayList();
         //ArrayList listaContenido=new ArrayList();
@@ -319,7 +315,6 @@ public class FuncionesBBDD {
             st.close();
             conn.close();
         } catch (SQLException e) {
-            e.printStackTrace();
         }
         //devolvemos el array de objetos contenido
         return listaDevolver;

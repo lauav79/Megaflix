@@ -4,15 +4,10 @@
  */
 package JFrames;
 
-import Funciones.FuncionesFich;
 import Persona.Usuario;
 import static funciones.FuncionesBBDD.iniciosesion;
 import java.awt.Color;
-import java.io.File;
-import java.io.IOException;
 import javax.swing.JOptionPane;
-import funciones.*;
-import static funciones.FuncionesBBDD.pararSonido;
 import static funciones.FuncionesBBDD.reproducirSonido;
 
 /**

@@ -8,7 +8,7 @@ package Persona;
  *
  * @author admin
  */
-public class Usuario extends Persona {
+public class Usuario{
 
     public static Usuario user1 = new Usuario();
     public int id;

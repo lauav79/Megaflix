@@ -316,17 +316,21 @@ DefaultListModel defaultListmodel = new DefaultListModel();
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabelTitulo.setFont(new java.awt.Font("Georgia", 1, 18)); // NOI18N
+        jLabelTitulo.setForeground(new java.awt.Color(0, 0, 0));
         jLabelTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelTitulo.setText("titulo");
-        jPanel3.add(jLabelTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 280, 39));
+        jPanel3.add(jLabelTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 380, 39));
 
         jLabel3.setText("Descripción:");
         jPanel3.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(389, 152, -1, -1));
 
         textArDesc.setEditable(false);
         jPanel3.add(textArDesc, new org.netbeans.lib.awtextra.AbsoluteConstraints(389, 185, 477, 163));
+
+        jLaDur.setForeground(new java.awt.Color(0, 0, 0));
         jPanel3.add(jLaDur, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 408, 84, 34));
 
+        jLabelGenero.setForeground(new java.awt.Color(0, 0, 0));
         jLabelGenero.setText("Género");
         jPanel3.add(jLabelGenero, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 140, 170, -1));
 
@@ -415,10 +419,14 @@ DefaultListModel defaultListmodel = new DefaultListModel();
 
         jPanel3.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 380, 700, -1));
 
+        jLabelDur.setForeground(new java.awt.Color(0, 0, 0));
         jLabelDur.setBorder(new javax.swing.border.MatteBorder(null));
         jPanel3.add(jLabelDur, new org.netbeans.lib.awtextra.AbsoluteConstraints(124, 408, 50, 34));
+
+        jLaTemp.setForeground(new java.awt.Color(0, 0, 0));
         jPanel3.add(jLaTemp, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 460, 84, 34));
 
+        jLabelTemp.setForeground(new java.awt.Color(0, 0, 0));
         jLabelTemp.setBorder(new javax.swing.border.MatteBorder(null));
         jPanel3.add(jLabelTemp, new org.netbeans.lib.awtextra.AbsoluteConstraints(124, 460, 50, 34));
 

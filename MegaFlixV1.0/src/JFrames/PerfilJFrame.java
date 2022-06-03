@@ -253,8 +253,10 @@ public final class PerfilJFrame extends javax.swing.JFrame {
         });
         jPanel4.add(nombreContenido, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 10, 360, 30));
 
+        nUser.setBackground(new java.awt.Color(0, 0, 0));
         nUser.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jPanel4.add(nUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 300, 220, 40));
+        nUser.setForeground(new java.awt.Color(0, 0, 0));
+        jPanel4.add(nUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 300, 140, 40));
 
         cerrarPrograma.setBackground(new java.awt.Color(153, 0, 0));
         cerrarPrograma.setFont(new java.awt.Font("Roboto", 0, 24)); // NOI18N

@@ -93,7 +93,7 @@ public class LoginJFrame extends javax.swing.JFrame {
                 iniciarSesionBotonActionPerformed(evt);
             }
         });
-        jPanel1.add(iniciarSesionBoton, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 260, 140, 40));
+        jPanel1.add(iniciarSesionBoton, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 260, 180, 40));
 
         campoUsuario.setForeground(new java.awt.Color(204, 204, 204));
         campoUsuario.setText("Inserte su nombre de usuario");

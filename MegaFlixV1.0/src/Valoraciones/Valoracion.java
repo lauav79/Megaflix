@@ -4,20 +4,40 @@
  */
 package Valoraciones;
 
+import Persona.Usuario;
+import static funciones.FuncionesBBDD.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
- * @author lauav
+ * @author imba
  */
 public class Valoracion {
-    private int id, idUsuario,idContenido,puntuacion;
-    private String comentario;
-    
-    public Valoracion(int idV, int idU, int idC, int punt,String coment){
-        this.id=idV;
-        this.idUsuario=idU;
-        this.idContenido=idC;
-        this.puntuacion=punt;
-        this.comentario=coment;
+
+    int id, idUser, idContenido;
+    double puntuacion;
+    String comentario;
+
+    public Valoracion() {
+
+    }
+
+    public Valoracion(int id, int idU,int ic, double pun, String co) {
+        this.id=id;
+        this.idUser=idU;
+        this.idContenido = ic;
+        this.comentario = co;
+        this.puntuacion = pun;
+    }
+
+    public int getIdUser() {
+        return this.idUser;
     }
 
     public int getId() {
@@ -28,27 +48,23 @@ public class Valoracion {
         this.id = id;
     }
 
-    public int getIdUsuario() {
-        return idUsuario;
-    }
-
-    public void setIdUsuario(int idUsuario) {
-        this.idUsuario = idUsuario;
+    public void setIdUser(int idUser) {
+        this.idUser = idUser;
     }
 
     public int getIdContenido() {
-        return idContenido;
+        return this.idContenido;
     }
 
     public void setIdContenido(int idContenido) {
         this.idContenido = idContenido;
     }
 
-    public int getPuntuacion() {
+    public double getPuntuacion() {
         return puntuacion;
     }
 
-    public void setPuntuacion(int puntuacion) {
+    public void setPuntuacion(double puntuacion) {
         this.puntuacion = puntuacion;
     }
 
@@ -61,5 +77,89 @@ public class Valoracion {
     }
     
     
-    
+    /**
+     * 
+     * @return modelo de la tabla de todos los comentarios que ha hecho el usuario logueado
+     */
+    public static DefaultTableModel mostrarTablaPerfil() {
+        String[] nombresColumnas = {"Nombre", "Puntuacion", "Comentario"};
+        String[] registros = new String[3];
+        DefaultTableModel modelo = new DefaultTableModel(null, nombresColumnas);
+        String user = Usuario.user1.getAlias();
+        String sql = "select contenido.Nombre,Puntuacion,Comentario from usuariovaloracontenido inner join contenido on idContenido=contenido.id inner join usuarios on idUsuario=usuarios.Id where usuarios.Alias like \"" + user + "\"";
+        Connection cn = null;
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+        try {
+            cn = connect2();
+            pst = cn.prepareStatement(sql);
+            rs = pst.executeQuery();
+            while (rs.next()) {
+                registros[0] = rs.getString("Nombre");
+                registros[1] = rs.getString("Puntuacion");
+                registros[2] = rs.getString("Comentario");
+                modelo.addRow(registros);
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al conectar");
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (pst != null) {
+                    pst.close();
+                }
+                if (cn != null) {
+                    cn.close();
+                }
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, e);
+            }
+        }
+        return modelo;
+    }
+    /**
+     * Devuelve el alias, la puntuación y el comentario.
+     * Se utiliza en la página de Visualizar contenido
+     * @param nombreContenido el nombre del contenido del que se quiere visualizar los comentarios
+     * @return
+     * @throws SQLException 
+     */
+    public static DefaultTableModel mostrarComentariosContenido(String contenido) {
+        String[] nombresColumnas = {"Usuario","Puntuacion", "Comentario"};
+        String[] registros = new String[3];
+        DefaultTableModel modelo = new DefaultTableModel(null, nombresColumnas);
+        String sql = "select usuarios.Alias,Puntuacion,Comentario from usuariovaloracontenido inner join contenido on idContenido=contenido.id inner join usuarios on idUsuario=usuarios.Id WHERE contenido.Nombre like\"" + contenido + "\"";
+        Connection cn = connect2();
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+        try {
+            pst = cn.prepareStatement(sql);
+            rs = pst.executeQuery();
+            while (rs.next()) {
+                registros[0] = rs.getString("Alias");
+                registros[1] = rs.getString("Puntuacion");
+                registros[2] = rs.getString("Comentario");
+                modelo.addRow(registros);
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al conectar");
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (pst != null) {
+                    pst.close();
+                }
+                if (cn != null) {
+                    cn.close();
+                }
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, e);
+            }
+        }
+        return modelo;
+    }
 }

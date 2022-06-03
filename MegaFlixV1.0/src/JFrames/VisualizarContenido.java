@@ -7,6 +7,7 @@ package JFrames;
 
 import Contenido.Contenido;
 import Genero.GeneroContenido;
+import Valoraciones.Valoracion;
 import Persona.Usuario;
 import funciones.FuncionesBBDD;
 import static funciones.FuncionesBBDD.*;
@@ -120,7 +121,7 @@ public class VisualizarContenido extends javax.swing.JFrame {
             FuncionesBBDD.getListas(sql, "Comentarios");
 
             //cargo los comentarios
-            DefaultTableModel modelo = FuncionesBBDD.mostrarComentariosContenido(titulo);
+            DefaultTableModel modelo = Valoracion.mostrarComentariosContenido(titulo);
             this.jTable1.setModel(modelo);
             //si es pelicula muestro solo duracion
             if ("Peliculas".equals(tipo)) {
@@ -501,7 +502,7 @@ public class VisualizarContenido extends javax.swing.JFrame {
                 //insertar comentario
                 FuncionesBBDD.añadirComentario(comentario, puntos, idUser, idContenido);
                 //Volver a cambiar la tabla
-                DefaultTableModel modelo = FuncionesBBDD.mostrarComentariosContenido(titulo);
+                DefaultTableModel modelo = Valoracion.mostrarComentariosContenido(titulo);
                 this.jTable1.setModel(modelo);
             } catch (SQLException ex) {
 

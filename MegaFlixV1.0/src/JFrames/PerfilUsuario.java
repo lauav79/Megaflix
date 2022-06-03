@@ -4,7 +4,7 @@
  */
 package JFrames;
 
-import Contenido.ContenidoIntermedio;
+import Valoraciones.Valoracion;
 import Persona.Usuario;
 import funciones.FuncionesBBDD;
 
@@ -426,8 +426,8 @@ public final class PerfilUsuario extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_eliminarCuentaActionPerformed
     public void mostrarContenido() {
-        ContenidoIntermedio c1 = new ContenidoIntermedio();
-        DefaultTableModel modelo = ContenidoIntermedio.mostrarTablaPerfil();
+        Valoracion c1 = new Valoracion();
+        DefaultTableModel modelo = Valoracion.mostrarTablaPerfil();
         jTable1.setModel(modelo);
 
     }

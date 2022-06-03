@@ -1,10 +1,10 @@
 package funciones;
 
 import Contenido.Contenido;
+import Valoraciones.Valoracion;
 import Genero.Genero;
 import Genero.GeneroContenido;
 import Persona.Usuario;
-import Valoraciones.Valoracion;
 import java.io.File;
 import java.io.IOException;
 import java.sql.DriverManager;
@@ -278,8 +278,9 @@ public class FuncionesBBDD {
                     nValoracion = new Valoracion(0, 0, 0, 0, "Comentario");
                     nValoracion.setId(rs.getInt("id"));
                     nValoracion.setIdContenido(rs.getInt("idContenido"));
-                    nValoracion.setIdUsuario(rs.getInt("idUsuario"));
+                    nValoracion.setIdUser(rs.getInt("idUsuario"));
                     nValoracion.setComentario(rs.getString("Comentario"));
+                    nValoracion.setPuntuacion(rs.getDouble("Puntuacion"));
 
                     listaDevolver.add(nValoracion);
                 }
@@ -419,38 +420,15 @@ public class FuncionesBBDD {
         conn.close();
 
     }
-    /**
-     * Devuelve el alias, la puntuación y el comentario.
-     * Se utiliza en la página de Visualizar contenido
-     * @param nombreContenido el nombre del contenido del que se quiere visualizar los comentarios
-     * @return
-     * @throws SQLException 
-     */
-    public static DefaultTableModel mostrarComentariosContenido(String nombreContenido) throws SQLException {
-        String[] nombresColumnas = {"Usuario", "Puntuacion", "Comentario"};
-        String[] registros = new String[3];
-        DefaultTableModel modelo = new DefaultTableModel(null, nombresColumnas);
-        String sql = "select usuarios.Alias,Puntuacion,Comentario \n"
-                + "from usuariovaloracontenido inner join contenido on idContenido=contenido.id inner join usuarios on idUsuario=usuarios.Id \n"
-                + "WHERE contenido.Nombre='" + nombreContenido + "'";
-        loadDriver();
-        connect();
-        try {
-            Statement st = conn.createStatement();
-            ResultSet rs = st.executeQuery(sql);
-            while (rs.next()) {
-                registros[0] = rs.getString("Alias");
-                registros[1] = rs.getString("Puntuacion");
-                registros[2] = rs.getString("Comentario");
-                modelo.addRow(registros);
-            }
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error ");
-        }
-        conn.close();
-        return modelo;
-    }
+    
+    
 
+    /**
+     * Comprueba que el usuario y la contraseña con correctas y crea el usuario
+     * con los datos del que se acaba de loguear.
+     * @param user nombre de usuario introducido
+     * @param pass contraseña introducida
+     */
     public static void iniciosesion(String user, String pass) {
         try {
             loadDriver();
@@ -481,6 +459,9 @@ public class FuncionesBBDD {
     }
     DefaultListModel defaultListmodel = new DefaultListModel();
 
+    /**
+     * 
+    */
     public static ArrayList getContenidos() {
         ArrayList<String> stars = new ArrayList<>();
         try {

@@ -29,7 +29,7 @@ public class FuncionesFich {
             fw = new FileWriter(file.getAbsoluteFile(), true);
             bw = new BufferedWriter(fw);
             bw.write(log);
-            System.out.println("información agregada");
+            System.out.println("Registro agregado en loglogin.txt");
         } catch (IOException e) {
         } finally {
             try {

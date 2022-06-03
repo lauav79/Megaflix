@@ -172,7 +172,7 @@ public class CambioContraseña extends javax.swing.JFrame {
         String pass = new String(nuevaContrasena.getPassword());
         cambioContrasena(Usuario.user1.getAlias(), pass);
         JOptionPane.showMessageDialog(null, "A continuación se cerrara la sesión");
-        PerfilJFrame p1 =new PerfilJFrame();
+        PerfilUsuario p1 =new PerfilUsuario();
         p1.setVisible(true);
         LoginJFrame l1 = new LoginJFrame();
         l1.setVisible(true);

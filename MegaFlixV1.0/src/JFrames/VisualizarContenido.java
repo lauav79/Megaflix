@@ -27,7 +27,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author imba
  */
-public class PaginaPeliV1 extends javax.swing.JFrame {
+public class VisualizarContenido extends javax.swing.JFrame {
 
     int x, y, xMouse, yMouse, idUser, idContenido;
     String titulo = "";
@@ -55,7 +55,7 @@ public class PaginaPeliV1 extends javax.swing.JFrame {
     /**
      * Creates new form PaginaPeli
      */
-    public PaginaPeliV1(int idContenido, int idUser) throws ClassNotFoundException, ClassNotFoundException {
+    public VisualizarContenido(int idContenido, int idUser) throws ClassNotFoundException, ClassNotFoundException {
         this.idContenido = idContenido;
         this.idUser = idUser;
         try {
@@ -147,7 +147,7 @@ public class PaginaPeliV1 extends javax.swing.JFrame {
             this.jLaImagen.setIcon(new ImageIcon(imagen));
             this.setVisible(true);
         } catch (SQLException ex) {
-            java.util.logging.Logger.getLogger(PaginaPeliV1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VisualizarContenido.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
     }
 
@@ -442,7 +442,7 @@ public class PaginaPeliV1 extends javax.swing.JFrame {
 
     private void perfilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_perfilActionPerformed
         dispose();
-        PerfilJFrame p1 =new PerfilJFrame();
+        PerfilUsuario p1 =new PerfilUsuario();
         p1.setVisible(true);
     }//GEN-LAST:event_perfilActionPerformed
 
@@ -539,7 +539,7 @@ public class PaginaPeliV1 extends javax.swing.JFrame {
         System.out.println(Peli);
         int idPeli = FuncionesBBDD.getIdCont(Peli);
         try {
-            PaginaPeliV1 p1 = new PaginaPeliV1(idPeli, Usuario.user1.getId());
+            VisualizarContenido p1 = new VisualizarContenido(idPeli, Usuario.user1.getId());
             dispose();
         } catch (ClassNotFoundException ex) {
         }

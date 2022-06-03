@@ -26,7 +26,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author imba
  */
-public final class PerfilJFrame extends javax.swing.JFrame {
+public final class PerfilUsuario extends javax.swing.JFrame {
 
     DefaultListModel defaultListmodel = new DefaultListModel();
 
@@ -66,7 +66,7 @@ public final class PerfilJFrame extends javax.swing.JFrame {
     /**
      * Creates new form PerfilJFrame
      */
-    public PerfilJFrame() {
+    public PerfilUsuario() {
         initComponents();
         busquedaContenido.setVisible(false);
         imagenPerfil.setIcon(new ImageIcon(Usuario.user1.getImagen()));
@@ -328,14 +328,14 @@ public final class PerfilJFrame extends javax.swing.JFrame {
             GestorContenidoMain g1 = new GestorContenidoMain(Usuario.user1.getAlias());
             g1.setVisible(true);
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(PerfilJFrame.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PerfilUsuario.class.getName()).log(Level.SEVERE, null, ex);
         }
         dispose();
     }//GEN-LAST:event_gestionarContenidoBotonActionPerformed
 
     private void perfilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_perfilActionPerformed
         dispose();
-        PerfilJFrame p1 = new PerfilJFrame();
+        PerfilUsuario p1 = new PerfilUsuario();
         p1.setVisible(true);
     }//GEN-LAST:event_perfilActionPerformed
 
@@ -399,7 +399,7 @@ public final class PerfilJFrame extends javax.swing.JFrame {
         System.out.println(Peli);
         int idPeli = FuncionesBBDD.getIdCont(Peli);
         try {
-            PaginaPeliV1 p1 = new PaginaPeliV1(idPeli, Usuario.user1.getId());
+            VisualizarContenido p1 = new VisualizarContenido(idPeli, Usuario.user1.getId());
             dispose();
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);

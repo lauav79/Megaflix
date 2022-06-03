@@ -419,7 +419,13 @@ public class FuncionesBBDD {
         conn.close();
 
     }
-
+    /**
+     * Devuelve el alias, la puntuación y el comentario.
+     * Se utiliza en la página de Visualizar contenido
+     * @param nombreContenido el nombre del contenido del que se quiere visualizar los comentarios
+     * @return
+     * @throws SQLException 
+     */
     public static DefaultTableModel mostrarComentariosContenido(String nombreContenido) throws SQLException {
         String[] nombresColumnas = {"Usuario", "Puntuacion", "Comentario"};
         String[] registros = new String[3];

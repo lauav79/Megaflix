@@ -7,7 +7,7 @@ package main;
 
 
 import JFrames.LoginJFrame;
-import JFrames.PerfilJFrame;
+import JFrames.PerfilUsuario;
 
 /**
  *

@@ -27,7 +27,7 @@ import javax.swing.ListSelectionModel;
 public class Principal extends javax.swing.JFrame {
 
     static int xMouse, yMouse, x, y;
-    PaginaPeliV1 p2 = null;
+    VisualizarContenido p2 = null;
     DefaultListModel defaultListmodel = new DefaultListModel();
 
     private ArrayList getContenidos() {
@@ -285,7 +285,7 @@ public class Principal extends javax.swing.JFrame {
 
     private void perfilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_perfilActionPerformed
         dispose();
-        PerfilJFrame p1 = new PerfilJFrame();
+        PerfilUsuario p1 = new PerfilUsuario();
         p1.setVisible(true);
     }//GEN-LAST:event_perfilActionPerformed
 
@@ -322,7 +322,7 @@ public class Principal extends javax.swing.JFrame {
         try {
             int idContenido = Contenido.c1[0].getId();
             int idUsuario = Usuario.user1.getId();
-            p2 = new PaginaPeliV1(idContenido, idUsuario);
+            p2 = new VisualizarContenido(idContenido, idUsuario);
 
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(Principal.class
@@ -338,7 +338,7 @@ public class Principal extends javax.swing.JFrame {
         try {
             int idContenido = Contenido.c1[1].getId();
             int idUsuario = Usuario.user1.getId();
-            p2 = new PaginaPeliV1(idContenido, idUsuario);
+            p2 = new VisualizarContenido(idContenido, idUsuario);
 
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(Principal.class
@@ -353,7 +353,7 @@ public class Principal extends javax.swing.JFrame {
         try {
             int idContenido = Contenido.c1[2].getId();
             int idUsuario = Usuario.user1.getId();
-            p2 = new PaginaPeliV1(idContenido, idUsuario);
+            p2 = new VisualizarContenido(idContenido, idUsuario);
 
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(Principal.class
@@ -380,7 +380,7 @@ public class Principal extends javax.swing.JFrame {
         System.out.println(Peli);
         int idPeli = FuncionesBBDD.getIdCont(Peli);
         try {
-            PaginaPeliV1 p1 = new PaginaPeliV1(idPeli, Usuario.user1.getId());
+            VisualizarContenido p1 = new VisualizarContenido(idPeli, Usuario.user1.getId());
             dispose();
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);

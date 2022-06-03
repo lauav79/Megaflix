@@ -44,3 +44,8 @@ El usuario admin ha ingresado correctamente en la app en fecha:03/06/2022 10:22:
 El usuario admin ha ingresado correctamente en la app en fecha:03/06/2022 10:26:46
 El usuario admin ha ingresado correctamente en la app en fecha:03/06/2022 10:28:10
 El usuario admin ha ingresado correctamente en la app en fecha:03/06/2022 10:39:44
+El usuario admin ha ingresado correctamente en la app en fecha:03/06/2022 11:45:55
+El usuario prueba ha ingresado correctamente en la app en fecha:03/06/2022 12:19:12
+El usuario prueba ha ingresado correctamente en la app en fecha:03/06/2022 12:19:24
+El usuario prueba ha ingresado correctamente en la app en fecha:03/06/2022 12:20:35
+El usuario prueba ha ingresado correctamente en la app en fecha:03/06/2022 12:22:48

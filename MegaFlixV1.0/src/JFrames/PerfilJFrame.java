@@ -7,6 +7,7 @@ package JFrames;
 import Contenido.ContenidoIntermedio;
 import Persona.Usuario;
 import funciones.FuncionesBBDD;
+
 import static funciones.FuncionesBBDD.*;
 import java.awt.Color;
 import java.sql.Connection;
@@ -18,6 +19,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -26,8 +28,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public final class PerfilJFrame extends javax.swing.JFrame {
 
-
- DefaultListModel defaultListmodel = new DefaultListModel();
+    DefaultListModel defaultListmodel = new DefaultListModel();
 
     private ArrayList getContenidos() {
         ArrayList<String> stars = new ArrayList<String>();
@@ -46,7 +47,7 @@ public final class PerfilJFrame extends javax.swing.JFrame {
         return stars;
     }
 
- @SuppressWarnings("unchecked")
+    @SuppressWarnings("unchecked")
     private void contenidoFiltrado(String searchTerm) {
         DefaultListModel filtrado = new DefaultListModel<>();
         ArrayList stars = getContenidos();
@@ -127,6 +128,11 @@ public final class PerfilJFrame extends javax.swing.JFrame {
 
         eliminarCuenta.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         eliminarCuenta.setText("Eliminar Cuenta");
+        eliminarCuenta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                eliminarCuentaActionPerformed(evt);
+            }
+        });
         jPanel4.add(eliminarCuenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 410, 220, -1));
 
         cambiarAlias.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
@@ -307,7 +313,7 @@ public final class PerfilJFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void cambiarContrasenaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cambiarContrasenaActionPerformed
-        CambioContraseña c1= new CambioContraseña();
+        CambioContraseña c1 = new CambioContraseña();
         c1.setVisible(true);
     }//GEN-LAST:event_cambiarContrasenaActionPerformed
 
@@ -401,6 +407,22 @@ public final class PerfilJFrame extends javax.swing.JFrame {
     private void listaContenidosMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listaContenidosMouseExited
         busquedaContenido.setVisible(false);
     }//GEN-LAST:event_listaContenidosMouseExited
+
+    private void eliminarCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarCuentaActionPerformed
+        try {
+            FuncionesBBDD.eliminarUsuario(Usuario.user1.getId());
+            FuncionesBBDD.close();
+            Usuario.vaciarUsuario();
+            if (Usuario.user1.getId() == 0) {
+                JOptionPane.showMessageDialog(null, "El usuario se ha borrado correctamente, a continuación se cerrara la sesión");
+                dispose();
+                LoginJFrame l1 = new LoginJFrame();
+                l1.setVisible(true);
+            }
+
+        } catch (SQLException ex) {
+        }
+    }//GEN-LAST:event_eliminarCuentaActionPerformed
     public void mostrarContenido() {
         ContenidoIntermedio c1 = new ContenidoIntermedio();
         DefaultTableModel modelo = ContenidoIntermedio.mostrarTablaPerfil();
@@ -411,8 +433,6 @@ public final class PerfilJFrame extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-
-    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane busquedaContenido;

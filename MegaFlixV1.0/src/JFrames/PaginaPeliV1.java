@@ -465,6 +465,7 @@ DefaultListModel defaultListmodel = new DefaultListModel();
         l1.setVisible(true);
         Usuario.vaciarUsuario();
         close();
+        pararSonido();
     }//GEN-LAST:event_cerrarSesionActionPerformed
 
     private void cerrarProgramaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cerrarProgramaMouseClicked

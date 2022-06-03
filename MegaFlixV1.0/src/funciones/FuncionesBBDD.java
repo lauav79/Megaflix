@@ -23,8 +23,8 @@ import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-
 public class FuncionesBBDD {
+
     //prueba
     static Clip clip;
     static Long nowFrame;
@@ -107,13 +107,13 @@ public class FuncionesBBDD {
     /**
      * Cierra la conexión con la base de datos
      */
-    public static void close(){
+    public static void close() {
         try {
             System.out.print("Cerrando la conexión...");
             conn.close();
             System.out.println("OK!");
             pararSonido();
-          
+
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
@@ -449,9 +449,9 @@ public class FuncionesBBDD {
             }
         } catch (SQLException ex) {
         }
-        
+
     }
-DefaultListModel defaultListmodel = new DefaultListModel();
+    DefaultListModel defaultListmodel = new DefaultListModel();
 
     public static ArrayList getContenidos() {
         ArrayList<String> stars = new ArrayList<>();
@@ -469,6 +469,7 @@ DefaultListModel defaultListmodel = new DefaultListModel();
 
         return stars;
     }
+
     public static Connection connect2() {
         try {
             conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS);
@@ -477,23 +478,35 @@ DefaultListModel defaultListmodel = new DefaultListModel();
         }
         return conn;
     }
-    
-    public static void reproducirSonido(){
-         try {
-        
-        AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("cancionFondo.wav"));
-        clip = AudioSystem.getClip();
-        clip.setMicrosecondPosition(0);
-        clip.open(audioInputStream);
-        clip.start();
-       } catch(UnsupportedAudioFileException | IOException | LineUnavailableException ex) {
-         System.out.println("Error al reproducir el sonido.");
-       }
-    }
-    //Para el sonido para que al cerrar sesion no se reproduzcan dos simultáneamente
-    public static void pararSonido(){ 
-     clip.stop();
-     clip.close();
+
+    public static void reproducirSonido() {
+        try {
+
+            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("cancionFondo.wav"));
+            clip = AudioSystem.getClip();
+            clip.setMicrosecondPosition(0);
+            clip.open(audioInputStream);
+            clip.start();
+        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException ex) {
+            System.out.println("Error al reproducir el sonido.");
+        }
     }
 
+    //Para el sonido para que al cerrar sesion no se reproduzcan dos simultáneamente
+    public static void pararSonido() {
+        clip.stop();
+        clip.close();
+    }
+
+    public static void eliminarUsuario(int idUser) throws SQLException {
+        try {
+            Connection conn = connect2();
+            String SQL = "DELETE FROM usuarios " + "WHERE Id =" + idUser;
+            Statement st = conn.prepareStatement(SQL);
+            st.executeUpdate(SQL);
+
+        } catch (SQLException e) {
+
+        }
+    }
 }

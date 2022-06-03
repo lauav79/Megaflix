@@ -163,13 +163,13 @@ public class CambiarUsuario extends javax.swing.JFrame {
 
     private void aceptarBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aceptarBotonActionPerformed
         cambioUsuario(nuevoUsuario.getText());
-        close();
-        JOptionPane.showMessageDialog(null, "A continuación se cerrara la sesión");
+        JOptionPane.showMessageDialog(null, "A continuación se cerrara la sesión, inicie de nuevo con el nuevo usuario");
         LoginJFrame l1 = new LoginJFrame();
         l1.setVisible(true);
         close();
         Usuario.vaciarUsuario();
         dispose();
+        pararSonido();
 
     }//GEN-LAST:event_aceptarBotonActionPerformed
 

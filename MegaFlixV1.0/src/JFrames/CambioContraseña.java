@@ -179,6 +179,7 @@ public class CambioContraseña extends javax.swing.JFrame {
         close();
         Usuario.vaciarUsuario();
         dispose();
+        pararSonido();
 
 
     }//GEN-LAST:event_aceptarBotonActionPerformed

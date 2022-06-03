@@ -177,5 +177,12 @@ public class ContenidovIan {
         }
         return cong;
     }
+    
+       @Override
+    public String toString() {
+        //return "Contenido{" + "Nombre=" + Nombre + ", Id=" + Id + '}';
+        String contenidoIdNombre=""+id+"-"+nombre;
+        return contenidoIdNombre;
+    }
 
 }

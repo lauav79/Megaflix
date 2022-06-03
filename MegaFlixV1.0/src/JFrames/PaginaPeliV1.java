@@ -5,6 +5,7 @@
 package JFrames;
 
 import Contenido.Contenido;
+import Contenido.ContenidovIan;
 import Genero.GeneroContenido;
 import Persona.Usuario;
 import funciones.FuncionesBBDD;
@@ -96,13 +97,13 @@ DefaultListModel defaultListmodel = new DefaultListModel();
             listaDatos = funciones.FuncionesBBDD.getListas(sql, "Contenidos");
             Iterator itListaDatosPelis = listaDatos.iterator();
             while (itListaDatosPelis.hasNext()) {
-                Contenido nContenido = (Contenido) itListaDatosPelis.next();
+                ContenidovIan nContenido = (ContenidovIan) itListaDatosPelis.next();
                 titulo = nContenido.getNombre();
                 descripcion = nContenido.getDescripcion();
                 imagen = nContenido.getImagen();
                 duracion = nContenido.getDuracion();
                 temporadas = nContenido.getTemporadas();
-                tipo = nContenido.getTipo();
+                tipo = nContenido.getTipoContenido();
 
             }
 

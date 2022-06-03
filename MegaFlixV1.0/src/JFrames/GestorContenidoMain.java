@@ -4,7 +4,7 @@
  */
 package JFrames;
 
-import Contenido.Contenido;
+
 import Contenido.ContenidovIan;
 import Genero.Genero;
 import Persona.Usuario;
@@ -276,7 +276,7 @@ public class GestorContenidoMain extends javax.swing.JFrame {
             }
         });
 
-        jSpinnerTemp.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 1));
+        jSpinnerTemp.setModel(new javax.swing.SpinnerNumberModel());
         jSpinnerTemp.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         jTextFiDir.addActionListener(new java.awt.event.ActionListener() {

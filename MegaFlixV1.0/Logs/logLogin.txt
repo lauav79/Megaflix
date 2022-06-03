@@ -65,3 +65,11 @@ El usuario admin ha ingresado correctamente en la app en fecha:03/06/2022 13:12:
 El usuario admin ha ingresado correctamente en la app en fecha:03/06/2022 13:14:04
 El usuario admin ha ingresado correctamente en la app en fecha:03/06/2022 13:19:03
 El usuario admin ha ingresado correctamente en la app en fecha:03/06/2022 13:20:58
+El usuario admin ha ingresado correctamente en la app en fecha:03/06/2022 13:24:30
+El usuario admin ha ingresado correctamente en la app en fecha:03/06/2022 13:29:04
+El usuario pepi1 ha ingresado correctamente en la app en fecha:03/06/2022 13:30:39
+El usuario lauav ha ingresado correctamente en la app en fecha:03/06/2022 13:34:22
+El usuario lauav ha ingresado correctamente en la app en fecha:03/06/2022 13:36:18
+El usuario lauav ha ingresado correctamente en la app en fecha:03/06/2022 13:37:58
+El usuario lauav ha ingresado correctamente en la app en fecha:03/06/2022 13:40:09
+El usuario lauav ha ingresado correctamente en la app en fecha:03/06/2022 13:41:05

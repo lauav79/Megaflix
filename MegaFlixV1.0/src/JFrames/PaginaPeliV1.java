@@ -4,7 +4,7 @@
  */
 package JFrames;
 
-import Contenido.Contenido;
+
 import Contenido.ContenidovIan;
 import Genero.GeneroContenido;
 import Persona.Usuario;
